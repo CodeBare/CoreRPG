@@ -1,0 +1,746 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<!-- 
+  Please see the license.html file included with this distribution for 
+  attribution and copyright information.
+-->
+
+<root>
+	<!-- General reference manual -->
+	<template name="button_refmanual_locked">
+		<buttoncontrol name="locked">
+			<state icon="record_readonly" tooltipres="tooltip_readonly" />
+			<script file="ref/scripts/ref_locked.lua" />
+		</buttoncontrol>
+	</template>
+	<template name="button_refmanual_index_locked">
+		<button_refmanual_locked>
+			<anchored to="frame_index" position="insidetopleft" offset="5,5" width="20" height="20" />
+		</button_refmanual_locked>
+	</template>
+	<template name="button_refmanual_content_locked">
+		<button_refmanual_locked>
+			<anchored position="insidetopright" offset="5,0" width="20" height="20" />
+		</button_refmanual_locked>
+	</template>
+	<template name="button_refmanualpage_locked">
+		<button_refmanual_locked>
+			<anchored position="insidetopright" offset="15,27" width="20" height="20" />
+		</button_refmanual_locked>
+	</template>
+
+	<template name="button_refmanual_idelete">
+		<button_idelete>
+			<anchored to="rightanchor" width="20" height="20">
+				<top offset="0" />
+				<right anchor="left" relation="relative" offset="-5" />
+			</anchored>
+		</button_idelete>
+	</template>
+	<template name="button_refmanual_imoveup">
+		<buttoncontrol>
+			<anchored to="rightanchor" width="10" height="10">
+				<top />
+				<right anchor="left" relation="relative" offset="-5" />
+			</anchored>
+			<icon normal="button_ref_moveup" />
+			<tooltip textres="ref_tooltip_moveup" />
+		</buttoncontrol>
+	</template>
+	<template name="button_refmanual_imovedown">
+		<buttoncontrol>
+			<anchored to="imoveup" position="belowleft" width="10" height="10" />
+			<icon normal="button_ref_movedown" />
+			<tooltip textres="ref_tooltip_movedown" />
+		</buttoncontrol>
+	</template>
+
+	<!-- Reference manual index -->
+	<template name="anchor_refmanual_index">
+		<genericcontrol>
+			<anchored to="contentanchor" width="0">
+				<top anchor="bottom" />
+				<left offset="-10" />
+				<bottom parent="" offset="-60" />
+			</anchored>
+		</genericcontrol>
+	</template>
+	<template name="frame_refmanual_index">
+		<genericcontrol>
+			<anchored to="anchor_index" width="315">
+				<top />
+				<left anchor="right" relation="relative" />
+				<bottom />
+			</anchored>
+			<frame name="groupbox" />
+			<disabled />
+		</genericcontrol>
+	</template>
+	<template name="sub_refmanual_index">
+		<subwindow>
+			<anchored to="frame_index" position="over" offset="-15,-15">
+				<right offset="-20" />
+			</anchored>
+			<class>reference_manual_index</class>
+			<fastinit />
+			<activate />
+		</subwindow>
+	</template>
+	<template name="scrollbar_refmanual_index">
+		<scrollbar>
+			<anchored to="sub_index" offset="-5,-10" />
+			<target>sub_index</target>
+		</scrollbar>
+	</template>
+	<template name="button_refmanual_index_show">
+		<buttoncontrol>
+			<anchored to="anchor_index" width="20" height="30">
+				<top offset="15" />
+				<left anchor="right" relation="relative" offset="0" />
+			</anchored>
+			<state icon="button_ref_index_collapse" />
+			<state icon="button_ref_index_expand" />
+			<script>
+				function onButtonPress()
+					window.showIndex(getValue() == 0);
+				end
+			</script>
+		</buttoncontrol>
+	</template>
+
+	<template name="anchor_refmanual_index_top">
+		<genericcontrol>
+			<anchored position="insidetop" height="0"/>
+			<disabled />
+			<invisible />
+		</genericcontrol>
+	</template>
+	<template name="anchor_refmanual_index_right">
+		<genericcontrol name="rightanchor">
+			<anchored to="frame" position="insidetopright" offset="0,0" height="0" width="0" />
+			<disabled />
+			<invisible />
+		</genericcontrol>
+	</template>
+	<template name="anchor_refmanual_index_chapter_right">
+		<anchor_refmanual_index_right>
+			<anchored offset="0,10" />
+		</anchor_refmanual_index_right>
+	</template>
+	<template name="anchor_refmanual_index_section_right">
+		<anchor_refmanual_index_right>
+			<anchored offset="0,5" />
+		</anchor_refmanual_index_right>
+	</template>
+	<template name="button_refmanual_index_iadd">
+		<button_text>
+			<anchored width="120" height="15">
+				<left parent="list" offset="5" />
+				<top parent="columnanchor" anchor="bottom" relation="relative" offset="5" />
+			</anchored>
+			<script>
+				function onButtonPress()
+					ReferenceManualManager.onIndexAdd(window);
+				end
+			</script>
+		</button_text>
+	</template>
+	<template name="button_refmanual_index_idelete">
+		<button_refmanual_idelete>
+			<script>
+				function onButtonPress()
+					if getValue() == 0 then
+						ReferenceManualManager.onIndexDelete(window);
+					end
+				end
+			</script>
+		</button_refmanual_idelete>
+	</template>
+	<template name="button_refmanual_index_imoveup">
+		<button_refmanual_imoveup>
+			<invisible />
+			<script>
+				function onButtonPress()
+					ReferenceManualManager.onIndexMoveUp(window);
+				end
+			</script>
+		</button_refmanual_imoveup>
+	</template>
+	<template name="button_refmanual_index_imovedown">
+		<button_refmanual_imovedown>
+			<invisible />
+			<script>
+				function onButtonPress()
+					ReferenceManualManager.onIndexMoveDown(window);
+				end
+			</script>
+		</button_refmanual_imovedown>
+	</template>
+
+	<template name="frame_refmanual_index_chapter">
+		<genericcontrol name="frame">
+			<anchored height="40">
+				<top parent="columnanchor" anchor="bottom" relation="relative" />
+				<left />
+				<right />
+			</anchored>
+			<frame name="reference-chapter" />
+			<disabled />
+		</genericcontrol>
+	</template>
+	<template name="frame_refmanual_index_section">
+		<genericcontrol>
+			<anchored height="30">
+				<top parent="columnanchor" anchor="bottom" relation="relative" />
+				<left />
+				<right />
+			</anchored>
+			<frame name="reference-section" />
+			<disabled />
+		</genericcontrol>
+	</template>
+	<template name="frame_refmanual_index_page">
+		<genericcontrol>
+			<anchored height="20">
+				<top parent="columnanchor" anchor="bottom" relation="relative" />
+				<left />
+				<right />
+			</anchored>
+			<disabled />
+		</genericcontrol>
+	</template>
+
+	<template name="string_refmanual_index_chapter_name">
+		<stringfield>
+			<anchored to="frame" position="insidetopleft" offset="10,10">
+				<right parent="rightanchor" anchor="left" relation="relative" offset="-5" />
+			</anchored>
+			<font>reference-chapter</font>
+			<empty textres="ref_empty_index_chapter_name" hidereadonly="true" />
+			<nodrag />
+			<script file="ref/scripts/ref_manual_index_chapter_name.lua" />
+		</stringfield>
+	</template>
+	<template name="string_refmanual_index_section_name">
+		<stringfield>
+			<anchored to="frame" position="insidetopleft" offset="10,7">
+				<right parent="rightanchor" anchor="left" relation="relative" offset="-5" />
+			</anchored>
+			<font>reference-section</font>
+			<empty textres="ref_empty_index_section_name" hidereadonly="true" />
+			<nodrag />
+			<script file="ref/scripts/ref_manual_index_section_name.lua" />
+		</stringfield>
+	</template>
+	<template name="string_refmanual_index_page_name">
+		<stringfield>
+			<anchored to="frame" position="insidetopleft" height="20">
+				<top />
+				<left offset="10" />
+				<right parent="rightanchor" anchor="left" relation="relative" offset="-5" />
+			</anchored>
+			<font>reference-r</font>
+			<empty textres="ref_empty_index_article_name" hidereadonly="true" />
+			<nodrag />
+			<script file="ref/scripts/ref_manual_index_page_name.lua" />
+		</stringfield>
+	</template>
+
+	<template name="list_refmanual_index_base">
+		<windowlist name="list">
+			<anchored to="columnanchor">
+				<top anchor="bottom" relation="relative" offset="0" />
+				<left />
+				<right parent="" />
+			</anchored>
+			<sortby><field>order</field></sortby>
+			<noscroll />
+			<readonly />
+			<script file="ref/scripts/ref_list.lua" />
+		</windowlist>
+	</template>
+	<template name="list_refmanual_index_chapters">
+		<list_refmanual_index_base>
+			<anchored>
+				<top offset="5" />
+			</anchored>
+			<class>reference_manual_index_chapter</class>
+			<datasource>.chapters</datasource>
+		</list_refmanual_index_base>
+	</template>
+	<template name="list_refmanual_index_sections">
+		<list_refmanual_index_base>
+			<anchored>
+				<left offset="10" />
+			</anchored>
+			<datasource>.subchapters</datasource>
+			<class>reference_manual_index_section</class>
+		</list_refmanual_index_base>
+	</template>
+	<template name="list_refmanual_index_pages">
+		<list_refmanual_index_base>
+			<anchored>
+				<left offset="10" />
+			</anchored>
+			<datasource>.refpages</datasource>
+			<class>reference_manual_index_page</class>
+			<invisible />
+		</list_refmanual_index_base>
+	</template>
+
+	<template name="filter_refmanual_index">
+		<filter_reftable>
+			<anchored height="20">
+				<left parent="contentanchor" offset="85" />
+				<right parent="sub_index" />
+				<bottom offset="-30" />
+			</anchored>
+			<target>sub_index,list,list,list</target>
+		</filter_reftable>
+	</template>
+	<template name="button_refmanual_index_expand">
+		<button_expand>
+			<bounds>40,-50,20,20</bounds>
+			<target>sub_index,list,list,list</target>
+			<togglelevel>3</togglelevel>
+		</button_expand>
+	</template>
+	<template name="button_refmanual_index_collapse">
+		<button_collapse>
+			<bounds>70,-50,20,20</bounds>
+			<target>sub_index,list,list,list</target>
+			<togglelevel>3</togglelevel>
+		</button_collapse>
+	</template>
+
+	<!-- Reference manual content -->
+	<template name="frame_refmanual_content">
+		<genericcontrol>
+			<anchored to="anchor_index">
+				<top />
+				<left anchor="right" relation="relative" />
+				<bottom />
+				<right parent="contentanchor" offset="15" />
+			</anchored>
+			<frame name="groupbox" />
+			<disabled />
+		</genericcontrol>
+	</template>
+	<template name="sub_refmanual_content">
+		<subwindow>
+			<anchored to="frame_content" position="over" offset="-10,-10">
+				<right offset="-5" />
+			</anchored>
+			<skipempty />
+			<class>reference_manualtextwide</class>
+			<noscroll />
+		</subwindow>
+	</template>
+	<template name="scrollbar_refmanual_content">
+		<scrollbar>
+			<anchored to="content" offset="-5,-10" />
+			<target>content</target>
+		</scrollbar>
+	</template>
+
+	<template name="button_refmanual_content_top">
+		<button_page_top>
+			<anchored>
+				<bottom offset="-28" />
+				<left parent="content" anchor="center" offset="-12" />
+			</anchored>
+			<invisible />
+		</button_page_top>
+	</template>
+	<template name="button_refmanual_content_prev">
+		<button_page_prev>
+			<anchored>
+				<bottom offset="-28" />
+				<right parent="content" anchor="center" offset="-36" />
+			</anchored>
+			<invisible />
+		</button_page_prev>
+	</template>
+	<template name="button_refmanual_content_next">
+		<button_page_next>
+			<anchored>
+				<bottom offset="-28" />
+				<left parent="content" anchor="center" offset="36" />
+			</anchored>
+			<invisible />
+		</button_page_next>
+	</template>
+
+	<template name="link_refmanual_content">
+		<linkcontrol>
+			<bounds>5,0,20,20</bounds>
+			<class>referencemanualpage</class>
+			<description control="name" />
+			<readonly />
+		</linkcontrol>
+	</template>
+	<template name="string_refmanual_content_name">
+		<stringfield>
+			<bounds>30,0,-25,20</bounds>
+			<font>reference-b-large</font>
+			<nodragselect />
+			<nodrag />
+			<static />
+		</stringfield>
+	</template>
+	<template name="sub_refmanual_content_content">
+		<subwindow>
+			<anchored position="insidetopleft" offset="0,25">
+				<right offset="-15" />
+				<bottom offset="25" />
+			</anchored>
+			<fastinit />
+			<activate />
+		</subwindow>
+	</template>
+
+	<!-- Reference page pullout -->
+	<template name="frame_refmanualpage_content">
+		<genericcontrol name="contentframe">
+			<anchored>
+				<top parent="header" anchor="bottom" offset="15" />
+				<left offset="35" />
+				<right offset="-40" />
+				<bottom offset="-65" />
+			</anchored>
+			<frame name="groupbox" offset="15,15,20,45" />
+			<disabled />
+		</genericcontrol>
+	</template>
+	<template name="sub_refmanualpage_content">
+		<subwindow>
+			<anchored to="contentframe" position="over" />
+			<fastinit />
+			<activate />
+		</subwindow>
+	</template>
+	<template name="scrollbar_refmanualpage_content">
+		<scrollbar>
+			<anchored to="content" position="right" offset="-5,-5" />
+			<target>content</target>
+		</scrollbar>
+	</template>
+	<template name="button_refmanualpage_top">
+		<button_page_top>
+			<anchored to="contentframe">
+				<top anchor="bottom" offset="8" />
+				<left anchor="center" offset="-12" />
+			</anchored>
+		</button_page_top>
+	</template>
+	<template name="button_refmanualpage_prev">
+		<button_page_prev>
+			<anchored to="contentframe">
+				<top anchor="bottom" offset="8" />
+				<right anchor="center" offset="-36" />
+			</anchored>
+		</button_page_prev>
+	</template>
+	<template name="button_refmanualpage_next">
+		<button_page_next>
+			<anchored to="contentframe">
+				<top anchor="bottom" offset="8" />
+				<left anchor="center" offset="36" />
+			</anchored>
+		</button_page_next>
+	</template>
+
+	<!-- Reference manual content area -->
+	<template name="anchor_referencemanualpage">
+		<genericcontrol name="contentanchor">
+			<anchored position="insidetop" height="0" />
+			<disabled />
+		</genericcontrol>
+	</template>
+	<template name="ft_referencemanualpage_text_legacy">
+		<simpleft name="text_legacy" source="text" insertbefore="blocks">
+			<anchored to="contentanchor">
+				<top anchor="bottom" relation="relative" />
+				<left offset="20" />
+				<right offset="-20" />
+			</anchored>
+			<script>
+				function onLinkActivated(sClass, sRecord)
+					local wTop = UtilityManager.getTopWindow(window);
+					wTop.activateLink(sClass, sRecord);
+				end
+			</script>
+		</simpleft>
+	</template>
+	<template name="list_referencemanualpage_blocks">
+		<windowlist>
+			<anchored to="contentanchor">
+				<top anchor="bottom" relation="relative" />
+				<left />
+				<right />
+			</anchored>
+			<anchored position="insidetop" />
+			<class>referencemanualtextblock</class>
+			<datasource>.blocks</datasource>
+			<sortby><field>order</field></sortby>
+			<readonly />
+			<noscroll />
+			<script file="ref/scripts/ref_block_list.lua"/>
+		</windowlist>
+	</template>
+	<template name="footer_refmanual_blocks">
+		<genericcontrol name="footer">
+			<anchored to="blocks" position="below" height="26" />
+			<icon>footer_wide</icon>
+		</genericcontrol>
+	</template>
+	<template name="anchor_refmanual_block_right">
+		<genericcontrol name="rightanchor">
+			<anchored position="insidetopright" offset="0,0" height="0" width="0" />
+			<disabled />
+			<invisible />
+		</genericcontrol>
+	</template>
+	<template name="anchor_refmanual_block_iadd_right">
+		<genericcontrol name="rightanchor_add">
+			<anchored width="0" height="0">
+				<top parent="footer" anchor="bottom" />
+				<right anchor="center" offset="95" />
+			</anchored>
+			<disabled />
+			<invisible />
+		</genericcontrol>
+	</template>
+	<template name="button_refmanual_block_iadd">
+		<buttoncontrol>
+			<anchored to="rightanchor_add" width="20" height="20">
+				<top />
+				<right anchor="left" relation="relative" offset="-10" />
+			</anchored>
+			<state frame="button_ref_block_add_base" />
+			<invisible />
+			<script>
+				function onInit()
+					setColor(ReferenceManualManager.getBlockButtonIconColor());
+					setIcons("button_ref_block_" .. blocktype[1]);
+					setTooltipText(Interface.getString("ref_tooltip_block_" .. blocktype[1]));
+				end
+				function onButtonPress()
+					ReferenceManualManager.onBlockAdd(window, blocktype[1]);
+				end
+			</script>
+		</buttoncontrol>
+	</template>
+	<template name="button_refmanual_block_idelete">
+		<button_refmanual_idelete>
+			<invisible merge="delete" />
+			<script>
+				function onButtonPress()
+					if getValue() == 0 then
+						ReferenceManualManager.onBlockDelete(window);
+					end
+				end
+			</script>
+		</button_refmanual_idelete>
+	</template>
+	<template name="button_refmanual_block_imoveup">
+		<button_refmanual_imoveup>
+			<script>
+				function onButtonPress()
+					ReferenceManualManager.onBlockMoveUp(window);
+				end
+			</script>
+		</button_refmanual_imoveup>
+	</template>
+	<template name="button_refmanual_block_imovedown">
+		<button_refmanual_imovedown>
+			<icon normal="button_ref_movedown" />
+			<tooltip textres="ref_tooltip_movedown" />
+			<script>
+				function onButtonPress()
+					ReferenceManualManager.onBlockMoveDown(window);
+				end
+			</script>
+		</button_refmanual_imovedown>
+	</template>
+	<template name="button_refmanual_block_image_linkclear">
+		<buttoncontrol>
+			<anchored to="image" position="lefthigh" offset="0,0" width="20" height="20" />
+			<state frame="button_ref_block_add_base" icon="button_ref_block_image_linkclear" tooltipres="ref_tooltip_block_image_linkclear" />
+			<script>
+				function onInit()
+					setColor(ReferenceManualManager.getBlockButtonIconColor());
+				end
+				function onButtonPress()
+					DB.setValue(window.getDatabaseNode(), "imagelink", "windowreference", "", "");
+					ReferenceManualManager.onBlockRebuild(window);
+				end
+			</script>
+		</buttoncontrol>
+	</template>
+	<template name="button_refmanual_block_image_scaleup">
+		<buttoncontrol>
+			<anchored to="image" position="leftlow" offset="0,20" width="20" height="20" />
+			<state frame="button_ref_block_add_base" icon="button_ref_block_image_scaleup" tooltipres="ref_tooltip_block_image_scaleup" />
+			<script>
+				function onInit()
+					setColor(ReferenceManualManager.getBlockButtonIconColor());
+				end
+				function onButtonPress()
+					ReferenceManualManager.onBlockScaleUp(window);
+				end
+			</script>
+		</buttoncontrol>
+	</template>
+	<template name="button_refmanual_block_image_scaledown">
+		<buttoncontrol>
+			<anchored to="image" position="leftlow" offset="0,0" width="20" height="20" />
+			<state frame="button_ref_block_add_base" icon="button_ref_block_image_scaledown" tooltipres="ref_tooltip_block_image_scaledown" />
+			<script>
+				function onInit()
+					setColor(ReferenceManualManager.getBlockButtonIconColor());
+				end
+				function onButtonPress()
+					ReferenceManualManager.onBlockScaleDown(window);
+				end
+			</script>
+		</buttoncontrol>
+	</template>
+	<template name="button_refmanual_block_image_sizeclear">
+		<buttoncontrol>
+			<anchored to="image" position="leftlow" offset="0,0" width="20" height="20" />
+			<state frame="button_ref_block_add_base" icon="button_ref_block_image_sizeclear" tooltipres="ref_tooltip_block_image_sizeclear" />
+			<script>
+				function onInit()
+					setColor(ReferenceManualManager.getBlockButtonIconColor());
+				end
+				function onButtonPress()
+					ReferenceManualManager.onBlockSizeClear(window);
+				end
+			</script>
+		</buttoncontrol>
+	</template>
+	<template name="button_refmanual_block_frameselect">
+		<buttoncontrol>
+			<anchored position="insidetopleft" offset="0,0" width="20" height="20" />
+			<state frame="button_ref_block_add_base" icon="button_ref_block_frame" tooltipres="ref_tooltip_block_frame" />
+			<script>
+				function onInit()
+					setColor(ReferenceManualManager.getBlockButtonIconColor());
+				end
+				function onButtonPress()
+					local bLeft = (frameleft ~= nil);
+					local w = Interface.openWindow("frameselect", "");
+					if w then
+						w.setBlockData(window, bLeft);
+					end
+				end
+			</script>
+		</buttoncontrol>
+	</template>
+	<template name="button_refmanual_block_frameselect_left">
+		<button_refmanual_block_frameselect>
+			<frameleft />
+		</button_refmanual_block_frameselect>
+	</template>
+
+	<!-- Reference content -->
+	<template name="spacer_refblock">
+		<genericcontrol>
+			<anchored position="insidetop" height="35" />
+			<disabled />
+		</genericcontrol>
+	</template>
+	<template name="header_refblock">
+		<stringfield>
+			<anchored position="insidetop" offset="-20,0" />
+			<font>reference-page-header</font>
+			<center />
+		</stringfield>
+	</template>
+	<template name="ft_refblock">
+		<simpleft>
+			<anchored position="insidetop" offset="-20,0" />
+			<script>
+				function onLinkActivated(sClass, sRecord)
+					local wTop = UtilityManager.getTopWindow(window);
+					wTop.activateLink(sClass, sRecord);
+				end
+			</script>
+		</simpleft>
+	</template>
+	<template name="image_refblock">
+		<genericcontrol>
+			<anchored position="insidetopleft" />
+			<disabled />
+			<script>
+				local bInitialized = false;
+				function setData(sAsset)
+					setAsset(sAsset);
+					bInitialized = true;
+				end
+				function onAssetUpdate(sAsset)
+					if bInitialized then
+						ReferenceManualManager.adjustBlockToImageSize(window);
+					end
+				end
+			</script>
+		</genericcontrol>
+	</template>
+	<template name="linkc_refblock_image_clickcapture">
+		<windowreferencefield>
+			<anchored to="image" position="over" />
+			<script>
+				function onDragStart(button, x, y, draginfo)
+					draginfo.setType("shortcut");
+					draginfo.setIcon("button_link");
+					local sClass, sRecord = getValue();
+					draginfo.setShortcutData(sClass, sRecord);
+					draginfo.setDescription(DB.getValue(DB.findNode(sRecord), "name", ""));
+					return true;
+				end
+			</script>
+		</windowreferencefield>
+	</template>
+	<template name="string_refblock_image_caption">
+		<stringfield name="caption">
+			<anchored to="image" position="below" />
+			<font>reference-b</font>
+			<multilinespacing>20</multilinespacing>
+			<center />
+		</stringfield>
+	</template>
+	<template name="linkc_refblock_image_caption_clickcapture">
+		<windowreferencefield>
+			<anchored to="caption" position="over" />
+			<script>
+				function onDragStart(button, x, y, draginfo)
+					draginfo.setType("shortcut");
+					draginfo.setIcon("button_link");
+					local sClass, sRecord = getValue();
+					draginfo.setShortcutData(sClass, sRecord);
+					draginfo.setDescription(DB.getValue(DB.findNode(sRecord), "name", ""));
+					return true;
+				end
+			</script>
+		</windowreferencefield>
+	</template>
+	<template name="icon_refblock">
+		<genericcontrol>
+			<anchored position="insidetopleft" />
+			<disabled />
+			<script>
+				local bInitialized = false;
+				function setData(sAsset)
+					setIcon(sAsset);
+					bInitialized = true;
+				end
+				function onAssetUpdate(sAsset)
+					if bInitialized then
+						ReferenceManualManager.adjustBlockToImageSize(window);
+					end
+				end
+			</script>
+		</genericcontrol>
+	</template>
+</root>

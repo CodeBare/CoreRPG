@@ -1,0 +1,204 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<!-- 
+  Please see the license.html file included with this distribution for 
+  attribution and copyright information.
+-->
+
+<root>
+	<windowclass name="reference_manual">
+		<frame>utilitybox3</frame>
+		<placement>
+			<size width="1000" height="650" />
+		</placement>
+		<sizelimits>
+			<minimum width="950" height="650" />
+			<dynamic />
+		</sizelimits>
+		<minimize>minimized_reference</minimize>
+		<nodelete />
+		<script file="ref/scripts/ref_manual.lua" />
+		<sheetdata>
+			<windowtitlebar name="reftitle">
+				<field>name</field>
+				<resource>ref_window_title</resource>
+			</windowtitlebar>
+			<anchor_reftitle name="contentanchor" />
+
+			<anchor_refmanual_index name="anchor_index" />
+
+			<frame_refmanual_index name="frame_index" />
+			<sub_refmanual_index name="sub_index" />
+			<scrollbar_refmanual_index name="scrollbar_index" />
+			<button_refmanual_index_show name="button_index_show" />
+
+			<filter_refmanual_index name="filter" />
+			<button_refmanual_index_expand name="button_index_expand" />
+			<button_refmanual_index_collapse name="button_index_collapse" />
+
+			<frame_refmanual_content name="frame_content" />
+			<sub_refmanual_content name="content" />
+
+			<button_refmanual_content_top />
+			<button_refmanual_content_prev />
+			<button_refmanual_content_next />
+			
+			<button_refmanual_index_locked name="locked" />
+			<resize_utilitybox3 name="button_resize" />
+			<close_utilitybox3 name="button_close" />
+		</sheetdata>
+	</windowclass>
+
+	<windowclass name="reference_manual_index">
+		<script>
+			function update(bReadOnly, bLockChanged)
+				for _,wChapter in ipairs(list.getWindows()) do
+					wChapter.update(bReadOnly, bLockChanged);
+				end
+
+				list_iadd.setVisible(not bReadOnly);
+				spacer.setVisible(not bReadOnly);
+			end
+		</script>
+		<sheetdata>
+			<anchor_refmanual_index_top name="columnanchor" />
+			<list_refmanual_index_chapters name="list" />
+			<button_refmanual_index_iadd name="list_iadd">
+				<state textres="ref_button_index_chapter_new" />
+			</button_refmanual_index_iadd>
+
+			<spacer_column name="spacer" />
+		</sheetdata>
+	</windowclass>
+
+	<windowclass name="reference_manual_index_chapter">
+		<script>
+			function update(bReadOnly, bLockChanged)
+				if bLockChanged then
+					if not bReadOnly then
+						list.setVisible(true);
+					end
+				end
+
+				for _,wSection in ipairs(list.getWindows()) do
+					wSection.update(bReadOnly, bLockChanged);
+				end
+
+				name.setReadOnly(bReadOnly);
+
+				idelete.setVisible(not bReadOnly);
+				idelete.setValue(0);
+				imoveup.setVisible(not bReadOnly);
+				imovedown.setVisible(not bReadOnly);
+				list_iadd.setVisible(not bReadOnly);
+				spacer.setVisible(not bReadOnly);
+			end
+			function showFullHeaders(bShow)
+				frame.setVisible(bShow);
+				name.setVisible(bShow);
+			end
+		</script>
+		<sheetdata>
+			<hn name="order" />
+
+			<anchor_refmanual_index_top name="columnanchor" />
+			<frame_refmanual_index_chapter name="frame" />
+
+			<anchor_refmanual_index_chapter_right name="rightanchor" />
+			<button_refmanual_index_idelete name="idelete" />
+			<button_refmanual_index_imoveup name="imoveup" />
+			<button_refmanual_index_imovedown name="imovedown" />
+
+			<string_refmanual_index_chapter_name name="name" />
+			<list_refmanual_index_sections name="list" />
+			<button_refmanual_index_iadd name="list_iadd">
+				<state textres="ref_button_index_section_new" />
+			</button_refmanual_index_iadd>
+
+			<spacer_column name="spacer" />
+		</sheetdata>
+	</windowclass>
+	
+	<windowclass name="reference_manual_index_section">
+		<script>
+			function update(bReadOnly, bLockChanged)
+				if bLockChanged then
+					list.setVisible(not bReadOnly);
+				elseif not bReadOnly then
+					list.setVisible(true);
+				end
+				
+				for _,wPage in ipairs(list.getWindows()) do
+					wPage.update(bReadOnly, bLockChanged);
+				end
+
+				name.setReadOnly(bReadOnly);
+				
+				idelete.setVisible(not bReadOnly);
+				idelete.setValue(0);
+				imoveup.setVisible(not bReadOnly);
+				imovedown.setVisible(not bReadOnly);
+				list_iadd.setVisible(not bReadOnly);
+				spacer.setVisible(not bReadOnly);
+			end
+			function showFullHeaders(bShow)
+				frame.setVisible(bShow);
+				name.setVisible(bShow);
+			end
+		</script>
+		<sheetdata>
+			<hn name="order" />
+
+			<anchor_refmanual_index_top name="columnanchor" />
+			<frame_refmanual_index_section name="frame" />
+
+			<anchor_refmanual_index_section_right name="rightanchor" />
+			<button_refmanual_index_idelete name="idelete" />
+			<button_refmanual_index_imoveup name="imoveup" />
+			<button_refmanual_index_imovedown name="imovedown" />
+
+			<string_refmanual_index_section_name name="name" />
+			<list_refmanual_index_pages name="list" />
+			<button_refmanual_index_iadd name="list_iadd">
+				<state textres="ref_button_index_page_new" />
+				<ispageadd />
+			</button_refmanual_index_iadd>
+
+			<spacer_column name="spacer" />
+		</sheetdata>
+	</windowclass>
+	
+	<windowclass name="reference_manual_index_page">
+		<margins control="0,0,0,2" />
+		<script>
+			function setLink(sClass, sRecord)
+				listlink.setValue(sClass, sRecord);
+				name.updateLink();
+			end
+			function update(bReadOnly, bLockChanged)
+				name.setReadOnly(bReadOnly);
+				
+				idelete.setVisible(not bReadOnly);
+				idelete.setValue(0);
+				imoveup.setVisible(not bReadOnly);
+				imovedown.setVisible(not bReadOnly);
+			end
+		</script>
+		<sheetdata>
+			<hn name="order" />
+
+			<hlink name="listlink" />
+			<hs name="keywords" />
+
+			<anchor_refmanual_index_top name="columnanchor" />
+			<frame_refmanual_index_page name="frame" />
+
+			<anchor_refmanual_index_right name="rightanchor" />
+			<button_refmanual_index_idelete name="idelete" />
+			<button_refmanual_index_imoveup name="imoveup" />
+			<button_refmanual_index_imovedown name="imovedown" />
+
+			<string_refmanual_index_page_name name="name" />
+		</sheetdata>
+	</windowclass>
+</root>

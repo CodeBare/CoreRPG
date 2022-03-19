@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<!-- 
+  Please see the license.html file included with this distribution for 
+  attribution and copyright information.
+-->
+
+<root>
+	<windowclass name="effectlist">
+		<frame>utilitybox3</frame>
+		<placement>
+			<size width="650" height="400" />
+		</placement>
+		<sizelimits>
+			<dynamic />
+			<minimum width="650" height="400" />
+		</sizelimits>
+		<playercontrol />
+		<nodelete />
+		<tooltip textres="library_recordtype_label_effect" />
+		<script file="utility/scripts/effectwindow.lua" />
+		<sheetdata>
+			<windowtitlebar name="title">
+				<resource>library_recordtype_label_effect</resource>
+			</windowtitlebar>
+			<anchor_title_utilitybox3 name="contentanchor" />
+			
+			<anchor_effect_list_bottom />
+
+			<sub_effect_preset name="preset" />
+			<scrollbar name="scroll_preset">
+				<anchored to="preset" />
+				<target>preset</target>
+			</scrollbar>
+			<label_effect_preset name="label_preset" />
+
+			<anchor_effect_paging />
+			<list_page_info />
+			<list_page_start />
+			<list_page_prev />
+			<list_page_next />
+			<list_page_end />
+			
+			<list_effect_custom name="list" />
+			<scrollbar_list name="scroll_list" />
+			<label_effect_custom name="label_custom" />
+
+			<anchor_bottom_utilitybox3 name="bottomanchor" />
+
+			<anchor_utility_controls />
+			<button_iedit_utility />
+			<button_iadd_utility />
+			<filter_utility />
+			
+			<resize_utilitybox3 />
+			<helper_effects />
+			<close_utilitybox3 />
+		</sheetdata>
+	</windowclass>
+
+	<windowclass name="effectlist_presets">
+		<script file="utility/scripts/effectlist_presets.lua" />
+		<sheetdata>
+			<anchor_column name="columnanchor" />
+
+			<header_column name="lights_label">
+				<static textres="effect_header_lights" />
+				<center />
+			</header_column>
+			<list_effect_preset name="lights_list" />
+
+			<header_column name="conditions_label">
+				<static textres="effect_header_conditions" />
+				<center />
+			</header_column>
+			<list_effect_preset name="conditions_list" />
+		</sheetdata>
+	</windowclass>
+
+	<windowclass name="effect_preset_item">
+		<margins control="0,0,0,7" />
+		<script file="utility/scripts/effect_preset.lua" />
+		<sheetdata>
+			<button_effect_preset name="button" />
+		</sheetdata>
+	</windowclass>
+
+	<windowclass name="effectsmall">
+		<margins control="0,0,0,5" />
+		<script file="utility/scripts/effect.lua" />
+		<sheetdata>
+			<anchor_effect_left name="leftanchor" />
+			<button_effect_activate name="activate" />
+
+			<anchor_effect_right name="rightanchor" />
+			<button_effect_idelete name="idelete" />
+			<button_effect_isgmonly name="isgmonly" />
+			<number_effect_duration name="duration" />
+
+			<string_effect name="label" />
+		</sheetdata>
+	</windowclass>
+</root>

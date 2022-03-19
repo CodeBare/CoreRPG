@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<!-- 
+  Please see the license.html file included with this distribution for 
+  attribution and copyright information.
+-->
+<root>
+	<windowclass name="select_dialog">
+		<frame>utilitybox3</frame>
+		<placement>
+			<size width="350" height="400" />
+		</placement>
+		<script file="utility/scripts/dialog_select.lua" />
+		<sheetdata>
+			<windowtitlebar name="title">
+				<resource>dialog_select_title</resource>
+			</windowtitlebar>
+			<anchor_title_utilitybox3 name="contentanchor" />
+			
+			<anchor_bottom_utilitybox3 name="bottomanchor" />
+
+			<stringcontrol name="message">
+				<anchored to="contentanchor" position="below" offset="0,15" height="40">
+					<right offset="-10" />
+				</anchored>
+				<frame offset="10,10,20,10" name="groupbox"/>
+				<font>sheetlabel</font>
+				<multilinespacing>20</multilinespacing>
+				<nodrag />
+				<readonly />
+			</stringcontrol>
+			
+			<windowlist name="list">
+				<anchored to="message" position="below" offset="0,20">
+					<bottom parent="bottomanchor" offset="-15" />
+				</anchored>
+				<frame offset="10,10,20,10" name="groupbox"/>
+				<class>select_dialog_entry</class>
+				<readonly />
+			</windowlist>
+			<scrollbar_list>
+				<anchored offset="-5,-10" />
+			</scrollbar_list>
+			
+			<button_dialog_ok name="button_ok">
+				<anchored to="bottomanchor" position="insidetopright" offset="40,-5" />
+			</button_dialog_ok>
+			<button_dialog_cancel name="button_cancel">
+				<anchored to="bottomanchor" position="insidetopright" offset="5,-5" />
+			</button_dialog_cancel>
+			
+			<close_utilitybox3 />
+		</sheetdata>
+	</windowclass>
+
+	<windowclass name="select_dialog_entry">
+		<sheetdata>
+			<buttonc_checkbox name="selected" >
+				<anchored position="insidetopleft" offset="0,5" width="20" height="20" />
+				<script>
+					function onValueChanged()
+						window.windowlist.window.onSelectionChanged();
+					end
+				</script>
+			</buttonc_checkbox>
+			<linkcontrol name="shortcut">
+				<anchored position="insidetopright" offset="0,5" width="20" height="20" />
+				<invisible />
+			</linkcontrol>
+			<label name="text">
+				<anchored position="insidetopleft" offset="20,5">
+					<right parent="shortcut" anchor="left" offset="0" />
+				</anchored>
+				<font>sheetlabel</font>
+				<multilinespacing>20</multilinespacing>
+				<script>
+					function onClickDown(button, x, y)
+						return true;
+					end
+					function onClickRelease(button, x, y)
+						window.selected.setValue((window.selected.getValue() + 1) % 2);
+						return true;
+					end
+				</script>
+			</label>
+		</sheetdata>
+	</windowclass>
+</root>
+
+

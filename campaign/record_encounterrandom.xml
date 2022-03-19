@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<!-- 
+  Please see the license.html file included with this distribution for 
+  attribution and copyright information.
+-->
+
+<root>
+	<template name="battle_button_generate">
+		<button_text_sm>
+			<anchored to="npcs" width="100">
+				<top anchor="bottom" offset="20" />
+				<left anchor="center" offset="-50" />
+			</anchored>
+			<state textres="battle_button_generate" />
+			<gmvisibleonly />
+			<script>
+				function onButtonPress()
+					CampaignDataManager.generateEncounterFromRandom(window.getDatabaseNode());
+				end
+			</script>
+		</button_text_sm>
+	</template>
+	
+	<windowclass name="battlerandom">
+		<frame>recordsheet</frame>
+		<placement>
+			<size width="350" height="400" />
+		</placement>
+		<sizelimits>
+			<minimum width="300" height="300" />
+			<dynamic />
+		</sizelimits>
+		<minimize>minimized_combat</minimize>
+		<tooltip field="name" />
+		<nodelete />
+		<script file="campaign/scripts/encounterrandom.lua" />
+		<sheetdata>
+			<sub_record_header name="header">
+				<class>battlerandom_header</class>
+			</sub_record_header>
+
+			<frame_record_content name="npcframe">
+				<anchored>
+					<bottom offset="-57" />
+				</anchored>
+			</frame_record_content>
+			
+			<label name="label_token">
+				<anchored to="npcframe" position="insidetopleft" offset="-5,-5" width="40" />
+				<static textres="battle_label_token" />
+				<center />
+			</label>
+			<label name="label_count">
+				<anchored to="npcframe" position="insidetopleft" offset="35,-5" width="60" />
+				<static>#</static>
+				<center />
+			</label>
+			<label name="label_name">
+				<anchored to="npcframe">
+					<top offset="-5" />
+					<left offset="105" />
+					<right offset="-50" />
+				</anchored>
+				<static textres="battle_label_name" />
+				<center />
+			</label>
+
+			<windowlist name="npcs">
+				<anchored to="npcframe" position="over">
+					<top offset="20" />
+					<right offset="-5" />
+				</anchored>
+				<child></child>
+				<child><backcolor>1A40301E</backcolor></child>
+				<datasource>.npclist</datasource>
+				<class>battlerandom_npc</class>
+				<allowdelete />
+				<sortby><field>name</field></sortby>
+				<empty font="list-empty" gmtextres="battle_emptylist" />
+				<script file="campaign/scripts/encounter_npclist.lua" />
+			</windowlist>
+			<scrollbar>
+				<anchored to="npcs" />
+				<target>npcs</target>
+			</scrollbar>
+			<button_iedit name="npcs_iedit">
+				<anchored to="npcframe" position="belowright" offset="5,20" />
+				<target>npcs</target>
+			</button_iedit>
+			
+			<battle_button_generate name="button_generate" />
+
+			<resize_recordsheet />
+			<close_recordsheet />
+		</sheetdata>
+	</windowclass>
+	
+	<windowclass name="battlerandom_header">
+		<margins control="0,0,0,7" />
+		<script file="common/scripts/record_header.lua" />
+		<sheetdata>
+			<link_record_header name="link" />
+			
+			<anchor_record_header_right name="rightanchor" />
+			<icon_record_locked />
+			<button_record_locked />
+
+			<string_record_name name="name" />
+		</sheetdata>
+	</windowclass>
+
+	<windowclass name="battlerandom_npc">
+		<margins control="0,0,0,2" />
+		<script file="campaign/scripts/encounterrandom_npc.lua" />
+		<sheetdata>
+			<anchor_listitem_left_encounter name="leftanchor" />
+			<token_listitem_encounter name="token" />
+			<string_listitem_expr_encounterrandom name="expr" />
+			
+			<anchor_listitem_right name="rightanchor" />
+			<button_listitem_idelete name="idelete" />
+			<link_listitem name="link" />
+			<button_listitem_faction name="faction" />
+			<button_record_isidentified name="isidentified" />
+			
+			<string_listitem_name_encounter name="name" />
+		</sheetdata>
+	</windowclass>
+</root>

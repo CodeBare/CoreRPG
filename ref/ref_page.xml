@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<!-- 
+  Please see the license.html file included with this distribution for 
+  attribution and copyright information.
+-->
+
+<root>
+	<!-- Reference manual content area -->
+	<windowclass name="reference_manualtextwide">
+		<margins control="0,0,0,30" /> 
+		<script file="ref/scripts/ref_manual_textwide.lua" />
+		<sheetdata>
+			<link_refmanual_content name="open" />
+			<string_refmanual_content_name name="name" />
+			
+			<sub_refmanual_content_content name="content">
+				<class>referencemanualpagecontent</class>
+			</sub_refmanual_content_content>
+			<scrollbar_refmanualpage_content />
+
+			<button_refmanual_content_locked />
+		</sheetdata>
+	</windowclass>
+
+	<!-- Reference page pullout -->
+	<windowclass name="referencemanualpage">
+		<frame>referencepage</frame>
+		<placement>
+			<size width="650" height="650" />
+		</placement>
+		<sharable />
+		<sizelimits>
+			<minimum width="650" height="650" />
+			<dynamic />
+		</sizelimits>
+		<minimize>minimized_reference</minimize>
+		<tooltip field="name" />
+		<nodelete />
+		<script file="ref/scripts/ref_manual_page.lua" />
+		<sheetdata>
+			<sub_record_header name="header">
+				<class>referencemanualpageheader</class>
+			</sub_record_header>
+
+			<frame_refmanualpage_content />
+			
+			<sub_refmanualpage_content name="content">
+				<class>referencemanualpagecontent</class>
+			</sub_refmanualpage_content>
+			<scrollbar_refmanualpage_content />
+			
+			<button_refmanualpage_top />
+			<button_refmanualpage_prev />
+			<button_refmanualpage_next />
+			
+			<resize_referencepage />
+			<close_referencepage />
+		</sheetdata>
+	</windowclass>
+	<windowclass name="referencemanualpageheader">
+		<margins control="0,0,0,7" />
+		<script>
+			function update()
+				local bReadOnly = WindowManager.getReadOnlyState(getDatabaseNode());
+				name.setReadOnly(bReadOnly);
+			end
+		</script>
+		<sheetdata>
+			<link_record_header>
+				<class>referencemanualpage</class>
+			</link_record_header>
+			<string_record_name_ref name="name" />
+
+			<button_refmanual_content_locked />
+		</sheetdata>
+	</windowclass>
+
+	<!-- Reference content -->
+	<windowclass name="referencemanualpagecontent">
+		<script file="ref/scripts/ref_manual_page_content.lua" />
+		<sheetdata>
+			<anchor_referencemanualpage name="contentanchor" />
+			
+			<list_referencemanualpage_blocks name="blocks" />
+			<footer_refmanual_blocks name="footer" />
+
+			<anchor_refmanual_block_iadd_right />
+			<button_refmanual_block_iadd name="button_iadd_block_textrimagel">
+				<blocktype>textrimagel</blocktype>
+			</button_refmanual_block_iadd>
+			<button_refmanual_block_iadd name="button_iadd_block_textlimager">
+				<blocktype>textlimager</blocktype>
+			</button_refmanual_block_iadd>
+			<button_refmanual_block_iadd name="button_iadd_block_image">
+				<blocktype>image</blocktype>
+			</button_refmanual_block_iadd>
+			<button_refmanual_block_iadd name="button_iadd_block_header">
+				<blocktype>header</blocktype>
+			</button_refmanual_block_iadd>
+			<button_refmanual_block_iadd name="button_iadd_block_dualtext">
+				<blocktype>dualtext</blocktype>
+			</button_refmanual_block_iadd>
+			<button_refmanual_block_iadd name="button_iadd_block_text">
+				<blocktype>text</blocktype>
+			</button_refmanual_block_iadd>
+		</sheetdata>
+	</windowclass>
+	<windowclass name="referencemanualtextblock">
+		<margins control="0,0,0,10" />
+		<sheetdata>
+			<hn name="order" />
+			<hs name="blocktype" />
+
+			<anchor_refmanual_block_right name="rightanchor" />
+		</sheetdata>
+	</windowclass>	
+
+	<!-- Frame Selection -->
+	<windowclass name="frameselect">
+		<frame>utilitybox2</frame>
+		<placement>
+			<size width="460" height="300" />
+		</placement>
+		<sizelimits>
+			<dynamic />
+		</sizelimits>
+		<script file="ref/scripts/ref_frameselect.lua" />
+		<sheetdata>
+			<windowlist name="list">
+				<class>frameselect_entry</class>
+				<bounds>30,30,-30,-30</bounds>
+				<columns width="75" fillwidth="true" />
+				<skipempty />
+				<script file="ref/scripts/ref_frameselect_list.lua" />
+			</windowlist>
+			<scrollbar_list />
+		
+			<resize_utilitybox2 />
+			<close_utilitybox2 />
+		</sheetdata>
+	</windowclass>
+	<windowclass name="frameselect_entry">
+		<sizelimits>
+			<minimum width="75" height="75" />
+		</sizelimits>
+		<script>
+			local _sName;
+			function setData(sName)
+				_sName = sName;
+				if (_sName or "") == "" then
+					base.setFrame("border");
+				else
+					base.setFrame("referenceblock-" .. _sName);
+				end
+			end
+			function activate()
+				windowlist.window.activate(_sName);
+				return true;
+			end
+		</script>
+		<sheetdata>
+			<genericcontrol name="base">
+				<bounds>0,0,-1,-1</bounds>
+				<script>
+					function onClickDown()
+						return true;
+					end
+					function onClickRelease()
+						return window.activate();
+					end
+				</script>
+			</genericcontrol>
+		</sheetdata>
+	</windowclass>
+</root>

@@ -1,0 +1,281 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<!-- 
+  Please see the license.html file included with this distribution for 
+  attribution and copyright information.
+-->
+
+<root>
+	<!-- Old text reference windows -->
+	<windowclass name="referencetext">
+		<frame>referencepage</frame>
+		<placement>
+			<size width="400" height="650" />
+		</placement>
+		<sharable />
+		<sizelimits>
+			<dynamic />
+		</sizelimits>
+		<minimize>minimized_reference</minimize>
+		<tooltip field="name" />
+		<nodelete />
+		<sheetdata>
+			<sub_record_header name="header">
+				<class>ref_text_header</class>
+			</sub_record_header>
+
+			<frame_ref_content />
+			
+			<ft_record name="text">
+				<anchored to="contentframe" position="over" />
+				<footer>footer_wide</footer>
+			</ft_record>
+			<scrollbar>
+				<anchored to="text" />
+				<target>text</target>
+			</scrollbar>
+			
+			<resize_referencepage />
+			<close_referencepage />
+		</sheetdata>
+	</windowclass>
+	<windowclass name="referencetextwide">
+		<frame>referencepage</frame>
+		<placement>
+			<size width="650" height="650" />
+		</placement>
+		<sharable />
+		<sizelimits>
+			<minimum width="650" height="650" />
+			<dynamic />
+		</sizelimits>
+		<minimize>minimized_reference</minimize>
+		<tooltip field="name" />
+		<nodelete />
+		<sheetdata>
+			<sub_record_header name="header">
+				<class>ref_text_header</class>
+			</sub_record_header>
+
+			<frame_ref_content />
+			
+			<ft_record name="text">
+				<anchored to="contentframe" position="over" />
+				<footer>footer_wide</footer>
+			</ft_record>
+			<scrollbar>
+				<anchored to="text" />
+				<target>text</target>
+			</scrollbar>
+			
+			<resize_referencepage />
+			<close_referencepage />
+		</sheetdata>
+	</windowclass>
+	<windowclass name="ref_text_header">
+		<margins control="0,0,0,7" />
+		<sheetdata>
+			<link_record_header>
+				<class>referencetext</class>
+			</link_record_header>
+			<string_record_name_ref name="name" />
+		</sheetdata>
+	</windowclass>
+
+	<!-- Old generic lists -->
+	<windowclass name="referenceindex">
+		<frame>referencelist</frame>
+		<placement>
+			<size width="350" height="450" />
+		</placement>
+		<sizelimits>
+			<dynamic />
+		</sizelimits>
+		<minimize>minimized_reference</minimize>
+		<tooltip field="name" />
+		<nodelete />
+		<sheetdata>
+			<windowtitlebar name="reftitle">
+				<field>name</field>
+			</windowtitlebar>
+			<anchor_reftitle name="contentanchor" />
+
+			<list_ref name="list">
+				<datasource>.index</datasource>
+				<class>referenceindexitem</class>
+			</list_ref>
+			<scrollbar_list name="scroll_list" />
+			
+			<filter_ref name="filter" />
+			
+			<resize_referencelist />
+			<close_referencelist />
+		</sheetdata>
+	</windowclass>
+	<windowclass name="referenceindexsorted">
+		<frame>referencelist</frame>
+		<placement>
+			<size width="350" height="450" />
+		</placement>
+		<sizelimits>
+			<dynamic />
+		</sizelimits>
+		<minimize>minimized_reference</minimize>
+		<tooltip field="name" />
+		<nodelete />
+		<sheetdata>
+			<windowtitlebar name="reftitle">
+				<field>name</field>
+			</windowtitlebar>
+			<anchor_reftitle name="contentanchor" />
+
+			<list_ref name="list">
+				<datasource>.index</datasource>
+				<class>referenceindexitem</class>
+				<sortby><field>name</field></sortby>
+			</list_ref>
+			<scrollbar_list name="scroll_list" />
+			
+			<filter_ref name="filter" />
+			
+			<resize_referencelist />
+			<close_referencelist />
+		</sheetdata>
+	</windowclass>
+	<windowclass name="referenceindexitem">
+		<margins control="0,0,0,2" />
+		<sheetdata>
+			<linkfield_list name="listlink" />
+			<string_list_link name="name">
+				<anchored to="listlink" />
+				<linktarget>listlink</linktarget>
+			</string_list_link>
+		</sheetdata>
+	</windowclass>
+
+	<!-- Old inline text lists -->
+	<windowclass name="referenceinlineindex">
+		<frame>referencelist</frame>
+		<placement>
+			<size width="350" height="450" />
+		</placement>
+		<sizelimits>
+			<dynamic />
+		</sizelimits>
+		<minimize>minimized_reference</minimize>
+		<tooltip field="description" />
+		<nodelete />
+		<sheetdata>
+			<windowtitlebar name="reftitle">
+				<field>name</field>
+			</windowtitlebar>
+
+			<windowlist name="list">
+				<bounds>40,55,-43,-35</bounds>
+				<frame name="groupbox" offset="15,15,20,15" />
+				<datasource>.index</datasource>
+				<class>referenceinlineindexitem</class>
+			</windowlist>
+			<scrollbar_list name="scroll_list" />
+			
+			<resize_referencelist />
+			<close_referencelist />
+		</sheetdata>
+	</windowclass>
+	<windowclass name="referenceinlineindexitem">
+		<margins control="0,0,0,3" />
+		<sheetdata>
+			<stringfield name="name">
+				<bounds>0,2,-1,20</bounds>
+				<font>sheetlabel</font>
+				<underline />
+				<static />
+				<nodrag />
+				<nodragselect />
+				<script>
+					function onInit()
+						if getValue() == "" then
+							setStaticBounds(0,0,0,0);
+							window.text.setVisible(true);
+						end
+					end
+					
+					function onClickDown(button, x, y)
+						return true;
+					end
+
+					function onClickRelease(button, x, y)
+						window.text.setVisible(not window.text.isVisible());
+						return true;
+					end
+				</script>
+			</stringfield>
+			
+			<basicft name="text">
+				<anchored>
+					<top parent="name" anchor="bottom" offset="3" />
+					<left />
+					<right />
+				</anchored>
+				<invisible />
+			</basicft>
+		</sheetdata>
+	</windowclass>
+	
+	<!-- Old basic grouped lists -->
+	<windowclass name="reference_colindex">
+		<frame>referencelist</frame>
+		<placement>
+			<size width="450" height="450" />
+		</placement>
+		<sizelimits>
+			<minimum width="450" height="450" />
+			<dynamic />
+		</sizelimits>
+		<minimize>minimized_reference</minimize>
+		<tooltip field="description" />
+		<nodelete />
+		<sheetdata>
+			<windowtitlebar name="reftitle">
+				<field>description</field>
+			</windowtitlebar>
+			<anchor_reftitle name="contentanchor" />
+
+			<list_reftablegroup name="grouplist">
+				<class>reference_colindexgroup</class>
+				<datasource>.groups</datasource>
+			</list_reftablegroup>
+			<scrollbar_reftablegroup />
+			
+			<filter_reftable name="filter" />
+			<button_reftable_expand />
+			<button_reftable_collapse />
+			
+			<resize_referencelist />
+			<close_referencelist />
+		</sheetdata>
+	</windowclass>
+	<windowclass name="reference_colindexgroup">
+		<script file="ref/scripts/ref_listgroup.lua" />
+		<sheetdata>
+			<anchor_column name="topanchor" />
+			
+			<frame_groupdesc name="descframe" />
+			<string_groupdesc name="description">
+				<target>list</target>
+			</string_groupdesc>
+
+			<list_reftablegroupitems name="list">
+				<datasource>.index</datasource>
+				<class>reference_colindexitem</class>
+			</list_reftablegroupitems>
+		</sheetdata>
+	</windowclass>
+	<windowclass name="reference_colindexitem">
+		<margins control="0,0,0,2" />
+		<sheetdata>
+			<linkfield_list name="link" />
+			<stringc_list_link name="name" />
+		</sheetdata>
+	</windowclass>
+</root>

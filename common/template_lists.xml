@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<!-- 
+  Please see the license.html file included with this distribution for 
+  attribution and copyright information.
+-->
+
+<root>
+	<template name="list_text">
+		<windowlist>
+			<child mergerule="resetandadd"></child>
+			<child><backcolor>1A40301E</backcolor></child>
+			<allowcreate />
+			<allowdelete />
+			<sortby mergerule="replace"><control>name</control></sortby>
+			<script file="common/scripts/list_text.lua" />
+		</windowlist>
+	</template>
+	
+	<template name="linkfield_list">
+		<linkfield>
+			<bounds>5,2,20,20</bounds>
+			<description control="name" />
+			<readonly />
+		</linkfield>
+	</template>
+	<template name="string_list_link">
+		<stringfield>
+			<bounds>30,2,-1,20</bounds>
+			<font>reference-r</font>
+			<nodrag />
+			<static />
+			<linktarget>link</linktarget>
+			<script file="common/scripts/string_list_link.lua" />
+		</stringfield>
+	</template>
+	<template name="stringc_list_link">
+		<stringcontrol>
+			<bounds>30,2,-1,20</bounds>
+			<font>reference-r</font>
+			<nodrag />
+			<static />
+			<linktarget>link</linktarget>
+			<script file="common/scripts/stringc_list_link.lua" />
+		</stringcontrol>
+	</template>
+	<template name="string_list_name">
+		<stringfield>
+			<anchored height="20">
+				<top />
+				<left parent="open" anchor="right" offset="5" />
+				<right parent="modified" anchor="left" offset="-5" />
+			</anchored>
+			<font>sheettext</font>
+			<linktarget>open</linktarget>
+			<nodrag />
+			<script file="common/scripts/string_list_link.lua" />
+		</stringfield>
+	</template>
+	<template name="string_textlistitem">
+		<stringu>
+			<delaykeyupdate />
+			<script file="common/scripts/list_textitem.lua" />
+		</stringu>
+	</template>
+	
+	<template name="link_list">
+		<linkcontrol>
+			<bounds>0,0,20,20</bounds>
+			<readonly />
+		</linkcontrol>
+	</template>
+
+	<template name="icon_access">
+		<buttoncontrol>
+			<anchored width="20" height="20">
+				<top />
+				<right parent="rightanchor" anchor="left" relation="relative" offset="-2" />
+			</anchored>
+			<state icon="" />
+			<state icon="record_readonly" />
+			<state icon="record_shared" />
+			<state icon="record_public" />
+			<script>
+				function onClickDown()
+					return true;
+				end
+				function onClickRelease()
+					local nValue = getValue();
+					if (nValue == 2) or (nValue == 3) then
+						window.unshareRecord();
+					end
+					return true;
+				end
+			</script>
+		</buttoncontrol>
+	</template>
+	<template name="icon_modified">
+		<genericcontrol>
+			<anchored width="20" height="20">
+				<top />
+				<right parent="rightanchor" anchor="left" relation="relative" offset="-2" />
+			</anchored>
+			<invisible />
+		</genericcontrol>
+	</template>
+
+	<template name="filter">
+		<stringcontrol>
+			<frame name="search" offset="22,5,5,5" />
+			<font>sheettext</font>
+			<delaykeyupdate />
+			<script>
+				function selectAll()
+					setCursorPosition(#getValue()+1);
+					setSelectionPosition(1);
+				end
+				
+				function clearSelection()
+					setCursorPosition(1);
+					setSelectionPosition(1);
+				end
+				
+				function onGainFocus()
+					selectAll();
+				end
+				
+				function onLoseFocus()
+					clearSelection();
+				end
+				
+				function onValueChanged()
+					if isEmpty() then
+						setFrame("search", 22,5,5,5);
+					else
+						setFrame("search_active", 22,5,5,5);
+					end
+				end
+				
+				function onEnter()
+					selectAll();
+					return true;
+				end
+				
+				function onClickDown(button)
+					if button == 2 then
+						return true;
+					end
+				end
+				
+				function onClickRelease(button)
+					if button == 2 then
+						setValue("");
+						return true;
+					end
+				end
+			</script>
+		</stringcontrol>
+	</template>
+
+	<template name="scrollbar_list">
+		<scrollbar>
+			<anchored to="list" />
+			<target>list</target>
+		</scrollbar>
+	</template>
+</root>

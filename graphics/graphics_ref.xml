@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<!-- 
+  Please see the license.html file included with this distribution for 
+  attribution and copyright information.
+-->
+
+<root>
+	<!-- Reference -->
+	<framedef name="reference-section">
+		<bitmap file="graphics/frames/reference-section.png" />
+		<offset>1,1,1,1</offset>
+	</framedef>
+	<framedef name="reference-chapter">
+		<bitmap file="graphics/frames/reference-chapter.png" />
+		<offset>1,1,1,1</offset>
+	</framedef>
+	
+	<!-- Reference Block Frames -->
+	<framedef name="referenceblock-sidebar">
+		<bitmap file="graphics/frames/refblock_sidebar.png" />
+		<offset>100,50,100,50</offset>
+	</framedef>
+	<framedef name="referenceblock-text1">
+		<bitmap file="graphics/frames/refblock_text1.png" />
+		<offset>50,60,50,60</offset>
+	</framedef>
+	<framedef name="referenceblock-text2">
+		<bitmap file="graphics/frames/refblock_text2.png" />
+		<offset>50,60,50,60</offset>
+	</framedef>
+	<framedef name="referenceblock-text3">
+		<bitmap file="graphics/frames/refblock_text3.png" />
+		<offset>50,60,50,60</offset>
+	</framedef>
+	<framedef name="referenceblock-text4">
+		<bitmap file="graphics/frames/refblock_text4.png" />
+		<offset>50,60,50,60</offset>
+	</framedef>
+	<framedef name="referenceblock-text5">
+		<bitmap file="graphics/frames/refblock_text5.png" />
+		<offset>100,50,100,50</offset>
+	</framedef>
+	<framedef name="referenceblock-book">
+		<bitmap file="graphics/frames/refblock_book.png" />
+		<offset>60,53,70,47</offset>
+	</framedef>
+	<framedef name="referenceblock-page">
+		<bitmap file="graphics/frames/refblock_page.png" />
+		<topleft rect="0,0,25,50" />
+		<top rect="25,0,250,50" />
+		<topright rect="275,0,50,50" />
+		<left rect="0,50,25,50" />
+		<middle rect="25,50,250,50" />
+		<right rect="275,50,50,50" />
+		<bottomleft rect="0,100,25,50" />
+		<bottom rect="25,100,250,50" />
+		<bottomright rect="275,100,50,50" />
+	</framedef>
+	<framedef name="referenceblock-picture">
+		<bitmap file="graphics/frames/refblock_picture.png" />
+		<offset>32,30,32,30</offset>
+	</framedef>
+	<framedef name="referenceblock-pink">
+		<bitmap file="graphics/frames/refblock_pink.png" />
+		<offset>100,30,100,30</offset>
+	</framedef>
+	<framedef name="referenceblock-blue">
+		<bitmap file="graphics/frames/refblock_blue.png" />
+		<offset>100,30,100,30</offset>
+	</framedef>
+	<framedef name="referenceblock-brown">
+		<bitmap file="graphics/frames/refblock_brown.png" />
+		<offset>100,30,100,30</offset>
+	</framedef>
+	<framedef name="referenceblock-green">
+		<bitmap file="graphics/frames/refblock_green.png" />
+		<offset>100,30,100,30</offset>
+	</framedef>
+	<framedef name="referenceblock-yellow">
+		<bitmap file="graphics/frames/refblock_yellow.png" />
+		<offset>100,30,100,30</offset>
+	</framedef>
+	
+	<!-- Reference Manual Editing -->
+	<framedef name="button_ref_block_add_base">
+		<bitmap file="graphics/ref/frames/ref_block_add_base.png" />
+		<offset>13,13,12,13</offset>
+  	</framedef>
+
+	<icon name="button_ref_moveup" file="graphics/ref/buttons/button_ref_moveup.png" />
+	<icon name="button_ref_movedown" file="graphics/ref/buttons/button_ref_movedown.png" />
+	
+	<icon name="button_ref_index_expand" file="graphics/ref/buttons/button_ref_index_expand.png" />
+	<icon name="button_ref_index_collapse" file="graphics/ref/buttons/button_ref_index_collapse.png" />
+	
+	<icon name="button_ref_block_dualtext" file="graphics/ref/buttons/button_ref_block_dualtext.png" />
+	<icon name="button_ref_block_image" file="graphics/ref/buttons/button_ref_block_image.png" />
+	<icon name="button_ref_block_header" file="graphics/ref/buttons/button_ref_block_header.png" />
+	<icon name="button_ref_block_text" file="graphics/ref/buttons/button_ref_block_text.png" />
+	<icon name="button_ref_block_textlimager" file="graphics/ref/buttons/button_ref_block_textlimager.png" />
+	<icon name="button_ref_block_textrimagel" file="graphics/ref/buttons/button_ref_block_textrimagel.png" />
+	<icon name="button_ref_block_frame" file="graphics/ref/buttons/button_ref_block_frame.png" />
+
+	<icon name="button_ref_block_image_linkclear" file="graphics/ref/buttons/button_ref_block_imagelink.png" />
+	<icon name="button_ref_block_image_scaleup" file="graphics/ref/buttons/button_ref_block_scaleup.png" />
+	<icon name="button_ref_block_image_scaledown" file="graphics/ref/buttons/button_ref_block_scaledown.png" />
+	<icon name="button_ref_block_image_sizeclear" file="graphics/ref/buttons/button_ref_block_sizeclear.png" />
+</root>

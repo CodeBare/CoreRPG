@@ -1,0 +1,363 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<!-- 
+  Please see the license.html file included with this distribution for 
+  attribution and copyright information.
+-->
+
+<root>
+	<windowclass name="desktopdecal">
+		<sheetdata>
+			<genericcontrol name="decal">
+				<bounds>0,0,-1,-1</bounds>
+				<disabled />
+			</genericcontrol>
+		</sheetdata>
+	</windowclass>
+
+	<windowclass name="chat">
+		<frame>chatbox</frame>
+		<noclose />
+		<sizelimits>
+			<dynamic />
+			<minimum width="350" height="350" />
+		</sizelimits>
+		<script>
+			function onInit()
+				onLockStateChanged();
+			end
+			function onLockStateChanged()
+				resize.setVisible(not getLockState());
+			end
+		</script>
+		<sheetdata>
+			<basicchatentry name="entry" />
+			<basicchatentryscroll name="entryscroll" />
+			<basicchatentrymode name="mode" />
+
+			<chat_speaker_combo name="speaker" />
+			<chat_speaker_icon name="speakericon" />
+			<chat_language_combo name="language" />
+			<chat_language_icon name="languageicon" />
+
+			<basicchatwindow name="chat" />
+			<basicchatwindowscroll name="chatscroll" />
+			<basicchatwindowstatus name="chatstatus" />
+			
+			<resize_chatbox name="resize" />
+		</sheetdata>
+	</windowclass>
+
+	<windowclass name="characterlist">
+    	<noclose />
+		<script file="desktop/scripts/characterlist.lua" />
+		<sheetdata>
+			<button_header_lock name="button_lock">
+				<anchored position="insidetopleft" />
+				<invisible />
+				<script>
+					function onButtonPress()
+						window.onLockButtonPressed();
+					end
+				</script>
+			</button_header_lock>
+			<button_header_reset name="button_reset">
+				<anchored position="insidetopleft" offset="0,20" />
+				<invisible />
+				<script>
+					function onButtonPress()
+						window.onResetButtonPressed();
+					end
+				</script>
+			</button_header_reset>
+
+			<genericcontrol name="anchor">
+				<bounds>20,5,0,0</bounds>
+			</genericcontrol>
+		</sheetdata>
+	</windowclass>
+	
+	<windowclass name="shortcuts">
+		<sheetdata>
+			<genericcontrol name="shortcutframe">
+				<anchored position="insideleft" width="100" />
+				<frame>shortcuts</frame>
+			</genericcontrol>
+			<subwindow name="shortcutbar">
+				<anchored position="insidetopleft" width="100">
+					<bottom offset="-30" />
+				</anchored>
+				<class>shortcutbar</class>
+				<activate />
+				<fastinit />
+			</subwindow>
+            <scrollbar name="scrollbar_shortcutbar">
+                <anchored to="shortcutbar" offset="-5,-10" />
+                <target>shortcutbar</target>
+            </scrollbar>
+
+			<buttoncontrol name="button_visibility">
+        		<frame name="sidebar_dock_entry_icon" />
+				<anchored position="insidebottomleft" width="40" height="40" />
+				<state />
+				<state />
+				<state />
+				<script>
+					function onButtonPress()
+						DesktopManager.setSidebarVisibilityState(getValue());
+					end
+				</script>
+			</buttoncontrol>
+        	<genericcontrol name="button_visibility_icon">
+        		<anchored to="button_visibility" position="insidetopleft" offset="5,5" width="30" height="30" />
+        		<disabled />
+        	</genericcontrol>
+		</sheetdata>
+	</windowclass>
+	<windowclass name="shortcutsanchor">
+		<minimum width="0" height="0" />
+		<sheetdata />
+	</windowclass>
+    <windowclass name="shortcutbar">
+        <sheetdata>
+        	<genericcontrol name="anchor">
+        		<anchored position="insidetop" height="0" />
+        	</genericcontrol>
+
+            <windowlist name="list">
+         		<anchored width="100">
+        			<top parent="anchor" anchor="bottom" relation="relative" />
+        			<left />
+        		</anchored>
+                <class>sidebar_dock_category</class>
+                <skipempty />
+                <noscroll />
+           	</windowlist>
+        </sheetdata>
+    </windowclass>
+    <windowclass name="sidebar_dock_category">
+        <script file="desktop/scripts/desktop_dock_category.lua" />
+        <sheetdata>
+    		<genericcontrol name="spacer">
+    			<anchored position="insidetopleft" width="150" height="40" />
+    			<disabled />
+    		</genericcontrol>
+        	<genericcontrol name="base">
+        		<frame>sidebar_dock_category</frame>
+            	<anchored position="insidetopleft" width="150" height="40" />
+	            <script file="desktop/scripts/desktop_dock_entry_control.lua" />
+        	</genericcontrol>
+        	<genericcontrol name="iconbase">
+        		<anchored position="insidetopleft" width="40" height="40" />
+        		<tooltip nodelay="true" />
+	            <script file="desktop/scripts/desktop_dock_entry_control.lua" />
+        	</genericcontrol>
+        	<genericcontrol name="icon">
+            	<anchored position="insidetopleft" offset="120,10" width="20" height="20" />
+            	<icon>sidebar_dock_category_expanded</icon>
+            	<disabled />
+        	</genericcontrol>
+        	<stringcontrol name="label">
+            	<anchored position="insidetopleft" offset="50,10" width="130" height="20" />
+            	<font>sidebar_dock_category</font>
+            	<disabled />
+        	</stringcontrol>
+
+            <windowlist name="list">
+        		<anchored width="100">
+        			<top parent="base" anchor="bottom" />
+        			<left />
+        		</anchored>
+        		<class>sidebar_dock_entry</class>
+                <skipempty />
+                <noscroll />
+				<columns fillwidth="true" />
+			</windowlist>
+        </sheetdata>
+    </windowclass>
+    <windowclass name="sidebar_stack_entry">
+        <script file="desktop/scripts/desktop_stack_entry.lua" />
+    	<sheetdata>
+    		<genericcontrol name="spacer">
+    			<anchored position="insidetopleft" width="50" height="30" />
+    			<disabled />
+    		</genericcontrol>
+        	<genericcontrol name="iconbase">
+        		<anchored position="insidetopleft" width="40" height="40" />
+        		<frame name="sidebar_dock_entry_icon" />
+        		<tooltip nodelay="true" />
+	            <script file="desktop/scripts/desktop_dock_entry_control.lua" />
+        	</genericcontrol>
+        	<genericcontrol name="icon">
+        		<anchored position="insidetopleft" offset="5,5" width="30" height="30" />
+        		<disabled />
+        	</genericcontrol>
+    	</sheetdata>
+    </windowclass>
+    <windowclass name="sidebar_dock_entry">
+        <script file="desktop/scripts/desktop_dock_entry.lua" />
+        <sheetdata>
+    		<genericcontrol name="spacer">
+    			<anchored position="insidetopleft" width="150" height="40" />
+    			<disabled />
+    		</genericcontrol>
+        	<genericcontrol name="iconbase">
+        		<anchored position="insidetopleft" width="40" height="40" />
+        		<frame name="sidebar_dock_entry_icon" />
+        		<tooltip nodelay="true" />
+	            <script file="desktop/scripts/desktop_dock_entry_control.lua" />
+        	</genericcontrol>
+        	<genericcontrol name="icon">
+        		<anchored position="insidetopleft" offset="5,5" width="30" height="30" />
+        		<disabled />
+        	</genericcontrol>
+        	<genericcontrol name="base">
+        		<frame>sidebar_dock_entry</frame>
+            	<anchored position="insidetopleft" offset="40,0" width="110" height="40" />
+	            <script file="desktop/scripts/desktop_dock_entry_control.lua" />
+        	</genericcontrol>
+        	<stringcontrol name="label">
+            	<anchored position="insidetopleft" offset="50,10" width="90" height="20" />
+            	<font>sidebar_dock_entry</font>
+            	<disabled />
+        	</stringcontrol>
+       </sheetdata>
+    </windowclass>
+
+	<windowclass name="modifierstack">
+		<sizelimits>
+			<minimum width="64" height="57" />
+		</sizelimits>
+		<noclose />
+		<script>
+			function onInit()
+				ModifierStack.registerControl(self);
+			end
+			
+			function onClose()
+				ModifierStack.registerControl(nil);
+			end
+		</script>
+		<sheetdata>
+			<genericcontrol name="base">
+				<bounds>5,5,64,52</bounds>
+				<icon>modcollector</icon>
+				<counters>
+					<icon>modcollector_counter</icon>
+					<offset>
+						<x>9</x>
+						<y>47</y>
+					</offset>
+					<spacing>9</spacing>
+					<hoversize>4</hoversize>
+				</counters>
+				<acceptdrop>
+					<type>dice</type>
+					<type>number</type>
+				</acceptdrop>
+				<script file="desktop/scripts/modifierstack_base.lua" />
+			</genericcontrol>
+			<numbercontrol name="modifier">
+				<bounds>15,12,42,22</bounds>
+				<stateframe>
+					<keyedit name="modstackfocus" />
+					<hover name="modstackfocus" />
+					<drophilight name="modstackfocus" />
+				</stateframe>
+				<font>modcollector</font>
+				<displaysign />
+				<droptypes>
+					<type>number</type>
+					<type>dice</type>
+				</droptypes>
+				<script file="desktop/scripts/modifierstack_modifier.lua" />
+			</numbercontrol>
+			<stringcontrol name="label">
+				<bounds>9,34,54,12</bounds>
+				<font>modcollectorlabel</font>
+				<static textres="modstack_label_modifier" />
+				<center />
+				<script>
+					function onDrop(x, y, draginfo)
+						return window.base.onDrop(x, y, draginfo);
+					end
+				</script>
+			</stringcontrol>
+			<buttoncontrol name="targeting">
+				<anchored position="insidetopleft" offset="2,2" width="15" height="15" />
+				<state icon="icon_targeting_off" frame="mini_name" frameoffset="2,2,2,2" tooltipres="modstack_tooltip_targeting_off" />
+				<state icon="drag_targeting" frame="mini_name" frameoffset="2,2,2,2" tooltipres="modstack_tooltip_targeting_on" />
+				<default>1</default>
+			</buttoncontrol>
+		</sheetdata>
+	</windowclass>
+
+	<windowclass name="dicetower">
+		<sizelimits>
+			<minimum width="90" height="90" />
+		</sizelimits>
+		<noclose />
+		<sheetdata>
+			<genericcontrol name="base">
+				<bounds>0,0,90,90</bounds>
+				<frame name="dicetower_normal" />
+				<stateframe>
+					<drophover name="dicetower_drop" nobaseframe="true" />
+				</stateframe>
+				<tooltip textres="dicetower_tooltip" />
+				<droptypes>
+					<type>dice</type>
+					<type>table</type>
+				</droptypes>
+				<script>
+					function onInit()
+						DiceTowerManager.registerControl(self);
+					end
+					
+					function onDrop(x, y, draginfo)
+						return DiceTowerManager.onDrop(draginfo);
+					end
+
+					function onMenuSelection(selection)
+						DiceTowerManager.onMenuSelection(selection);
+					end
+				</script>
+			</genericcontrol>
+		</sheetdata>
+	</windowclass>
+
+	<windowclass name="imagebackpanel">
+		<script>
+			function onInit()
+				ImageManager.registerBackPanel(self);
+			end
+		</script>
+		<sheetdata>
+			<subwindow name="sub">
+				<anchored position="over" />
+				<activate />
+			</subwindow>
+			<button_imagebackpanel_sizedown name="button_restore" />
+			<button_imagebackpanel_sizeup name="button_fullpanel" />
+			<helper_imagepanel name="button_help" />
+			<close_imagepanel name="button_close" />
+		</sheetdata>
+	</windowclass>
+	<windowclass name="imagefullpanel">
+		<script>
+			function onInit()
+				ImageManager.registerFullPanel(self);
+			end
+		</script>
+		<sheetdata>
+			<subwindow name="sub">
+				<anchored position="over" />
+				<activate />
+			</subwindow>
+			<button_imagefullpanel_sizedown name="button_backpanel" />
+			<helper_imagepanel name="button_help" />
+			<close_imagepanel name="button_close" />
+		</sheetdata>
+	</windowclass>
+</root>
+

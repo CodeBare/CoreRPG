@@ -1,0 +1,290 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<!-- 
+  Please see the license.html file included with this distribution for 
+  attribution and copyright information.
+-->
+
+<root>
+	<!-- Message of the Day -->
+	<windowclass name="motd">
+		<frame>utilitybox</frame>
+		<placement>
+			<size width="400" height="400" />
+		</placement>
+		<sizelimits>
+			<dynamic />
+		</sizelimits>
+		<minimize>minimized_encounter</minimize>
+		<nodelete />
+		<tooltip textres="motd_window_title" />
+		<sheetdata>
+			<windowtitlebar name="title">
+				<resource>motd_window_title</resource>
+			</windowtitlebar>
+			<anchor_title_utilitybox name="contentanchor" />
+
+			<anchor_bottom_utilitybox name="bottomanchor" />
+
+			<formattedtextfield name="text">
+				<anchored to="contentanchor">
+					<top anchor="bottom" relation="relative" offset="20" />
+					<left offset="5" />
+					<right offset="-10" />
+					<bottom parent="bottomanchor" anchor="top" offset="-20" />
+				</anchored>
+				<frame name="groupbox" offset="15,15,20,15" />
+				<empty textres="motd_empty" hidereadonly="true" />
+			</formattedtextfield>
+			<scrollbar>
+				<anchored to="text" />
+				<target>text</target>
+			</scrollbar>
+
+			<linkcontrol name="link">
+				<anchored to="text" position="aboveleft" offset="-10,15" width="20" height="20" />
+				<description textres="motd_window_title" />
+				<class>motd</class>
+				<readonly />
+			</linkcontrol>
+
+			<buttoncontrol name="button_replace">
+				<anchored to="text" position="aboveright" offset="-20,15" width="30" height="20" />
+				<tooltip textres="motd_tooltip_replace" />
+				<icon normal="arrowleft" pressed="arrowleft" />
+				<gmvisibleonly />
+				<script>
+					function onDrop(x, y, draginfo)
+						if draginfo.isType("shortcut") then
+							local sClass, sRecord = draginfo.getShortcutData();
+							if sClass == "encounter" then
+								window.text.setValue(DB.getValue(DB.getPath(sRecord, "text")));
+								return true;
+							end
+						end
+					end
+				</script>
+			</buttoncontrol>
+
+			<resize_utilitybox />
+			<close_utilitybox />
+		</sheetdata>
+	</windowclass>
+
+	<!-- Color Select -->
+	<windowclass name="pointerselection">
+		<frame>utilitybox2</frame>
+		<placement>
+			<size width="330" height="155" />
+		</placement>
+		<script file="utility/scripts/pointer_selection.lua" />
+		<sheetdata>
+			<buttoncontrol name="color_main">
+				<anchored width="50" height="50">
+					<top offset="20" />
+					<right anchor="center" offset="-10" />
+				</anchored>
+				<script>
+					function onButtonPress()
+						window.onMainColorButtonPressed();
+					end
+				</script>
+			</buttoncontrol>
+			<buttoncontrol name="color_dietext">
+				<anchored width="50" height="50">
+					<top offset="20" />
+					<left anchor="center" offset="10" />
+				</anchored>
+				<script>
+					function onButtonPress()
+						window.onDieTextColorButtonPressed();
+					end
+				</script>
+			</buttoncontrol>
+		
+			<simplestringc name="text">
+				<anchored position="insidetop" offset="-20,80" />
+				<multilinespacing>20</multilinespacing>
+				<center />
+				<static textres="pointerselection_text" />
+			</simplestringc>
+
+			<helper_color />
+			<close_utilitybox2 />
+		</sheetdata>
+	</windowclass>
+
+	<!-- Portrait Select (Native Asset Browser - Requires Client Update to enable Client Assets) -->
+	<!--
+	<windowclass name="portrait_select">
+		<frame>tokenbag</frame>
+		<placement>
+			<size width="390" height="400" />
+		</placement>
+		<sizelimits>
+			<minimum width="390" height="400" />
+			<dynamic />
+		</sizelimits>
+		<script file="utility/scripts/portrait_select.lua" />
+		<sheetdata>
+			<windowtitlebar name="title">
+				<resource>portraitselect_window_title</resource>
+			</windowtitlebar>
+			<anchor_title_tokenbag name="contentanchor" />
+
+			<anchor_bottom_tokenbag name="bottomanchor" />
+
+			<assetview_portraitselect name="assets" />
+			<scrollbar name="scrollbar_assets">
+				<anchored to="assets" />
+				<target>assets</target>
+			</scrollbar>
+
+			<button_portraitselect_page_prev name="page_prev" />
+			<button_portraitselect_page_next name="page_next" />
+			
+			<filter_portraitselect name="filter" />
+			
+			<resize_tokenbag />
+			<close_tokenbag />
+		</sheetdata>
+	</windowclass>
+	-->
+
+	<!-- Portrait Select (Old Style) -->
+	<windowclass name="portrait_select">
+		<frame>tokenbag</frame>
+		<placement>
+			<size width="390" height="400" />
+		</placement>
+		<sizelimits>
+			<minimum width="390" height="400" />
+			<dynamic />
+		</sizelimits>
+		<script file="utility/scripts/portrait_select.lua" />
+		<sheetdata>
+			<windowtitlebar name="title">
+				<resource>portraitselect_window_title</resource>
+			</windowtitlebar>
+			<anchor_title_tokenbag name="contentanchor" />
+
+			<anchor_bottom_tokenbag_buttons name="bottomanchor" />
+
+			<list_portraitselect name="list" />
+			<scrollbar_list />
+
+			<button_portraitselect_folder name="button_folder" />
+			<button_portraitselect_refresh name="button_refresh" />
+			<button_portraitselect_store name="button_store" />
+			
+			<resize_tokenbag />
+			<close_tokenbag />
+		</sheetdata>
+	</windowclass>
+	<windowclass name="portrait_select_entry">
+		<frame>tokenbagasset</frame>
+		<sizelimits>
+			<minimum width="100" height="100" />
+		</sizelimits>
+		<sheetdata>
+			<portraitselectioncontrol name="portrait">
+				<bounds>5,5,-5,-5</bounds>
+				<tooltip nodelay="true" />
+				<base>charlist_base</base>
+				<mask>charlist_mask</mask>
+				<script>
+					function onClickDown()
+						return true;
+					end
+					function onClickRelease()
+						window.windowlist.window.onActivate(getFile());
+						return true;
+					end
+				</script>
+			</portraitselectioncontrol>
+		</sheetdata>
+	</windowclass>
+	<windowclass name="portrait_select_up">
+		<frame>tokenbagasset</frame>
+		<sizelimits>
+			<minimum width="100" height="100" />
+		</sizelimits>
+		<sheetdata>
+			<genericcontrol name="icon">
+				<bounds>5,5,-5,-5</bounds>
+				<icon>tokenbagup</icon>
+				<tooltip nodelay="true" />
+				<script>
+					function onClickDown()
+						return true;
+					end
+					function onClickRelease()
+						window.windowlist.window.onPathUp();
+						return true;
+					end
+				</script>
+			</genericcontrol>
+		</sheetdata>
+	</windowclass>
+	<windowclass name="portrait_select_folder">
+		<frame>tokenbagasset</frame>
+		<sizelimits>
+			<minimum width="100" height="100" />
+		</sizelimits>
+		<sheetdata>
+			<genericcontrol name="icon">
+				<bounds>5,5,-5,-5</bounds>
+				<icon>tokenbag</icon>
+				<tooltip nodelay="true" />
+				<script>
+					function onClickDown()
+						return true;
+					end
+					function onClickRelease()
+						window.windowlist.window.onPathSelect(getTooltipText());
+						return true;
+					end
+				</script>
+			</genericcontrol>
+		</sheetdata>
+	</windowclass>
+
+	<!-- Decal Select -->
+	<windowclass name="decal_select">
+		<frame>tokenbag</frame>
+		<placement>
+			<size width="385" height="535" />
+		</placement>
+		<sizelimits>
+			<minimum width="385" height="535" />
+			<dynamic />
+		</sizelimits>
+		<script file="utility/scripts/decal_select.lua" />
+		<sheetdata>
+			<windowtitlebar name="title">
+				<resource>decalselect_window_title</resource>
+			</windowtitlebar>
+			<anchor_title_tokenbag name="contentanchor" />
+
+			<anchor_bottom_tokenbag_buttons name="bottomanchor" />
+
+			<assetview_decalselect name="assets" />
+			<scrollbar name="scrollbar_assets">
+				<anchored to="assets" />
+				<target>assets</target>
+			</scrollbar>
+
+			<button_decalselect_page_prev name="page_prev" />
+			<button_decalselect_page_next name="page_next" />
+
+			<filter_decalselect name="filter" />
+			
+			<button_decalselect_clear name="button_clear" />
+			<button_decalselect_cancel name="button_cancel" />
+			<button_decalselect_ok name="button_ok" />
+
+			<resize_tokenbag />
+			<close_tokenbag />
+		</sheetdata>
+	</windowclass>
+</root>

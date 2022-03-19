@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<!-- 
+  Please see the license.html file included with this distribution for 
+  attribution and copyright information.
+-->
+
+<root>
+	<windowclass name="moduleselection_entry">
+		<margins control="0,0,0,14" />
+		<sizelimits>
+			<minimum height="100" />
+		</sizelimits>
+		<frame>moduleselectentry</frame>
+		<script file="utility/scripts/module_selectionentry.lua" />
+		<sheetdata>
+			<buttoncontrol name="base">
+				<bounds>0,0,-1,-1</bounds>
+				<script>
+					function onDoubleClick()
+						window.toggleActivation();
+						return true;
+					end
+				</script>
+			</buttoncontrol>
+
+			<genericcontrol name="thumbnail">
+				<bounds>10,20,63,63</bounds>
+				<disabled />
+			</genericcontrol>
+			<stringcontrol name="name">
+				<anchored width="210">
+					<left offset="80" />
+					<top offset="23" />
+				</anchored>
+				<font>sheetlabel</font>
+				<multilinespacing>20</multilinespacing>
+				<static />
+				<disabled />
+			</stringcontrol>
+			<stringcontrol name="author">
+				<anchored width="210">
+					<left offset="80" />
+					<top parent="name" anchor="bottom" offset="2" />
+				</anchored>
+				<font>sheettext</font>
+				<multilinespacing>20</multilinespacing>
+				<static />
+				<disabled />
+			</stringcontrol>
+			<genericcontrol name="load">
+				<anchored width="40" height="28">
+					<left anchor="right" offset="-85" />
+					<top parent="author" anchor="bottom" offset="2" />
+				</anchored>
+				<states>
+					<loaded>module_loaded</loaded>
+					<unloaded>module_unloaded</unloaded>
+					<loading>module_loading</loading>
+					<unloading>module_unloading</unloading>
+				</states>
+				<disabled />
+			</genericcontrol>
+			<button_text name="button_load">
+				<anchored width="60" height="15">
+					<right offset="-90" />
+					<top parent="author" anchor="bottom" offset="9" />
+				</anchored>
+				<state textres="module_load" merge="add" />
+				<state textres="module_unload" merge="add" />
+				<script>
+					function onButtonPress()
+						window.toggleActivation();
+						return true;
+					end
+				</script>
+			</button_text>
+			<buttoncontrol name="permissions">
+				<anchored width="40" height="31">
+					<top parent="load" />
+					<left parent="load" anchor="right" offset="-7" />
+				</anchored>
+				<gmeditonly />
+				<gmvisibleonly />
+				<state icon="module_stateblocked" tooltipres="module_stateblocked" />
+				<state icon="module_stateallowed" tooltipres="module_stateallowed" />
+				<script>
+					local bBlockUpdate = false;
+					function onDrop(x, y, draginfo)
+						if draginfo.isType("modulepermissions") then
+							window.setPermissions(draginfo.getStringData());
+							return true;
+						end
+						return false;
+					end
+					function onButtonPress()
+						local value = getValue();
+						if value == 1 then
+							window.setPermissions("allow");
+						else
+							window.setPermissions("disallow");
+						end
+					end
+				</script>
+			</buttoncontrol>
+		</sheetdata>
+	</windowclass>
+	
+	<windowclass name="moduleselection">
+		<frame>utilitybox3</frame>
+		<placement>
+			<size width="700" height="800" />
+		</placement>
+		<sizelimits>
+			<dynamic />
+			<minimum width="700" height="550" />
+			<maximum width="1600" height="800" />
+		</sizelimits>
+		<script file="utility/scripts/moduleselection.lua" />
+		<sheetdata>
+			<windowtitlebar name="title">
+				<resource>module_window_title</resource>
+			</windowtitlebar>
+			<anchor_title_utilitybox3 name="contentanchor" />
+			
+			<anchor_modules_bottom name="bottomanchor" />
+
+			<anchor_modules_paging name="pageanchor" />
+			<list_page_info name="page_info" />
+			<list_page_start name="page_start" />
+			<list_page_prev name="page_prev" />
+			<list_page_next name="page_next" />
+			<list_page_end name="page_end" />
+
+			<list_modules name="list" />
+			<scrollbar_list />
+			
+			<filter_modules_name name="filter_name" />
+			<filter_modules_author name="filter_author" />
+			
+			<button_modules_permission_block />
+			<button_modules_permission_allow />
+			<anchor_modules_filter_buttons name="filter_anchor_right" />
+			<button_modules_filter_loaded name="filter_loaded" />
+			<button_modules_filter_shared name="filter_shared" />
+			<button_modules_filter_ruleset name="filter_ruleset" />
+			
+			<resize_utilitybox3 />
+			<helper_moduleselection />
+			<close_utilitybox3 />
+		</sheetdata>
+	</windowclass>
+</root>

@@ -1,0 +1,266 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<!-- 
+  Please see the license.html file included with this distribution for 
+  attribution and copyright information.
+-->
+
+<root>
+	<!-- General -->
+	<string name="color_edit">Click to edit color</string>
+	<string name="ft_empty">Click to enter text</string>
+	<string name="menu_revert">Revert Changes</string>
+	<string name="tooltip_public">Public</string>
+	<string name="tooltip_shared">Shared with:</string>
+	<string name="button_add">Add Item</string>
+	<string name="button_editon">Edit List</string>
+	<string name="button_editoff">Stop Editing List</string>
+	<string name="button_delete">Delete Item</string>
+	<string name="button_deleteconfirm">Confirm Delete Item</string>
+	<string name="button_import_text">Import Text</string>
+	<string name="tooltip_readonly">Read Only</string>
+	<string name="tooltip_modified">Modified</string>
+	<string name="tooltip_lock">Locked</string>
+	<string name="tooltip_unlock">Unlocked</string>
+	<string name="tooltip_id">Item Identified</string>
+	<string name="tooltip_nonid">Item Not Identified</string>
+	<string name="tooltip_expand">Expand All</string>
+	<string name="tooltip_collapse">Collapse All</string>
+	<string name="tooltip_toolbar">Toggle Toolbar</string>
+	<string name="tooltip_resetpos">Reset Position</string>
+	
+	<!-- Characters -->
+	<string name="charselect_window_title">Character Selection</string>
+	<string name="charselect_import_window_title">Import Character</string>
+	<string name="charselect_tooltip_pregen">Add Pregenerated Character</string>
+	<string name="charselect_tooltip_import">Import Character</string>
+	<string name="charselect_tooltip_importadd">Add Character</string>
+	<string name="charselect_tooltip_importfile">Import Character File</string>
+	<string name="charselect_tooltip_export">Export Character</string>
+	<string name="charselect_tooltip_back">Back to Character Selection</string>
+	<string name="charselect_label_server">Server</string>
+	<string name="charselect_label_local">Local</string>
+	<string name="charselect_label_campaign">Campaign</string>
+	<string name="charselect_label_pregen">Pregenerated</string>
+	<string name="charselect_label_ownedby">Owned by:</string>
+	<string name="charselect_label_owned">Owned</string>
+	<string name="char_label_name">NAME</string>
+	<string name="char_label_race">RACE</string>
+	<string name="char_label_gender">GENDER</string>
+	<string name="char_label_age">AGE</string>
+	<string name="char_label_height">HEIGHT</string>
+	<string name="char_label_weight">WEIGHT</string>
+	<string name="char_label_senses">Senses</string>
+	<string name="char_tooltip_portrait">Portrait</string>
+	<string name="char_tooltip_token">Token</string>
+	<string name="char_tooltip_speak">Speak as PC</string>
+	<string name="char_tooltip_activate">Set as active PC</string>
+	<string name="char_label_itemweight">Wt</string>
+	<string name="char_tooltip_itemweight">Weight</string>
+	<string name="char_tooltip_itemcarried">Carried / Equipped</string>
+	<string name="char_tooltip_inv_none">Not Carried</string>
+	<string name="char_tooltip_inv_carried">Carried</string>
+	<string name="char_tooltip_inv_equipped">Equipped</string>
+	<string name="char_label_attributes">Attributes / Skills</string>
+	<string name="char_label_abilities">Abilities</string>
+	<string name="char_label_itemlocation">Location</string>
+	<string name="char_label_itemname">Name</string>
+	<string name="char_label_totalweight">Total weight carried</string>
+	<string name="char_label_money">Currency</string>
+	<string name="char_label_appearance">Appearance</string>
+	<string name="char_label_languages">Languages</string>
+	<string name="char_label_notes">Notes</string>
+	<string name="char_menu_delete">Delete Character</string>
+	<string name="char_menu_ownerclear">Clear owner</string>
+	<string name="char_menu_ownergm">Take ownership (as %s)</string>
+
+	<!-- Pregenerated Characters -->
+	<string name="pregencharselect_window_title">Pregenerated Characters</string>
+	<string name="pregenchar_tooltip_add">Add Pregenerated Character to Campaign</string>
+	<string name="pregenchar_message_add">Pregenerated Character added to campaign.</string>
+
+	<!-- Stories -->
+	<string name="story_button_templates">Templates</string>
+	<string name="story_button_generate">Generate</string>
+	<string name="story_ft_templatehelp">Enter formatted text as normal, use [TABLENAME] tags to specify table rolls, and click Generate to make a new story entry.</string>
+
+	<!-- Images -->
+	<string name="image_emptylist">Drop image files here to add them to your campaign.</string>
+	<string name="image_tooltip_listadd">Add Drawing</string>
+	<string name="image_message_nocopy">Image records can not be copied. Add new images in the campaign list by using the folder button, or dropping a file on the list.</string>
+	<string name="image_message_exists">Image record with same name already exists.</string>
+
+	<string name="image_menu_size">Resize</string>
+	<string name="image_menu_sizesmall">Small Size</string>
+	<string name="image_menu_sizeoriginal">Original Size</string>
+	<string name="image_menu_sizevertical">Adjust Vertical</string>
+	<string name="image_menu_sizehorizontal">Adjust Horizontal</string>
+	
+	<string name="image_tooltip_toolbarzoomtofit">Zoom To Fit</string>
+	<string name="image_tooltip_toolbarmask">Mask Mode</string>
+	<string name="image_tooltip_toolbardraw">Drawing Mode</string>
+	<string name="image_tooltip_toolbarerase">Eraser Mode</string>
+	<string name="image_tooltip_toolbargrid">Toggle Grid Toolbar</string>
+	<string name="image_tooltip_toolbargridleft">Move Grid Left</string>
+	<string name="image_tooltip_toolbargridup">Move Grid Up</string>
+	<string name="image_tooltip_toolbargridright">Move Grid Right</string>
+	<string name="image_tooltip_toolbargriddown">Move Grid Down</string>
+	<string name="image_tooltip_toolbargridplus">Make Grid Larger</string>
+	<string name="image_tooltip_toolbargridminus">Make Grid Smaller</string>
+	<string name="image_tooltip_toolbarselect">Selection Mode</string>
+	<string name="image_tooltip_toolbartarget">Target Mode</string>
+	<string name="image_tooltip_toolbartargetclear">Clear Targets</string>
+	<string name="image_tooltip_toolbartargetfriend">Target Friendly Units</string>
+	<string name="image_tooltip_toolbartargetfoe">Target Enemy Units</string>
+	<string name="image_tooltip_toolbarshortcut">Shortcut View Mode</string>
+	<string name="image_tooltip_toolbartokenlock">Token Movement Lock Mode</string>
+	<string name="image_tooltip_toolbarpreview">Player Vision Preview Mode</string>
+	<string name="image_tooltip_toolbarlock">Toggle Image Data Panel</string>
+	
+	<string name="image_label_unidentified">Non-ID Name</string>
+	
+	<!-- NPCs -->
+	<string name="npc_label_unidentified">Non-ID Name</string>
+	<string name="npc_label_size">Size</string>
+	<string name="npc_label_reach">Reach</string>
+	<string name="npc_label_skills">Rolls</string>
+	<string name="npc_label_items">Equipment</string>
+	<string name="npc_label_languages">Languages</string>
+	<string name="npc_button_import">Import NPC File</string>
+	
+	<!-- Encounters -->
+	<string name="battle_button_random">Random</string>
+	<string name="battle_button_generate">Generate</string>
+	<string name="battle_emptylist">Drop NPC links here to add to encounter.</string>
+	<string name="battle_label_token">Token</string>
+	<string name="battle_label_name">Name</string>
+	<string name="battle_label_placement">Placement:</string>
+	<string name="battle_tooltip_addct">Add encounter to combat tracker</string>
+	<string name="battle_message_wrong_source">Only records from campaign record lists can be added to encounters.</string>
+	
+	<!-- Encounters - Random -->
+	<string name="battlerandom_empty_expr">&#171; Ex: 1d6 &#187;</string>
+
+	<!-- Items -->
+	<string name="item_button_parcel">Parcels</string>
+	<string name="item_label_unidentified">Non-ID Name</string>
+	<string name="item_label_unidentifiednotes">Notes</string>
+	<string name="item_label_cost">Cost</string>
+	<string name="item_label_weight">Weight</string>
+
+	<!-- Parcels -->
+	<string name="parcel_emptylist">Drop item links here.</string>
+	<string name="parcel_label_money">Currency</string>
+	<string name="parcel_label_itemname">Item Name</string>
+
+	<!-- Vehicles -->
+	<string name="vehicle_grouped_label_name">Name</string>
+	<string name="vehicle_grouped_label_cost">Cost</string>
+	<string name="vehicle_grouped_label_weight">Wt</string>
+	<string name="vehicle_grouped_tooltip_weight">Weight</string>
+	<string name="vehicle_grouped_label_speed">Spd</string>
+	<string name="vehicle_grouped_tooltip_speed">Top Speed</string>
+	
+	<string name="vehicle_label_type">Type</string>
+	<string name="vehicle_label_cost">Cost</string>
+	<string name="vehicle_label_weight">Weight</string>
+	<string name="vehicle_label_speed">Speed</string>
+
+	<!-- Notes -->
+	<string name="note_label_owner">Owner:</string>
+	<string name="note_label_public">Public?</string>
+
+	<!-- Tables -->
+	<string name="table_window_title">Tables</string>
+	<string name="table_button_add_guided">Add Table By Size</string>
+
+	<string name="table_emptylabel">&#171; Label &#187;</string>
+	<string name="table_emptydesc">&#171; Description &#187;</string>
+	<string name="table_menu_linkdelete">Clear Link</string>
+	<string name="table_menu_more">More</string>
+	<string name="table_menu_rows2">2 Rows</string>
+	<string name="table_menu_rows4">4 Rows</string>
+	<string name="table_menu_rows6">6 Rows</string>
+	<string name="table_menu_rows8">8 Rows</string>
+	<string name="table_menu_rows10">10 Rows</string>
+	<string name="table_menu_rows20">20 Rows</string>
+	<string name="table_menu_rows100">100 Rows</string>
+	<string name="table_menu_step1">Step 1</string>
+	<string name="table_menu_step2">Step 2</string>
+	<string name="table_menu_step4">Step 4</string>
+	<string name="table_menu_step5">Step 5</string>
+	<string name="table_menu_step10">Step 10</string>
+	<string name="table_menu_step20">Step 20</string>
+	<string name="table_menu_step100">Step 100</string>
+	<string name="table_tooltip_rowadd">Add Row</string>
+	<string name="table_tooltip_coladd">Add Column</string>
+	<string name="table_tooltip_coldelete">Delete Column</string>
+	<string name="table_tooltip_rollshow">Show Roll Results</string>
+	<string name="table_tooltip_rollhide">Hide Roll Results</string>
+	<string name="table_label_roll">Roll</string>
+	<string name="table_label_showroll">Vis</string>
+	<string name="table_tooltip_showroll">Roll Visibility</string>
+	<string name="table_label_customroll">Custom</string>
+	<string name="table_label_output">Output</string>
+	<string name="table_label_output_chat">Chat</string>
+	<string name="table_label_output_story">Story</string>
+	<string name="table_label_output_parcel">Parcel</string>
+	<string name="table_label_output_encounter">Enc.</string>
+	
+	<string name="table_error_lookupfail">[ERROR] Unable to find table.</string>
+	<string name="table_error_tablematch">Unable to find matching table</string>
+	<string name="table_error_columnmatch">Unable to find result row or column</string>
+	<string name="table_error_sequentialfail">Sequential roll system for tables failed</string>
+	<string name="table_tag">TABLE</string>
+	<string name="table_result_tag">RESULT</string>
+
+	<string name="tableimport_window_title">Import Table</string>
+	<string name="tableimport_label_name">Name</string>
+	<string name="tableimport_empty_name">&#171; Enter table name here. &#187;</string>
+	<string name="tableimport_empty_text">&#171; Paste table data here. &#187;</string>
+	<string name="tableimport_label_datatype_simple">Simple</string>
+	<string name="tableimport_label_datatype_delimited">Delimited</string>
+	<string name="tableimport_label_datatype">Data Type</string>
+	<string name="tableimport_label_headerrow">Column headers in first row?</string>
+	<string name="tableimport_label_rangecol">Table ranges in first column?</string>
+	<string name="tableimport_label_delimiter">Delimiter</string>
+	<string name="tableimport_label_delimiter_comma">Comma</string>
+	<string name="tableimport_label_delimiter_pipe">Pipe</string>
+	<string name="tableimport_label_delimiter_colon">Colon</string>
+	<string name="tableimport_label_delimiter_semicolon">Semicolon</string>
+	<string name="tableimport_label_import">Import</string>
+
+	<!-- Reference -->
+	<string name="ref_window_title">Reference</string>
+	<string name="ref_label_weightsuffix">lb.</string>
+
+    <string name="ref_button_index_chapter_new">New Chapter</string>
+    <string name="ref_button_index_section_new">New Subchapter</string>
+    <string name="ref_button_index_page_new">New Page</string>
+    <string name="ref_button_index_keywordgen">Keyword Gen</string>
+    
+    <string name="ref_empty_index_chapter_name">&#171; New Chapter &#187;</string>
+    <string name="ref_empty_index_section_name">&#171; New Subchapter &#187;</string>
+    <string name="ref_empty_index_article_name">&#171; New Page &#187;</string>
+
+    <string name="ref_empty_block_header">&#171; Enter Text Here &#187;</string>
+    <string name="ref_empty_block_text">&#171; Enter Text Here &#187;</string>
+
+    <string name="ref_tooltip_moveup">Move Up</string>
+    <string name="ref_tooltip_movedown">Move Down</string>
+
+    <string name="ref_tooltip_index_keywordgen">Keyword Generation\n(May take a long time for large manuals)</string>
+
+    <string name="ref_tooltip_block_frame">Frame Selection</string>
+    <string name="ref_tooltip_block_image_linkclear">Clear Image Link</string>
+    <string name="ref_tooltip_block_image_scaleup">Scale Image Up</string>
+    <string name="ref_tooltip_block_image_scaledown">Scale Image Down</string>
+    <string name="ref_tooltip_block_image_sizeclear">Reset Image Size</string>
+
+    <string name="ref_tooltip_block_header">Header Block</string>
+    <string name="ref_tooltip_block_text">Text Block</string>
+    <string name="ref_tooltip_block_image">Image Block</string>
+    <string name="ref_tooltip_block_dualtext">Dual Text Block</string>
+    <string name="ref_tooltip_block_textlimager">Text Left / Image Right Block</string>
+    <string name="ref_tooltip_block_textrimagel">Image Left / Text Right Block</string>
+</root>

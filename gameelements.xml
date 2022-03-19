@@ -1,0 +1,392 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<!-- 
+  Please see the license.html file included with this distribution for 
+  attribution and copyright information.
+-->
+
+<root>
+	<desktopframe>desktop</desktopframe>
+
+	<tokenroot source="tokens" />
+
+	<characterdbroot>charsheet</characterdbroot>
+	
+	<!-- Can also use ARGB format for colors if you want to change transparency -->
+	<menusettings>
+		<radial>
+			<hubicon>menuhub</hubicon>
+			<backicon>menuback</backicon>
+			<background>menubackground</background>
+			<hubcolor>A08080</hubcolor>
+			<backgroundcolor>A08080</backgroundcolor>
+			<iconcolor>FFFFFF</iconcolor>
+		</radial>
+	</menusettings>
+
+	<chatsettings>
+		<icon link="button_link" />
+		<modeframe mode="chat" name="chatframe_chat" offset="15,5,5,5" />
+		<modeframe mode="story" name="chatframe_story" offset="15,10,15,10" />
+		<modeframe mode="whisper" name="chatframe_whisper" offset="15,5,5,5" />
+	</chatsettings>
+
+	<diebox>
+		<frame name="diebox" offset="11,4,11,4" />
+		<font expression="diceexpr" total="diemod" dieresult="dieresult"/>
+		<icons secret="gmdieicon" defaultdie="die_general_icon" />
+	</diebox>
+	
+	<pollbox>
+		<frame name="diebox" offset="4,4,4,4" />
+		<icons empty="poll_empty" positive="poll_check" negative="poll_negative" />
+	</pollbox>
+	
+	<hotkeybar>
+		<frame>hotkeybox</frame>
+		<location offset="0" height="33" />
+		<title frame="hotkeytitlebox" frameoffset="2,-2,5,2" margin="2,1" font="hotkey" />
+		<label margin="10,12" font="hotkey" />
+		<iconmargins>0,10,0,3</iconmargins>
+	</hotkeybar>
+
+	<tooltip>
+		<frame name="tooltipbox" margins="7,4,10,7" wrapwidth="300" />
+		<radial name="mini_name" margins="7,2,7,2" />
+		<font name="mini_name" />
+	</tooltip>
+	
+	<distance>
+		<font>distancelabel</font>
+	</distance>
+
+	<imagesettings>
+		<shortcut icon="image_pin" iconpublic="image_pin_public" hotspot="2,21" />
+	</imagesettings>
+	
+	<textsettings>
+		<selectioncolor>BCD2E9</selectioncolor>
+		<icon link="button_link" linkshare="button_link_share" emptylink="button_link_empty" chat="button_speak" />
+		<font simple="sheettext" normal="reference-r" bold="reference-b" italic="reference-i" bolditalic="reference-bi" title="reference-h" />
+	</textsettings>
+
+	<imageupdatefolder>
+		<folder>images</folder>
+		<rootnode>image</rootnode>
+		<field>image</field>
+		<namefield>name</namefield>
+	</imageupdatefolder>
+
+	<!-- Lighting/Vision -->
+	<!--
+		Lighting
+		key - internal string for referencing vision types for API calls
+		nameres - Name asset displayed in lighting dropdown
+		name - Alternate hard-coded text, if nameres not specified.
+		color - ARGB (hex string)
+		bright/dim - >=0 (integer; grid units)
+		animtype - [none, flicker, pulse, flash]
+		animspeed - 0-100  (percentage; from off to full speed)
+
+		Ambient Lighting
+		key - internal string for referencing vision types for API calls
+		nameres - Name asset displayed in lighting dropdown
+		name - Alternate hard-coded text, if nameres not specified.
+		color = ARGB (hex string)
+		shadowcolor = ARGB (hex string)
+		shadowangle = 0-359 (angle degrees)
+		shadowlength = 0-20 (floating point; grid units; mapped to closest 0.2 grid unit)
+
+		Vision (Max 3)
+		key - internal string for referencing vision types for API calls
+		nameres - Name asset displayed in lighting dropdown of IDC
+		name - Alternate hard-coded text, if nameres not specified.
+		color - ARGB (hex string) (dark end of gradiated range)
+		color2 - ARGB (hex string) (light end of gradiated range)
+			[If "color" not defined, then vision only increases standard lighting.]
+			[If only "color" defined, then assume color1 = black and color2 = defined color (i.e. fade to black)]
+		range - >=0 (default range) (integer; grid units)
+		intensity - 0-100 (percentage) (default = 100) (100=always bright, other # adds to normal lighting)
+		ignoredark - true/false (boolean) (default = false) (ignores inverse/darkness lights)
+	-->
+	<!-- Currently matches 5E settings by default -->
+	<lightingsettings>
+		<preset key="candle" nameres="lighting_candle" color="FFFFFCC3" bright="1" dim="2" animtype="flicker" animspeed="100" />
+		<preset key="lamp" nameres="lighting_lamp" color="FFFFF3E1" bright="3" dim="9" animtype="flicker" animspeed="25" />
+		<preset key="torch" nameres="lighting_torch" color="FFFFF3E1" bright="4" dim="8" animtype="flicker" animspeed="25" />
+		<preset key="lantern" nameres="lighting_lantern" color="FFF9FEFF" bright="6" dim="12" />
+		<preset key="spell_darkness" nameres="lighting_spell_darkness" color="FF000000" bright="3" dim="3" inverse="true" />
+		<preset key="spell_light" nameres="lighting_spell_light" color="FFFFF3E1" bright="4" dim="8" />
+		<ambientpreset key="dawn" nameres="ambient_lighting_dawn" color="FFFFDFBD" shadowcolor="650057BD" shadowangle="144" shadowlength="2" />
+		<ambientpreset key="sunlight" nameres="ambient_lighting_sunlight" color="FFFFF7E6" shadowcolor="9130525D" shadowangle="280" shadowlength="0.2" />
+		<ambientpreset key="dusk" nameres="ambient_lighting_dusk" color="FFFFC3A0" shadowcolor="313052BB" shadowangle="316" shadowlength="2" />
+		<ambientpreset key="moonlight" nameres="ambient_lighting_moonlight" color="91C9E7FF" shadowcolor="74195263" shadowangle="220" shadowlength="0.6" />
+	</lightingsettings>
+	<visionsettings>
+		<preset key="darkvision" nameres="vision_darkvision" gradcolor="FFFFFFFF" distance="12" />
+		<preset key="blindsight" nameres="vision_blindsight" gradcolor="FF7B96F9" distance="12" ignoredark="true" />
+		<preset key="truesight" nameres="vision_truesight" distance="12" ignoredark="true" />
+		<!--
+		<preset key="infravision" nameres="vision_infravision" gradcolor="FFFFEC04" gradcolor2="FFFF0000" distance="12" />
+		<preset key="nightvision" nameres="vision_nightvision" gradcolor="FF00FF00" gradcolor2="FF000000" distance="12" />
+		-->
+	</visionsettings>
+
+	<!-- Desktop Dice -->
+	<die name="dF">
+		<icon>d6icon</icon>
+		<position>420,-68</position>
+	</die>
+	<die name="d4">
+		<icon>d4icon</icon>
+		<position>370,-68</position>
+	</die>
+	<die name="d6">
+		<icon>d6icon</icon>
+		<position>320,-68</position>
+	</die>
+	<die name="d8">
+		<icon>d8icon</icon>
+		<position>270,-68</position>
+	</die>
+	<die name="d10">
+		<icon>d10icon</icon>
+		<position>220,-68</position>
+	</die>
+	<die name="d12">
+		<icon>d12icon</icon>
+		<position>170,-68</position>
+	</die>
+	<die name="d20">
+		<icon>d20icon</icon>
+		<position>120,-68</position>
+	</die>
+	
+	<die name="d100">
+		<icon>d10icon</icon>
+		<menuicon>percent</menuicon>
+	</die>
+	<customdie name="d3">
+		<model>d6</model>
+		<menuicon>customdice</menuicon>
+		<script>
+			function onValue(result)
+				return math.ceil(result/2);
+			end
+		</script>
+	</customdie>
+	<customdie name="d2">
+		<model>d6</model>
+		<menuicon>customdice</menuicon>
+		<script>
+			function onValue(result)
+				return math.ceil(result/3);
+			end
+		</script>
+	</customdie>
+
+	<!-- Colored Dice -->
+	<die name="rF">
+		<model>d6</model>
+		<icon>d6ricon</icon>
+	</die>
+	<die name="r4">
+		<model>d4</model>
+		<icon>d4ricon</icon>
+	</die>
+	<die name="r6">
+		<model>d6</model>
+		<icon>d6ricon</icon>
+	</die>
+	<die name="r8">
+		<model>d8</model>
+		<icon>d8ricon</icon>
+	</die>
+	<die name="r10">
+		<model>d10</model>
+		<icon>d10ricon</icon>
+	</die>
+	<die name="r12">
+		<model>d12</model>
+		<icon>d12ricon</icon>
+	</die>
+	<die name="r20">
+		<model>d20</model>
+		<icon>d20ricon</icon>
+	</die>
+	<die name="r100">
+		<model>d100</model>
+		<icon>d10ricon</icon>
+	</die>
+	<die name="r3">
+		<model>d6</model>
+		<icon>d6ricon</icon>
+		<script>
+			function onValue(result)
+				return math.ceil(result/2);
+			end
+		</script>
+	</die>
+	<die name="r2">
+		<model>d6</model>
+		<icon>d6ricon</icon>
+		<script>
+			function onValue(result)
+				return math.ceil(result/3);
+			end
+		</script>
+	</die>
+
+	<die name="gF">
+		<model>d6</model>
+		<icon>d6gicon</icon>
+	</die>
+	<die name="g4">
+		<model>d4</model>
+		<icon>d4gicon</icon>
+	</die>
+	<die name="g6">
+		<model>d6</model>
+		<icon>d6gicon</icon>
+	</die>
+	<die name="g8">
+		<model>d8</model>
+		<icon>d8gicon</icon>
+	</die>
+	<die name="g10">
+		<model>d10</model>
+		<icon>d10gicon</icon>
+	</die>
+	<die name="g12">
+		<model>d12</model>
+		<icon>d12gicon</icon>
+	</die>
+	<die name="g20">
+		<model>d20</model>
+		<icon>d20gicon</icon>
+	</die>
+	<die name="g100">
+		<model>d100</model>
+		<icon>d10gicon</icon>
+	</die>
+	<die name="g3">
+		<model>d6</model>
+		<icon>d6gicon</icon>
+		<script>
+			function onValue(result)
+				return math.ceil(result/2);
+			end
+		</script>
+	</die>
+	<die name="g2">
+		<model>d6</model>
+		<icon>d6gicon</icon>
+		<script>
+			function onValue(result)
+				return math.ceil(result/3);
+			end
+		</script>
+	</die>
+
+	<die name="bF">
+		<model>d6</model>
+		<icon>d6bicon</icon>
+	</die>
+	<die name="b4">
+		<model>d4</model>
+		<icon>d4bicon</icon>
+	</die>
+	<die name="b6">
+		<model>d6</model>
+		<icon>d6bicon</icon>
+	</die>
+	<die name="b8">
+		<model>d8</model>
+		<icon>d8bicon</icon>
+	</die>
+	<die name="b10">
+		<model>d10</model>
+		<icon>d10bicon</icon>
+	</die>
+	<die name="b12">
+		<model>d12</model>
+		<icon>d12bicon</icon>
+	</die>
+	<die name="b20">
+		<model>d20</model>
+		<icon>d20bicon</icon>
+	</die>
+	<die name="b100">
+		<model>d100</model>
+		<icon>d10bicon</icon>
+	</die>
+	<die name="b3">
+		<model>d6</model>
+		<icon>d6bicon</icon>
+		<script>
+			function onValue(result)
+				return math.ceil(result/2);
+			end
+		</script>
+	</die>
+	<die name="b2">
+		<model>d6</model>
+		<icon>d6bicon</icon>
+		<script>
+			function onValue(result)
+				return math.ceil(result/3);
+			end
+		</script>
+	</die>
+
+	<die name="pF">
+		<model>d6</model>
+		<icon>d6picon</icon>
+	</die>
+	<die name="p4">
+		<model>d4</model>
+		<icon>d4picon</icon>
+	</die>
+	<die name="p6">
+		<model>d6</model>
+		<icon>d6picon</icon>
+	</die>
+	<die name="p8">
+		<model>d8</model>
+		<icon>d8picon</icon>
+	</die>
+	<die name="p10">
+		<model>d10</model>
+		<icon>d10picon</icon>
+	</die>
+	<die name="p12">
+		<model>d12</model>
+		<icon>d12picon</icon>
+	</die>
+	<die name="p20">
+		<model>d20</model>
+		<icon>d20picon</icon>
+	</die>
+	<die name="p100">
+		<model>d100</model>
+		<icon>d10picon</icon>
+	</die>
+	<die name="p3">
+		<model>d6</model>
+		<icon>d6picon</icon>
+		<script>
+			function onValue(result)
+				return math.ceil(result/2);
+			end
+		</script>
+	</die>
+	<die name="p2">
+		<model>d6</model>
+		<icon>d6picon</icon>
+		<script>
+			function onValue(result)
+				return math.ceil(result/3);
+			end
+		</script>
+	</die>
+</root>

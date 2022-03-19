@@ -1,0 +1,511 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<!-- 
+  Please see the license.html file included with this distribution for 
+  attribution and copyright information.
+-->
+
+<root>
+	<string name="gmid_default">GM</string>
+
+	<!-- Setup Wizard -->
+	<string name="setup_window_title">Campaign Setup</string>
+	<string name="setup_button_next">Next &gt;&gt;</string>
+	<string name="setup_button_prev">&lt;&lt; Prev</string>
+	<string name="setup_button_finish">Finish</string>
+	<string name="setup_label_showonload">Show on load?</string>
+	<string name="setup_header_help">User Manual</string>
+	<string name="setup_text_help">Get started learning the FG campaign interface using these links.</string>
+	<string name="setup_button_manual">User Manual</string>
+	<string name="setup_button_wiki">Wiki User Guides</string>
+	<string name="setup_button_forums">Forums</string>
+	<string name="setup_header_purchases">Accessing Purchased Data</string>
+	<string name="setup_text_purchases">Data from purchased DLC products in FG is bundled into modules, which can be loaded and unloaded for each campaign. Click Next to load data modules, and again for token modules.</string>
+	<string name="setup_header_modules">Data Modules</string>
+	<string name="setup_text_modules">Choose data modules to load for this campaign.\nLoad individually using the Modules button, or choose a suggested set.\nManage any time using the Modules button under the Library section of the sidebar menu.</string>
+	<string name="setup_button_modules">Modules</string>
+	<string name="setup_header_options">Options</string>
+	<string name="setup_text_options">Customize the options for this campaign.\nManage any time via the Options button in the sidebar menu.</string>
+	<string name="setup_button_options">Options</string>
+
+	<string name="setup_url_manual">https://www.fantasygrounds.com/filelibrary/FantasyGroundsUserManual.pdf</string>
+	<string name="setup_url_userguides">https://fantasygroundsunity.atlassian.net/wiki/spaces/FGCP/pages/996639165/</string>
+	<string name="setup_url_forums">https://www.fantasygrounds.com/forums/</string>
+	<string name="setup_url_modules">https://fantasygroundsunity.atlassian.net/wiki/spaces/FGCP/pages/996640899/</string>
+	<string name="setup_url_options">https://fantasygroundsunity.atlassian.net/wiki/spaces/FGCP/pages/996642816/</string>
+	
+	<!-- Module Set Load -->
+	<string name="modulesetload_window_title">Module Set Load</string>
+	
+	<!-- Color -->
+	<string name="pointerselection_text">Click first circle to set user color (dice, pointers)\nClick second circle to toggle die text color.</string>
+	
+	<!-- Calendar -->
+	<string name="calendar_window_title">Calendar</string>
+	<string name="calendar_msg_empty">Calendar not selected for this campaign.</string>
+	<string name="calendar_msg_activate">Activate calendar module to set a calendar for this campaign.</string>
+	<string name="calendar_label_date">Date</string>
+	<string name="calendar_label_year">Year</string>
+	<string name="calendar_label_epoch">Era</string>
+	<string name="calendar_label_month">Month</string>
+	<string name="calendar_button_modules">Modules</string>
+	<string name="calendar_button_logview">View Log Entry</string>
+	<string name="calendar_button_logadd">Add Log Entry</string>
+	<string name="calendar_button_logviewall">All Logs</string>
+	<string name="calendar_menu_reset">Reset Calendar</string>
+	<string name="calendar_menu_resetconfirm">Confirm Reset</string>
+	<string name="calendar_menu_eventdelete">Delete Event</string>
+	<string name="calendar_menu_eventdeleteconfirm">Confirm Delete</string>
+	<string name="calendar_tooltip_dateoutput">Output Date To Chat</string>
+	<string name="calendar_tooltip_timeoutput">Output Time To Chat</string>
+	<string name="calendar_tooltip_dateset">Set Selected Date as Current Date</string>
+
+	<!-- Calendar log -->
+	<string name="calendar_loglist_title">Logs</string>
+	<string name="calendar_logentry_emptyname">&#171; New Log Entry &#187;</string>
+	<string name="calendar_logentry_gmheader">GM</string>
+	<string name="calendar_logentry_pcheader">PLAYER</string>
+	
+	<!-- Dialog - Select -->
+	<string name="dialog_select_title">Choose</string>
+	
+	<!-- Effects -->
+	<string name="effect_tag">EFFECT</string>
+	<string name="effects_tag">EFFECTS</string>
+	<string name="effects_def_tag">DEF EFFECTS</string>
+	
+	<string name="effect_label_presets">Presets</string>
+	<string name="effect_label_custom">Custom</string>
+	<string name="effect_header_lights">Lights</string>
+	<string name="effect_header_conditions">Conditions</string>
+
+	<string name="effect_label_durunitrnd">RND</string>
+	<string name="effect_label_durunitmin">MIN</string>
+	<string name="effect_label_durunithr">HR</string>
+	<string name="effect_label_durunitday">DAY</string>
+
+	<string name="effect_tooltip_applyone">One Action</string>
+	<string name="effect_tooltip_applyroll">One Roll</string>
+	<string name="effect_tooltip_applysingle">Apply Each Once</string>
+	<string name="effect_tooltip_applyall">All Rolls</string>
+
+	<string name="effect_label">Effect</string>
+	<string name="effect_status_singleused">SINGLE MOD USED</string>
+	<string name="effect_status_expired">EXPIRED</string>
+	<string name="effect_status_disabled">DISABLED</string>
+	<string name="effect_status_deactivated">DEACTIVATED</string>
+	<string name="effect_status_exists">ALREADY EXISTS</string>
+
+	<string name="effect_status_updated">UPDATED</string>
+	<string name="effect_status_allowsave">ALLOWS SAVE</string>
+	<string name="effect_status_replaceshorter">REPLACED SHORTER</string>
+	<string name="effect_status_replaceweaker">REPLACED WEAKER</string>
+	<string name="effect_status_strongerexists">STRONGER EFFECT EXISTS</string>
+	<string name="effect_status_targetimmune">TARGET IMMUNE</string>
+	<string name="effect_status_targetpartialimmune">TARGET PARTIALLY IMMUNE</string>
+
+	<!-- Modifiers -->
+	<string name="modifierwindow_label_presets">Presets</string>
+	<string name="modifierwindow_label_custom">Custom</string>
+	<string name="modifierkey_label_toggle">Toggle</string>
+
+	<!-- Export -->
+	<string name="export_window_title">Module Export</string>
+	<string name="export_label_file">File name</string>
+	<string name="export_empty_file">&#171; Module file name [required] &#187;</string>
+	<string name="export_tooltip_clear">Clear</string>
+	<string name="export_label_thumbnail">Thumbnail</string>
+	<string name="export_empty_thumbnail">&#171; Thumbnail icon file [optional] &#187;</string>
+	<string name="export_label_name">Name</string>
+	<string name="export_empty_name">&#171; Module internal name [required] &#187;</string>
+	<string name="export_label_displayname">Display Name</string>
+	<string name="export_empty_displayname">&#171; Module display name [optional] &#187;</string>
+	<string name="export_label_category">Category</string>
+	<string name="export_empty_category">&#171; Category label &#187;</string>
+	<string name="export_label_author">Author</string>
+	<string name="export_empty_author">&#171; Author label &#187;</string>
+	<string name="export_label_readonly">Read Only?</string>
+	<string name="export_label_playervisible">Player Module?</string>
+	<string name="export_label_anyruleset">Any Ruleset?</string>
+	<string name="export_label_recordtypes">Exported Record Types</string>
+	<string name="export_label_recordtypes_bottom">Click checkbox to export all records of that type\nDrop links to export individual records</string>
+	<string name="export_label_recordviews">Exported Record Views</string>
+	<string name="export_label_tokens">Exported Tokens</string>
+	<string name="export_label_tokens_bottom">Non-module tokens referenced in exported data are included automatically</string>
+	<string name="export_button_selectall">All</string>
+	<string name="export_button_deselectall">None</string>
+	<string name="export_button">Export</string>
+	<string name="export_button_clear">Clear</string>
+	<string name="export_error_name">Module name not specified</string>
+	<string name="export_error_file_empty">Module file name not specified</string>
+	<string name="export_error_file_invalid">Module file name contains invalid characters</string>
+	<string name="export_error_token">Only non-module tokens can be exported</string>
+	<string name="export_message_success">Module exported successfully</string>
+	<string name="export_message_failure">Module export failed!</string>
+	<string name="export_tooltip_file_empty">File name can not be empty</string>
+	<string name="export_tooltip_file_invalid">File name contains invalid characters</string>
+	<string name="export_empty_recordtype_single">&#171; Empty Name &#187;</string>
+	<string name="export_missing_recordtype_single">&#171; Missing Link &#187;</string>
+	
+	<!-- Library -->
+    <string name="library_category_label_tool">Tool</string>
+    <string name="library_category_label_library">Library</string>
+    <string name="library_category_label_player">Player</string>
+    <string name="library_category_label_campaign">Campaign</string>
+    <string name="library_category_label_create">Character</string>
+
+	<string name="library_window_title">Modules</string>
+	<string name="library_button_modules">Activation</string>
+	<string name="library_button_export">Export</string>
+	<string name="library_button_referencemanual">Builder</string>
+
+	<string name="library_empty_types">No library data types registered. Something went wrong, check your extensions.</string>
+	<string name="library_empty_books">Click on the Activation button below to add modules to your campaign.</string>
+	<string name="library_empty_pages">No indexes created for this module. Please check the individual campaign record listings.</string>
+
+	<!-- Fixed master index string resources -->
+	<string name="library_recordtype_filter_yes">Yes</string>
+	<string name="library_recordtype_filter_no">No</string>
+	<string name="library_recordtype_filter_empty">(Empty)</string>
+
+	<!-- Common record type string resources -->
+	<string name="library_recordtype_label_effect">Effects</string>
+	<string name="library_recordtype_label_modifier">Modifiers</string>
+	<string name="library_recordtype_label_referencemanualpage">Reference Manual</string>
+	
+	<string name="library_recordtype_label_charsheet">Characters</string>
+	<string name="library_recordtype_label_story">Story</string>
+	<string name="library_recordtype_label_storytemplate">Story Templates</string>
+	<string name="library_recordtype_label_quest">Quests</string>
+	<string name="library_recordtype_label_image">Images</string>
+	<string name="library_recordtype_label_npc">NPCs</string>
+	<string name="library_recordtype_label_battle">Encounters</string>
+	<string name="library_recordtype_label_battlerandom">Encounters (Random)</string>
+	<string name="library_recordtype_label_item">Items</string>
+	<string name="library_recordtype_label_treasureparcel">Parcels</string>
+	<string name="library_recordtype_label_note">Notes</string>
+	<string name="library_recordtype_label_table">Tables</string>
+	<string name="library_recordtype_label_vehicle">Vehicles</string>
+	
+	<string name="library_recordtype_single_effect">Effects</string>
+	<string name="library_recordtype_single_modifier">Modifiers</string>
+	<string name="library_recordtype_single_charsheet">Character</string>
+	<string name="library_recordtype_single_note">Note</string>
+	<string name="library_recordtype_single_story">Story</string>
+	<string name="library_recordtype_single_storytemplate">Story Template</string>
+	<string name="library_recordtype_single_quest">Quest</string>
+	<string name="library_recordtype_single_image">Image</string>
+	<string name="library_recordtype_single_npc">NPC</string>
+	<string name="library_recordtype_single_battle">Encounter</string>
+	<string name="library_recordtype_single_battlerandom">Encounter (Random)</string>
+	<string name="library_recordtype_single_item">Item</string>
+	<string name="library_recordtype_single_treasureparcel">Parcel</string>
+	<string name="library_recordtype_single_table">Table</string>
+	<string name="library_recordtype_single_vehicle">Vehicle</string>
+	
+	<string name="library_recordtype_empty_charsheet">&#171; Name &#187;</string>
+	<string name="library_recordtype_empty_story">&#171; New Story &#187;</string>
+	<string name="library_recordtype_empty_storytemplate">&#171; New Story Template &#187;</string>
+	<string name="library_recordtype_empty_quest">&#171; New Quest &#187;</string>
+	<string name="library_recordtype_empty_image">&#171; New Image &#187;</string>
+	<string name="library_recordtype_empty_npc">&#171; New Personality &#187;</string>
+	<string name="library_recordtype_empty_battle">&#171; New Encounter &#187;</string>
+	<string name="library_recordtype_empty_battlerandom">&#171; New Encounter (Random) &#187;</string>
+	<string name="library_recordtype_empty_item">&#171; New Item &#187;</string>
+	<string name="library_recordtype_empty_treasureparcel">&#171; New Parcel &#187;</string>
+	<string name="library_recordtype_empty_note">&#171; New Note &#187;</string>
+	<string name="library_recordtype_empty_table">&#171; New Table &#187;</string>
+	<string name="library_recordtype_empty_vehicle">&#171; New Vehicle &#187;</string>
+	
+	<string name="library_recordtype_empty_nonid_image">Unidentified Map / Image</string>
+	<string name="library_recordtype_empty_nonid_item">Unidentified Item</string>
+	<string name="library_recordtype_empty_nonid_npc">Unidentified Creature</string>
+	
+	<string name="library_recordtype_export_charsheet">Pregenerated Characters</string>
+
+	<string name="library_recordview_label_vehicle_bytype">By Type</string>
+
+	<!-- Common derived record type string resources -->
+	<string name="library_recordtype_label_background">Backgrounds</string>
+	<string name="library_recordtype_label_class">Classes</string>
+	<string name="library_recordtype_label_feat">Feats</string>
+	<string name="library_recordtype_label_itemtemplate">Item Templates</string>
+	<string name="library_recordtype_label_power">Powers</string>
+	<string name="library_recordtype_label_race">Races</string>
+	<string name="library_recordtype_label_skill">Skills</string>
+	<string name="library_recordtype_label_specialability">Special Abilities</string>
+	<string name="library_recordtype_label_spell">Spells</string>
+	<string name="library_recordtype_label_talent">Talents</string>
+
+	<string name="library_recordtype_single_background">Background</string>
+	<string name="library_recordtype_single_class">Class</string>
+	<string name="library_recordtype_single_feat">Feat</string>
+	<string name="library_recordtype_single_itemtemplate">Item Template</string>
+	<string name="library_recordtype_single_power">Power</string>
+	<string name="library_recordtype_single_race">Race</string>
+	<string name="library_recordtype_single_skill">Skill</string>
+	<string name="library_recordtype_single_specialability">Special Ability</string>
+	<string name="library_recordtype_single_spell">Spell</string>
+	<string name="library_recordtype_single_talent">Talent</string>
+
+	<string name="library_recordtype_empty_background">&#171; New Background &#187;</string>
+	<string name="library_recordtype_empty_class">&#171; New Class &#187;</string>
+	<string name="library_recordtype_empty_feat">&#171; New Feat &#187;</string>
+	<string name="library_recordtype_empty_itemtemplate">&#171; New Item Template &#187;</string>
+	<string name="library_recordtype_empty_power">&#171; New Power &#187;</string>
+	<string name="library_recordtype_empty_race">&#171; New Race &#187;</string>
+	<string name="library_recordtype_empty_skill">&#171; New Skill &#187;</string>
+	<string name="library_recordtype_empty_specialability">&#171; New Special Ability &#187;</string>
+	<string name="library_recordtype_empty_spell">&#171; New Spell &#187;</string>
+	<string name="library_recordtype_empty_talent">&#171; New Talent &#187;</string>
+
+	<string name="library_recordview_label_feat_bytype">By Type</string>
+
+	<string name="library_recordview_label_item_armor">Armor</string>
+	<string name="library_recordview_label_item_equipment">Goods and Services</string>
+	<string name="library_recordview_label_item_vehicledrawn">Tack, Harness, And Drawn Vehicles</string>
+	<string name="library_recordview_label_item_vehiclemount">Mounts And Other Animals</string>
+	<string name="library_recordview_label_item_vehiclewater">Waterborne Vehicles</string>
+	<string name="library_recordview_label_item_weapon">Weapons</string>
+
+	<string name="library_recordview_label_npc_bycr">By CR</string>
+	<string name="library_recordview_label_npc_byhd">By HD</string>
+	<string name="library_recordview_label_npc_byletter">By Letter</string>
+	<string name="library_recordview_label_npc_bylevel">By Level</string>
+	<string name="library_recordview_label_npc_byrole">By Role</string>
+	<string name="library_recordview_label_npc_bytype">By Type</string>
+
+	<string name="library_recordview_label_spell_byclass">By Class</string>
+	<string name="library_recordview_label_spell_bylevel">By Level</string>
+	<string name="library_recordview_label_spell_byschool">By School</string>
+
+	<string name="library_recordview_label_specialability_bytype">By Type</string>
+	
+	<!-- Master Index -->
+	<string name="masterindex_label_category">Group</string>
+	<string name="masterindex_label_category_all">(All)</string>
+	<string name="masterindex_label_category_empty">(Uncategorized)</string>
+	<string name="masterindex_label_filter_sharedonly_all">All</string>
+	<string name="masterindex_label_filter_sharedonly_shared">Shared</string>
+	<string name="masterindex_tooltip_filter_sharedonly">Filter by sharing mode</string>
+	<string name="masterindex_button_category_editon">Edit Groups</string>
+	<string name="masterindex_button_category_editoff">Stop Editing Groups</string>
+	<string name="masterindex_button_category_add">Add Category</string>
+	<string name="masterindex_button_category_delete">Delete Category</string>
+	<string name="masterindex_suffix_duplicate">(Copy)</string>
+	
+	<!-- Modules -->
+	<string name="module_window_title">Module Activation</string>
+	<string name="module_stateblocked">Player load blocked</string>
+	<string name="module_stateallowed">Player load allowed</string>
+	<string name="module_block">Block player load</string>
+	<string name="module_allow">Allow player load</string>
+	<string name="module_menu_revert">Revert Changes</string>
+	<string name="module_load">Load</string>
+	<string name="module_unload">Unload</string>
+
+	<string name="modulepermission_menu_allowall">Allow All Modules</string>
+	<string name="modulepermission_menu_allowallconfirm">Confirm Allow All</string>
+	<string name="modulepermission_menu_disallowall">Disallow All Modules</string>
+	<string name="modulepermission_menu_disallowallconfirm">Confirm Disallow All</string>
+
+	<string name="module_dialog_missinglink_title">Module Load</string>
+	<string name="module_message_missinglink">A module you are attempting to use is not loaded.&#0010;&#0010;%s&#0010;&#0010;Activate module and attempt to open the link again?</string>
+	<string name="module_message_missinglink_wildcard_battle">One or more NPC records in the encounter added to combat tracker uses wildcard links, but no module containing that NPC has been activated. Check your active Library modules.</string>
+	<string name="module_message_missinglink_wildcard">Unable to open window using wildcard link, because no module containing that link is open. Check your active Library modules.</string>
+	
+	<string name="module_empty_filter_name">(Search By Name)</string>
+	<string name="module_empty_filter_author">(Search By Author)</string>
+	<string name="module_label_filter_loaded_any">Load Filter</string>
+	<string name="module_label_filter_loaded_on">Loaded</string>
+	<string name="module_label_filter_loaded_off">Not Loaded</string>
+	<string name="module_label_filter_shared_any">Share Filter</string>
+	<string name="module_label_filter_shared_on">Shared</string>
+	<string name="module_label_filter_shared_off">Not Shared</string>
+	<string name="module_label_filter_ruleset_any">Ruleset Filter</string>
+	<string name="module_label_filter_ruleset_specific">Ruleset</string>
+	<string name="module_label_filter_ruleset_generic">Generic</string>
+
+	<!-- Options -->
+	<string name="option_window_title">Options</string>
+	<string name="option_empty">Unknown Option</string>
+	<string name="option_emptyset">&#171; Option Set &#187;</string>
+	<string name="option_header_client">Per User</string>
+	<string name="option_header_game">Game</string>
+	<string name="option_header_combat">Combat</string>
+	<string name="option_header_token">Token</string>
+	<string name="option_header_houserule">House Rules</string>
+	<string name="option_label_MANUALROLL">Dice: Manual entry</string>
+	<string name="option_label_CMAT">Turn: Auto-center map</string>
+	<string name="option_label_CWHR">Chat: Ring on whisper</string>
+	<string name="option_label_CTAV">Chat: Set GM voice to active CT</string>
+	<string name="option_label_SHPW">Chat: Show all whispers to GM</string>
+	<string name="option_label_REVL">Chat: Show GM rolls</string>
+	<string name="option_label_PSIN">Party: Show inventory to players</string>
+	<string name="option_label_TBOX">Table: Dice tower</string>
+	<string name="option_label_NNPC">Combat: NPC numbering</string>
+	<string name="option_label_RING">Player: Ring bell on turn</string>
+	<string name="option_label_CTSI">Player: Show turn order</string>
+	<string name="option_label_RSHT">Turn: Show notice to players</string>
+	<string name="option_label_RSHE">Turn: Show effects on notice</string>
+	<string name="option_label_CTSD">Turn: Skip dead non-ally</string>
+	<string name="option_label_CTSH">Turn: Skip hidden actor</string>
+	<string name="option_label_RNDS">Turn: Stop at round start</string>
+	<string name="option_label_TASG">Token: Auto-scale to grid</string>
+	<string name="option_label_TFAC">Token: Facing indicator</string>
+	<string name="option_label_TPTY">Token: Party vision and movement</string>
+	<string name="option_label_TNAM">Token: Show name</string>
+	<string name="option_label_CURR">Party: Use currency weight</string>
+	<string name="option_label_HRDD">Map: Diagonal distance</string>
+
+	<string name="option_val_on">On</string>
+	<string name="option_val_off">Off</string>
+	<string name="option_val_all">All</string>
+	<string name="option_val_friendly">Friendly</string>
+	<string name="option_val_variant">Variant</string>
+	<string name="option_val_roll">Roll</string>
+	<string name="option_val_max">Max</string>
+	<string name="option_val_mod">Mod</string>
+	<string name="option_val_always">Always</string>
+	<string name="option_val_ctrl">Ctrl</string>
+	<string name="option_val_append">Append</string>
+	<string name="option_val_random">Random</string>
+	<string name="option_val_tooltip">Tooltip</string>
+	<string name="option_val_title">Title</string>
+	<string name="option_val_titlehover">Title Hover</string>
+	<string name="option_val_scale80">80% of grid</string>
+	<string name="option_val_scale100">100% of grid</string>
+	<string name="option_val_1">1</string>
+	<string name="option_val_2">2</string>
+	<string name="option_val_3">3</string>
+	<string name="option_val_4">4</string>
+	<string name="option_val_5">5</string>
+
+	<string name="option_val_x1">1x</string>
+	<string name="option_val_x1_5">1.5x</string>
+	<string name="option_val_raw">Raw</string>
+	
+	<!-- Options - Used in most rulesets, but not in base CoreRPG -->
+	<string name="option_label_INIT">Combat: Auto NPC initiative</string>
+	<string name="option_label_RMMT">Target: Remove on miss</string>
+	<string name="option_label_PSMN">Party: Show characters to clients</string>
+	<string name="option_label_SHRR">Chat: Show results to client</string>
+
+	<string name="option_val_group">Group</string>
+	<string name="option_val_multi">Multi</string>
+	<string name="option_val_pc">PC</string>
+	<string name="option_val_npc">NPC</string>
+
+	<string name="option_label_HRFC">Attack: Fumble/Crit Tables</string>
+	<string name="option_label_HRIR">Combat: Roll init each round</string>
+	<string name="option_label_HRST">Combat: Auto stabilization rolls</string>
+
+	<string name="option_val_fumbleandcrit">Fumble and Crit</string>
+	<string name="option_val_fumble">Fumble</string>
+	<string name="option_val_crit">Crit</string>
+
+	<string name="option_label_BARC">Token: Bar Colors</string>
+	<string name="option_label_TESZ">Token: Effect Icon Size</string>
+	<string name="option_label_SHPC">Combat: Ally health player display</string>
+	<string name="option_label_SHNPC">Combat: Enemy health player display</string>
+	<string name="option_label_WNDC">Combat: Wound Categories</string>
+	<string name="option_label_TGME">Token (GM): Show effects</string>
+	<string name="option_label_TGMH">Token (GM): Show health</string>
+	<string name="option_label_TNPCE">Token (Player): Show Enemy effects</string>
+	<string name="option_label_TNPCH">Token (Player): Show Enemy health</string>
+	<string name="option_label_TPCE">Token (Player): Show Ally effects</string>
+	<string name="option_label_TPCH">Token (Player): Show Ally health</string>
+
+	<string name="option_val_tiered">Tiered</string>
+	<string name="option_val_detailed">Detailed</string>
+	<string name="option_val_status">Status</string>
+	<string name="option_val_standard">Standard</string>
+	<string name="option_val_small">Small</string>
+	<string name="option_val_large">Large</string>
+	<string name="option_val_simple">Simple</string>
+	<string name="option_val_icons">Icons</string>
+	<string name="option_val_iconshover">Icons Hover</string>
+	<string name="option_val_mark">Mark</string>
+	<string name="option_val_markhover">Mark Hover</string>
+	<string name="option_val_bar">Bar</string>
+	<string name="option_val_barhover">Bar Hover</string>
+	<string name="option_val_dot">Dot</string>
+	<string name="option_val_dothover">Dot Hover</string>
+	
+	<!-- Options - Misc -->
+	<string name="option_label_languages">Languages</string>
+	<string name="option_label_currencies">Currencies</string>
+	<string name="option_label_decalselect">Background Decal</string>
+	<string name="option_label_setup">Setup</string>
+	<string name="option_label_tokenlights">Token Lights</string>
+	<string name="option_label_motd">Message of the Day</string>
+	<string name="option_tooltip_drag">Drag to hot key to set this value when pressed</string>
+	<string name="option_command_error_not_registered">Option (%s) not registered</string>
+	<string name="option_command_result_set">Setting option (%s) = %s</string>
+	<string name="option_command_result_get">Option (%s) = %s</string>
+	
+	<!-- Languages -->
+	<string name="language_window_title">Languages</string>
+	
+	<!-- Currencies -->
+	<string name="currency_window_title">Currencies</string>
+	
+	<!-- Token Lights -->
+	<string name="tokenlight_window_title">Token Lights</string>
+	<string name="tokenlight_label_color">Color</string>
+	<string name="tokenlight_label_bright">Bright</string>
+	<string name="tokenlight_label_dim">Dim</string>
+	<string name="tokenlight_label_falloff">Falloff</string>
+	<string name="tokenlight_label_animtype">Animation</string>
+	<string name="tokenlight_label_animtype_flash">Flash</string>
+	<string name="tokenlight_label_animtype_flicker">Flicker</string>
+	<string name="tokenlight_label_animtype_pulse">Pulse</string>
+	<string name="tokenlight_label_animspeed">Speed</string>
+	<string name="tokenlight_header_effect">Effect</string>
+	<string name="tokenlight_label_tag">Tag</string>
+	<string name="tokenlight_label_duration">Duration</string>
+
+	<!-- MotD -->
+	<string name="motd_window_title">Message of the Day</string>
+	<string name="motd_empty">Click to enter text\ror drag and drop Story entry to icon in upper right to replace.</string>
+	<string name="motd_tooltip_replace">Drag Story entry here\nto replace Message of the Day text</string>
+	
+	<!-- Tokens -->
+	<string name="assetview_window_title">Assets</string>
+	<string name="asset_preview_window_title">Preview</string>
+	<string name="asset_preview_import">Create Image Record</string>
+	<string name="asset_preview_decal">Set Background Decal</string>
+	<string name="tokenbag_window_title">Tokens</string>
+	<string name="tokenbag_zoomin">Zoom In</string>
+	<string name="tokenbag_zoomout">Zoom Out</string>
+	<string name="tokenbag_button_host">GM</string>
+	<string name="tokenbag_button_shared">Shared</string>
+	<string name="tokenbag_button_modules">Modules</string>
+	<string name="assetview_button_filter_token">Tokens</string>
+	<string name="assetview_button_filter_portrait">Portraits</string>
+	<string name="assetview_button_filter_image">Images</string>
+	<string name="assetview_button_filter_all">All</string>
+	<string name="assetview_path_filter">Filter</string>
+	<string name="assetview_switchview">Toggle Grid/List</string>
+	<string name="assetview_empty">No assets found,\ror filter too short (min 3 letters).</string>
+	
+	<!-- Manual Roll -->
+	<string name="button_manualroll">Rolls</string>
+	<string name="manualroll_window_title">Manual Dice Entry</string>
+	<string name="manualroll_label_resolve">Resolve</string>
+	<string name="manualroll_label_rolltype">Roll Type:</string>
+	<string name="manualroll_label_rollexpr">Expression:</string>
+	<string name="manualroll_label_desc">Description:</string>
+	<string name="manualroll_label_source">Roller:</string>
+	<string name="manualroll_label_targets">Targets:</string>
+	<string name="message_manualroll">MANUAL ROLL</string>
+
+	<!-- Portrait Select -->
+	<string name="portraitselect_window_title">Select Portrait</string>
+	<string name="portraitselect_empty">No portrait assets found.</string>
+
+	<!-- Decal Select -->
+	<string name="decalselect_window_title">Select Decal</string>
+	<string name="decalselect_empty">No decal assets found.</string>
+	<string name="decalselect_button_clear">Clear</string>
+</root>

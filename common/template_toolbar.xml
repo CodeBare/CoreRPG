@@ -1,0 +1,359 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<!-- 
+  Please see the license.html file included with this distribution for 
+  attribution and copyright information.
+-->
+
+<root>
+	<!-- ICONS -->
+	<!-- Assume 24x24 for toolbar_30 icons -->
+  <icon name="tool_zoomtofit_30" file="graphics/toolbar/tool_zoomtofit_30.png" />
+
+  <icon name="tool_toggle_30" file="graphics/toolbar/tool_toggle_30.png" />
+
+  <icon name="tool_select_30" file="graphics/toolbar/tool_select_30.png" />
+
+  <icon name="tool_paint_30" file="graphics/toolbar/tool_paint_30.png" />
+  <icon name="tool_erase_30" file="graphics/toolbar/tool_erase_30.png" />
+  <icon name="tool_mask_30" file="graphics/toolbar/tool_mask_30.png" />
+  <icon name="tool_grid_30" file="graphics/toolbar/tool_grid_30.png" />
+
+  <icon name="tool_left_30" file="graphics/toolbar/tool_arrow_left_30.png" />
+  <icon name="tool_right_30" file="graphics/toolbar/tool_arrow_right_30.png" />
+  <icon name="tool_up_30" file="graphics/toolbar/tool_arrow_up_30.png" />
+  <icon name="tool_down_30" file="graphics/toolbar/tool_arrow_down_30.png" />
+  <icon name="tool_plus_30" file="graphics/toolbar/tool_plus_30.png" />
+  <icon name="tool_minus_30" file="graphics/toolbar/tool_minus_30.png" />
+  
+  <icon name="tool_target_select_30" file="graphics/toolbar/tool_target_select_30.png" />
+  <icon name="tool_target_clear_30" file="graphics/toolbar/tool_target_clear_30.png" />
+  <icon name="tool_target_enemies_30" file="graphics/toolbar/tool_target_enemies_30.png" />
+  <icon name="tool_target_allies_30" file="graphics/toolbar/tool_target_allies_30.png" />
+
+	<icon name="tool_shortcut_30" file="graphics/toolbar/tool_shortcut.png" />
+	<icon name="tool_tokenlocked_30" file="graphics/toolbar/tool_token_locked.png" />
+	<icon name="tool_preview_30" file="graphics/toolbar/tool_preview.png" />
+	<icon name="tool_lock_open" file="graphics/toolbar/tool_lock_open.png" />
+	<icon name="tool_lock_closed" file="graphics/toolbar/tool_lock_closed.png" />
+
+	<!-- FRAMES -->
+	<framedef name="toolbar_30">
+		<bitmap file="graphics/toolbar/toolbar_30.png"/>
+		<topleft rect="0,0,4,3" />
+		<top rect="4,0,32,3" />
+		<topright rect="62,0,4,3" />
+		<left rect="0,3,4,28" />
+		<middle rect="4,3,32,28" />
+		<right rect="62,3,4,28" />
+		<bottomleft rect="0,31,4,3" />
+		<bottom rect="4,31,32,3" />
+		<bottomright rect="62,31,4,3" />
+	</framedef>
+	
+	<framedef name="toolbar_back">
+		<bitmap file="graphics/toolbar/toolbar_back.png"/>
+		<middle rect="0,0,128,128" />
+	</framedef>
+
+    <!-- TEMPLATES -->
+ 	<template name="toolbar_30">
+		<genericcontrol>
+			<parameters>
+				<horzmargin>2</horzmargin>
+				<vertmargin>2</vertmargin>
+				<buttonsize>30</buttonsize>
+			</parameters>
+			<frame name="toolbar_30" />
+			<button mergerule="resetandadd" />
+			<script file="common/scripts/toolbar.lua" />
+		</genericcontrol>
+	</template>
+	<template name="toolbar_button_color_base">
+		<buttoncontrol>
+			<iconcolor>485154</iconcolor>
+		</buttoncontrol>
+	</template>
+   	<template name="toolbar_button">
+		<toolbar_button_color_base>
+			<anchored position="insidetopleft" />
+			<invisible/>
+			<script file="common/scripts/toolbar_button.lua" />
+		</toolbar_button_color_base>
+    </template>
+
+	<!-- Image Toolbar Specific -->
+	<template name="image_toolbar_anchor">
+		<genericcontrol name="toolbar_anchor">
+			<anchored position="insidetopright" offset="10,1" width="0" height="34" />
+			<disabled />
+		</genericcontrol>
+	</template>
+	<template name="image_toolbar_button">
+		<toolbar_button_color_base>
+			<anchored to="toolbar_anchor" width="34" height="34">
+				<top />
+				<right anchor="left" relation="relative" />
+			</anchored>
+			<frame name="toolbar_30" />
+		</toolbar_button_color_base>
+	</template>
+	<template name="image_toolbar_separator">
+		<genericcontrol>
+			<anchored to="toolbar_anchor" width="10" height="34">
+				<top />
+				<right anchor="left" relation="relative" />
+			</anchored>
+			<invisible />
+		</genericcontrol>
+	</template>
+	<template name="image_toolbar_button_fixed">
+		<image_toolbar_button>
+			<script>
+				function onInit()
+					if icon then
+						local sColor;
+						if iconcolor and iconcolor[1] then
+							sColor = "FF" .. iconcolor[1];
+						else
+							sColor = "FFFFFFFF";
+						end
+
+						setStateIcons(0, icon[1]);
+						setStateColor(0, sColor);
+					end
+				end
+			</script>
+		</image_toolbar_button>
+	</template>
+	<template name="image_toolbar_button_toggle">
+		<image_toolbar_button>
+			<script>
+				function onInit()
+					if icon then
+						local sColor0, sColor1;
+						if iconcolor and iconcolor[1] then
+							if invertalpha then
+								sColor0 = "FF" .. iconcolor[1];
+								sColor1 = "60" .. iconcolor[1];
+							else
+								sColor0 = "60" .. iconcolor[1];
+								sColor1 = "FF" .. iconcolor[1];
+							end
+						else
+							if invertalpha then
+								sColor0 = "FFFFFFFF";
+								sColor1 = "60A0A0A0";
+							else
+								sColor0 = "60A0A0A0";
+								sColor1 = "FFFFFFFF";
+							end
+						end
+
+						setStateIcons(0, icon[1]);
+						setStateColor(0, sColor0);
+						if icon2 then
+							setStateIcons(1, icon2[1]);
+						else
+							setStateIcons(1, icon[1]);
+						end
+						setStateColor(1, sColor1);
+					end
+				end
+				function setValueByBoolean(bState)
+					if bState then
+						setValue(1);
+					else
+						setValue(0);
+					end
+				end
+			</script>
+		</image_toolbar_button>
+	</template>
+	<template name="image_toolbar_mode_toggle">
+		<image_toolbar_button_toggle>
+			<script>
+				function updateState(sCursorMode)
+					if mode then
+						if sCursorMode == mode[1] then
+							setValue(1);
+						else
+							setValue(0);
+						end
+					end
+				end
+				function onButtonPress()
+					if mode then
+						local image = window.getImage();
+						local sTool = image.getCursorMode();
+						local bState = (sTool ~= mode[1]);
+						if onToggle then
+							onToggle(bState);
+						end
+						if bState then
+							image.setCursorMode(mode[1]);
+						else
+							image.setCursorMode("");
+						end
+					end
+				end
+			</script>
+		</image_toolbar_button_toggle>
+	</template>
+	<template name="image_toolbar_button_zoomtofit">
+		<image_toolbar_button_fixed>
+			<icon>tool_zoomtofit_30</icon>
+			<tooltip textres="image_tooltip_toolbarzoomtofit" />
+			<script>
+				function onButtonPress()
+					window.onZoomToFitButtonPressed();
+				end
+			</script>
+		</image_toolbar_button_fixed>
+	</template>
+	<template name="image_toolbar_mode_unmask">
+		<image_toolbar_mode_toggle>
+			<icon>tool_mask_30</icon>
+			<mode>unmask</mode>
+			<tooltip textres="image_tooltip_toolbarmask" />
+			<script>
+				function updateState(sCursorMode)
+					local image = window.getImage();
+					local bShowMask = image.hasMask();
+					setVisible(bShowMask);
+
+					super.updateState(sCursorMode);
+				end
+			</script>
+		</image_toolbar_mode_toggle>
+	</template>
+	<template name="image_toolbar_mode_select">
+		<image_toolbar_mode_toggle>
+			<icon>tool_select_30</icon>
+			<mode>select</mode>
+			<tooltip textres="image_tooltip_toolbarselect" />
+			<invisible />
+		</image_toolbar_mode_toggle>
+	</template>
+	<template name="image_toolbar_mode_targetselect">
+		<image_toolbar_mode_toggle>
+			<icon>tool_target_select_30</icon>
+			<mode>target</mode>
+			<tooltip textres="image_tooltip_toolbartarget" />
+			<invisible />
+		</image_toolbar_mode_toggle>
+	</template>
+	<template name="image_toolbar_toggle_shortcut">
+		<image_toolbar_button_toggle>
+			<icon>tool_shortcut_30</icon>
+			<tooltip textres="image_tooltip_toolbarshortcut" />
+			<script>
+				function onButtonPress()
+					window.onShortcutButtonPressed();
+				end
+			</script>
+		</image_toolbar_button_toggle>
+	</template>
+	<template name="image_toolbar_toggle_tokenlock">
+		<image_toolbar_button_toggle>
+			<icon>tool_tokenlocked_30</icon>
+			<tooltip textres="image_tooltip_toolbartokenlock" />
+			<invisible />
+			<script>
+				function onButtonPress()
+					window.onTokenLockButtonPressed();
+				end
+			</script>
+		</image_toolbar_button_toggle>
+	</template>
+	<template name="image_toolbar_toggle_preview">
+		<image_toolbar_button_toggle>
+			<icon>tool_preview_30</icon>
+			<tooltip textres="image_tooltip_toolbarpreview" />
+			<invisible />
+			<script>
+				function onButtonPress()
+					window.onPreviewButtonPressed();
+				end
+			</script>
+		</image_toolbar_button_toggle>
+	</template>
+	<template name="image_toolbar_toggle_lock">
+		<image_toolbar_button_toggle>
+			<icon>tool_lock_open</icon>
+			<icon2>tool_lock_closed</icon2>
+			<invertalpha />
+			<tooltip textres="image_tooltip_toolbarlock" />
+			<invisible />
+			<script file="common/scripts/button_record_locked.lua" />
+		</image_toolbar_button_toggle>
+	</template>
+	<template name="image_toolbar_toggle_grid">
+		<image_toolbar_button_toggle>
+			<icon>tool_grid_30</icon>
+			<tooltip textres="image_tooltip_toolbargrid" />
+			<invisible />
+			<script>
+				function onValueChanged()
+					window.update();
+				end
+			</script>
+		</image_toolbar_button_toggle>
+	</template>
+	<template name="image_toolbar_draw">
+		<toolbar_30>
+			<anchored to="toolbar_anchor">
+				<top />
+				<right anchor="left" relation="relative" />
+			</anchored>
+			<button>
+				<id>paint</id>
+				<icon>tool_paint_30</icon>
+				<tooltipres>image_tooltip_toolbardraw</tooltipres>
+			</button>
+			<button>
+				<id>erase</id>
+				<icon>tool_erase_30</icon>
+				<tooltipres>image_tooltip_toolbarerase</tooltipres>
+			</button>
+			<toggle />
+			<script>
+				function onValueChanged()
+					window.onDrawToolbarValueChanged();
+				end
+				function onButtonPress(sID)
+					window.onDrawToolbarButtonPressed(sID);
+				end
+			</script>
+		</toolbar_30>
+	</template>
+	<template name="image_toolbar_targeting">
+		<toolbar_30>
+			<anchored to="toolbar_anchor">
+				<top />
+				<right anchor="left" relation="relative" />
+			</anchored>
+			<invisible/>
+			<button>
+				<id>clear</id>
+				<icon>tool_target_clear_30</icon>
+				<tooltipres>image_tooltip_toolbartargetclear</tooltipres>
+			</button>
+			<button>
+				<id>friend</id>
+				<icon>tool_target_allies_30</icon>
+				<tooltipres>image_tooltip_toolbartargetfriend</tooltipres>
+			</button>
+			<button>
+				<id>foe</id>
+				<icon>tool_target_enemies_30</icon>
+				<tooltipres>image_tooltip_toolbartargetfoe</tooltipres>
+			</button>
+			<script>
+				function onButtonPress(sID)
+					window.onTargetingToolbarButtonPressed(sID);
+				end
+			</script>
+		</toolbar_30>
+	</template>
+</root>

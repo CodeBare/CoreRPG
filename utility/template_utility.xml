@@ -1,0 +1,1539 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<!-- 
+	Please see the license.html file included with this distribution for 
+	attribution and copyright information.
+-->
+
+<root>
+	<!-- General -->
+	<template name="button_store">
+		<button_text>
+			<state textres="button_store" />
+			<tooltip textres="button_store_tooltip" />
+			<script>
+				function getSource()
+					return source[1];
+				end
+				function onButtonPress()
+					local sUrl = "https://server.fantasygrounds.com/gostore?source=" .. self.getSource() .. "&amp;ruleset=" .. Interface.getRuleset()
+					Interface.openWindow("url", sUrl)
+				end
+			</script>
+		</button_text>
+	</template>
+	<template name="button_store_sm">
+		<button_text_sm>
+			<state textres="button_store" />
+			<tooltip textres="button_store_tooltip" />
+			<script>
+				function onButtonPress()
+					local sUrl = "https://server.fantasygrounds.com/gostore?source=" .. source[1] .. "&amp;ruleset=" .. Interface.getRuleset()
+					Interface.openWindow("url", sUrl)
+				end
+			</script>
+		</button_text_sm>
+	</template>
+	<template name="button_store_image">
+		<button_store_sm insertbefore="filter_category">
+			<anchored to="buttonanchor" width="60">
+				<top />
+				<left anchor="right" relation="relative" offset="5" />
+			</anchored>
+			<source>image</source>
+		</button_store_sm>
+	</template>
+	<template name="button_folder_sm">
+		<button_text_sm>
+			<state textres="button_folder" />
+			<script>
+				function onButtonPress()
+					if folder then
+						Interface.openCampaignFolder(folder[1]);
+					else
+						Interface.openCampaignFolder();
+					end
+				end
+			</script>
+		</button_text_sm>
+	</template>
+	<template name="button_folder_image">
+		<button_folder_sm insertbefore="filter_category">
+			<anchored to="buttonanchor" width="50">
+				<top />
+				<left anchor="right" relation="relative" offset="5" />
+			</anchored>
+			<folder>images</folder>
+		</button_folder_sm>
+	</template>
+	<template name="button_folder_import_image_files">
+		<button_text_sm insertbefore="filter_category">
+			<anchored to="buttonanchor" width="100">
+				<top />
+				<left anchor="right" relation="relative" offset="5" />
+			</anchored>
+			<state textres="button_import_image_files" />
+			<script>
+				local dialogOpen = false;
+				function onClose()
+					if dialogOpen then Inteface.dialogFileClose(); end
+				end
+				function onButtonPress()
+					dialogOpen = Interface.dialogFileOpen(onFileSelection, { jpg = "JPG Files", png = "PNG Files" }, nil, true);
+				end
+				function onFileSelection(result, vPathResult)
+					dialogOpen = false;
+					if result == "ok" then
+						if type(vPathResult) == "table" then
+							for _,sPath in ipairs(vPathResult) do
+								assetName = Interface.addImageFile(sPath);
+								if assetName then
+									CampaignDataManager.createImageRecordFromAsset(assetName, false);
+								end
+							end
+						else
+							assetName = Interface.addImageFile(vPathResult);
+							if assetName then
+								CampaignDataManager.createImageRecordFromAsset(assetName, true);
+							end
+						end
+					end
+				end
+			</script>
+		</button_text_sm>
+	</template>
+	<template name="button_folder_import_image_assets">
+		<button_text_sm insertbefore="filter_category">
+			<anchored to="buttonanchor" width="200">
+				<top />
+				<left anchor="right" relation="relative" offset="5" />
+			</anchored>
+			<state textres="button_import_image_assets" />
+			<script>
+				function onButtonPress()
+					Interface.dialogMessage(onDialogEnd, "Are you sure you want to import all campaign image assets as image records?", "Campaign Image Import", "yesno");
+				end
+				function onDialogEnd(result)
+					if result == "yes" then
+						CampaignDataManager.importCampaignImageAssets();
+					end
+				end
+			</script>
+		</button_text_sm>
+	</template>
+
+	<template name="button_assets_page_prev">
+		<buttoncontrol name="button_page_prev">
+			<state frame="buttonup" frameoffset="10,10,10,10" icon="button_asset_prev" tooltipres="tooltip_page_prev" />
+			<pressed frame="buttondown" frameoffset="10,10,10,10" offset="1,1" />
+			<allowdoubleclick />
+			<invisible />
+			<script>
+				function onButtonPress()
+					window.handlePagePrev();
+					return true;
+				end
+			</script>
+		</buttoncontrol>
+	</template>
+	<template name="button_assets_page_next">
+		<buttoncontrol name="button_page_next">
+			<state frame="buttonup" frameoffset="10,10,10,10" icon="button_asset_next" tooltipres="tooltip_page_next"/>
+			<pressed frame="buttondown" frameoffset="10,10,10,10" offset="1,1" />
+			<allowdoubleclick />
+			<invisible />
+			<script>
+				function onButtonPress()
+					window.handlePageNext();
+					return true;
+				end
+			</script>
+		</buttoncontrol>
+	</template>
+
+	<template name="list_utility">
+		<list_text>
+			<script>
+				function onInit()
+					super.onInit();
+					if getDatabaseNode().isOwner() then
+						registerMenuItem(Interface.getString("list_menu_createitem"), "insert", 5);
+					end
+				end
+				
+				function onMenuSelection(selection)
+					if selection == 5 then
+						window.filter.setValue();
+						addEntry();
+					end
+				end
+
+				function onFilter(w)
+					local sFilter = window.filter.getValue();
+					if sFilter ~= "" then
+						if not w.label.getValue():upper():find(sFilter:upper(), 1, true) then
+							return false;
+						end
+					end
+					if w.isgmonly and not Session.IsHost and w.isgmonly.getValue() == 1 then
+						return false;
+					end
+					return true;
+				end
+			</script>
+			<allowcreate merge="delete" />
+			<allowdelete />
+			<useallmodules />
+			<sortby><control>label</control></sortby>
+			<newfocus>label</newfocus>
+		</list_text>
+	</template>
+	<template name="list_utility_setting">
+		<list_utility>
+			<anchored to="contentanchor">
+				<top anchor="bottom" relation="relative" offset="20" />
+				<left offset="5" />
+				<right offset="-10" />
+				<bottom parent="bottomanchor" offset="-20" />
+			</anchored>
+			<frame name="groupbox" offset="15,15,20,15" />
+			<datasource>.</datasource>
+			<allowcreate />
+			<sortby><control>name</control></sortby>
+			<newfocus>name</newfocus>
+			<filter><control>filter</control></filter>
+			<filteron><control>name</control></filteron>
+		</list_utility>
+	</template>
+	<template name="list_utility_setting_labeled">
+		<list_utility_setting>
+			<anchored>
+				<top  offset="35" />
+			</anchored>
+			<frame name="groupbox" offset="15,30,20,15" />
+		</list_utility_setting>
+	</template>
+	<template name="filter_utility">
+		<filter_campaign>
+			<script>
+				function onValueChanged()
+					super.onValueChanged();
+					if window.onFilterChanged then
+						window.onFilterChanged();
+					else
+						window.list.applyFilter();
+					end
+				end
+			</script>
+		</filter_campaign>
+	</template>
+	<template name="button_iadd_utility">
+		<button_iadd_campaign>
+			<script>
+				function onButtonPress()
+					super.onButtonPress();
+					window.filter.setValue();
+				end
+			</script>
+		</button_iadd_campaign>
+	</template>
+	<template name="button_iedit_utility">
+		<button_iedit name="list_iedit">
+			<anchored to="rightanchor">
+				<top />
+				<right anchor="left" relation="relative" offset="-5" />
+			</anchored>
+			<target>list</target>
+		</button_iedit>
+	</template>
+	<template name="anchor_utility_controls">
+		<genericcontrol name="rightanchor">
+			<anchored to="bottomanchor" height="0" width="0">
+				<top anchor="bottom" relation="relative" offset="5" />
+				<right offset="-10" />
+			</anchored>
+		</genericcontrol>
+	</template>
+
+	<template name="anchor_modifier_paging">
+		<genericcontrol name="pageanchor">
+			<anchored to="contentanchor" height="24">
+				<left offset="245" />
+				<right offset="-10" />
+				<bottom parent="listbottomanchor" anchor="top" relation="relative" offset="-5" />
+			</anchored>
+		</genericcontrol>
+	</template>
+	<template name="anchor_effect_paging">
+		<genericcontrol name="pageanchor">
+			<anchored to="contentanchor" height="24">
+				<left offset="275" />
+				<right offset="-10" />
+				<bottom parent="listbottomanchor" anchor="top" relation="relative" offset="-5" />
+			</anchored>
+		</genericcontrol>
+	</template>
+	
+	<!-- Calendar -->
+	<template name="anchor_calendar">
+		<genericcontrol name="contentframe">
+			<anchored>
+				<top parent="contentanchor" anchor="bottom" relation="relative" offset="5" />
+				<left offset="10" />
+				<right offset="-10" />
+				<bottom offset="-15" />
+			</anchored>
+		</genericcontrol>
+	</template>
+	<template name="anchor_calendarlog">
+		<genericcontrol>
+			<anchored height="0">
+				<top parent="title" anchor="bottom" offset="0" />
+				<left parent="" anchor="left" offset="50" />
+				<right parent="" anchor="right" offset="-30" />
+			</anchored>
+			<disabled />
+		</genericcontrol>
+	</template>
+	<template name="list_calendarlog">
+		<windowlist>
+			<anchored to="contentanchor">
+				<top anchor="bottom" relation="relative" offset="5" />
+				<left />
+				<right />
+				<bottom parent="" offset="-35" />
+			</anchored>
+			<footer>footer_narrow</footer>
+			<class>logsmall</class>
+			<datasource>.</datasource>
+			<allowdelete />
+			<sortby>
+				<control>year</control>
+				<control>month</control>
+				<control>day</control>
+			</sortby>
+		</windowlist>
+	</template>
+	
+	<!-- Effects -->
+	<template name="label_effect_preset">
+		<label>
+			<anchored to="preset" position="above" offset="0,10" height="20" />
+			<font>utility_label</font>
+			<center />
+			<static textres="effect_label_presets" />
+		</label>
+	</template>
+	<template name="sub_effect_preset">
+		<subwindow>
+			<anchored to="contentanchor">
+				<top anchor="bottom" relation="current" offset="35" />
+				<left offset="5" />
+				<right anchor="left" offset="245" />
+				<bottom parent="listbottomanchor" anchor="top" relation="absolute" offset="-15" />
+			</anchored>
+			<frame name="groupbox" offset="10,10,15,10" />
+			<class>effectlist_presets</class>
+			<activate />
+		</subwindow>
+	</template>
+	<template name="list_effect_preset">
+		<windowlist>
+			<anchored>
+				<top parent="columnanchor" anchor="bottom" relation="relative" offset="7" />
+				<left />
+				<right />
+			</anchored>
+			<columns width="120" fillwidth="true" />
+			<noscroll />
+			<skipempty />
+			<readonly />
+			<class>effect_preset_item</class>
+		</windowlist>
+	</template>
+	<template name="button_effect_preset">
+		<buttoncontrol name="button">
+			<anchored position="insidetop" offset="-7,7" height="20" />
+			<state frame="buttonup" frameoffset="5,5,5,5" text="Preset" font="button-white" />
+			<pressed frame="buttondown" frameoffset="5,5,5,5" offset="1,1" />
+			<script>
+				function onDragStart(button, x, y, draginfo)
+					return window.onDragStart(button, x, y, draginfo);
+				end
+
+				function onButtonPress(x, y)
+					return window.onButtonPress(x, y);
+				end
+			</script>
+		</buttoncontrol>
+	</template>
+
+	<template name="label_effect_custom">
+		<label>
+			<anchored to="list" position="above" offset="0,10" height="20" />
+			<font>utility_label</font>
+			<center />
+			<static textres="effect_label_custom" />
+		</label>
+	</template>
+	<template name="list_effect_custom">
+		<windowlist>
+			<anchored to="contentanchor">
+				<top anchor="bottom" relation="relative" offset="35" />
+				<left offset="275" />
+				<right offset="-10" />
+				<bottom parent="listbottomanchor" anchor="top" relation="relative" offset="-15" />
+			</anchored>
+			<frame name="groupbox" offset="10,10,15,10" />
+			<child></child>
+			<child><backcolor>1A40301E</backcolor></child>
+			<skipempty />
+			<allowdelete />
+			<class>effectsmall</class>
+			<sortby><control>label</control></sortby>
+			<script file="utility/scripts/effectlist_custom.lua" />
+		</windowlist>
+	</template>
+	<template name="anchor_effect_list_bottom">
+		<genericcontrol name="listbottomanchor">
+			<anchored height="0">
+				<left offset="275" />
+				<right offset="-10" />
+				<bottom offset="-55" />
+			</anchored>
+		</genericcontrol>
+	</template>
+	<template name="string_effect">
+		<string_textlistitem name="label">
+			<anchored height="20">
+				<top parent="leftanchor" />
+				<left parent="leftanchor" anchor="right" relation="relative" offset="5" />
+				<right parent="rightanchor" anchor="left" relation="relative" offset="-10" />
+			</anchored>
+			<tabtarget next="duration" />
+			<script>
+				function onDragStart(button, x, y, draginfo)
+					return window.actionDrag(draginfo);
+				end
+
+				function onDoubleClick(x, y)
+					return window.action();
+				end
+			</script>
+		</string_textlistitem>
+	</template>
+	<template name="anchor_effect_left">
+		<genericcontrol name="leftanchor">
+			<anchored position="insidetopleft" offset="0,5" height="0" width="0" />
+		</genericcontrol>
+	</template>
+	<template name="button_effect_activate">
+		<buttoncontrol>
+			<anchored to="leftanchor" width="20" height="20">
+				<top />
+				<left anchor="right" relation="relative" offset="2" />
+			</anchored>
+			<icon normal="button_action_effect" pressed="button_action_effect_down" />
+			<script>
+				function onDragStart(button, x, y, draginfo)
+					return window.actionDrag(draginfo);
+				end
+
+				function onButtonPress(x, y)
+					return window.action();
+				end
+			</script>
+		</buttoncontrol>
+	</template>
+	<template name="anchor_effect_right">
+		<genericcontrol name="rightanchor">
+			<anchored position="insidetopright" offset="0,5" height="0" width="0" />
+		</genericcontrol>
+	</template>
+	<template name="button_effect_idelete">
+		<button_idelete name="idelete">
+			<anchored to="rightanchor">
+				<top />
+				<right anchor="left" relation="relative" offset="-5" />
+			</anchored>
+		</button_idelete>
+	</template>
+	<template name="button_effect_isgmonly">
+		<buttonfield name="isgmonly">
+			<anchored to="rightanchor" width="20" height="20">
+				<top />
+				<right anchor="left" relation="relative" offset="-5" />
+			</anchored>
+			<state icon="visibilityon" tooltipres="effect_visibilityon" />
+			<state icon="visibilityoff" tooltipres="effect_visibilityoff" />
+			<gmvisibleonly />
+		</buttonfield>
+	</template>
+	<template name="number_effect_duration">
+		<basicnumber name="duration">
+			<anchored to="rightanchor" width="20" height="20">
+				<top />
+				<right anchor="left" relation="relative" offset="-10" />
+			</anchored>
+			<min>0</min>
+			<default>1</default>
+			<tabtarget prev="label" />
+			<script>
+				function onDragStart(button, x, y, draginfo)
+					return window.actionDrag(draginfo);
+				end
+			</script>
+		</basicnumber>
+	</template>
+	<template name="button_effect_apply">
+		<button_iconcycler name="apply">
+			<anchored to="leftanchor" width="24" height="10">
+				<top offset="5"/>
+				<left anchor="right" relation="relative" offset="2" />
+			</anchored>
+			<parameters>
+				<icons>button_toggle_action|button_toggle_roll|button_toggle_single</icons>
+				<values>action|roll|single</values>
+				<tooltipsres>effect_tooltip_applyone|effect_tooltip_applyroll|effect_tooltip_applysingle</tooltipsres>
+				<defaulticon>button_toggle_all</defaulticon>
+				<defaulttooltipres>effect_tooltip_applyall</defaulttooltipres>
+			</parameters>
+		</button_iconcycler>
+	</template>
+	<template name="button_effect_units">
+		<button_stringcycler name="unit">
+			<anchored to="rightanchor" width="30">
+				<top />
+				<right anchor="left" relation="relative" offset="-10" />
+			</anchored>
+			<parameters>
+				<defaultlabelres>effect_label_durunitrnd</defaultlabelres>
+				<labelsres>effect_label_durunitmin|effect_label_durunithr|effect_label_durunitday</labelsres>
+				<values>minute|hour|day</values>
+			</parameters>
+			<script>
+				function onDragStart(button, x, y, draginfo)
+					return window.actionDrag(draginfo);
+				end
+			</script>
+		</button_stringcycler>
+	</template>
+
+	<!-- Modifiers -->
+	<template name="button_modifierkey_step">
+		<buttoncontrol>
+			<state frame="buttonup" frameoffset="5,5,5,5" />
+			<state frame="buttondown" frameoffset="5,5,5,5" offset="1,1" />
+			<font>button-white</font>
+			<script file="utility/scripts/modifier_preset.lua" />
+		</buttoncontrol>
+	</template>
+	<template name="button_modifierkey">
+		<button_modifierkey_step>
+			<script>
+				function onInit()
+					setData(getName());
+				end
+			</script>
+		</button_modifierkey_step>
+	</template>
+
+	<template name="label_modifier_preset">
+		<label>
+			<anchored to="preset" position="above" offset="0,10" height="20" />
+			<font>utility_label</font>
+			<center />
+			<static textres="modifierwindow_label_presets" />
+		</label>
+	</template>
+	<template name="sub_modifier_preset">
+		<subwindow>
+			<anchored to="contentanchor">
+				<top anchor="bottom" relation="current" offset="35" />
+				<left offset="5" />
+				<right anchor="left" offset="215" />
+				<bottom parent="listbottomanchor" anchor="top" relation="absolute" offset="-15" />
+			</anchored>
+			<frame name="groupbox" offset="10,10,15,10" />
+			<class>modifier_presets</class>
+			<activate />
+		</subwindow>
+	</template>
+	<template name="list_modifier_preset">
+		<windowlist>
+			<anchored>
+				<top parent="columnanchor" anchor="bottom" relation="relative" offset="7" />
+				<left />
+				<right />
+			</anchored>
+			<columns width="100" fillwidth="true" />
+			<noscroll />
+			<skipempty />
+			<readonly />
+			<class>modifier_preset_item</class>
+		</windowlist>
+	</template>
+	<template name="button_modifier_preset">
+		<button_modifierkey_step>
+			<anchored position="insidetop" offset="-7,7" height="20" />
+		</button_modifierkey_step>
+	</template>
+	<template name="header_modifier_preset">
+		<header_column>
+			<static />
+			<center />
+		</header_column>
+	</template>
+
+	<template name="label_modifier_custom">
+		<label>
+			<anchored to="list" position="above" offset="0,10" height="20" />
+			<font>utility_label</font>
+			<center />
+			<static textres="modifierwindow_label_custom" />
+		</label>
+	</template>
+	<template name="list_modifier_custom">
+		<windowlist>
+			<anchored to="contentanchor">
+				<top anchor="bottom" relation="relative" offset="35" />
+				<left offset="245" />
+				<right offset="-10" />
+				<bottom parent="listbottomanchor" anchor="top" relation="relative" offset="-15" />
+			</anchored>
+			<frame name="groupbox" offset="10,10,15,10" />
+			<child></child>
+			<child><backcolor>1A40301E</backcolor></child>
+			<skipempty />
+			<allowdelete />
+			<class>modifiersmall</class>
+			<sortby><control>label</control></sortby>
+			<script file="utility/scripts/modifierlist_custom.lua" />
+		</windowlist>
+	</template>
+	<template name="anchor_modifier_list_bottom">
+		<genericcontrol name="listbottomanchor">
+			<anchored height="0">
+				<left offset="245" />
+				<right offset="-10" />
+				<bottom offset="-55" />
+			</anchored>
+		</genericcontrol>
+	</template>
+	<template name="string_modifier">
+		<string_textlistitem name="label">
+			<anchored height="20">
+				<top parent="leftanchor" />
+				<left parent="leftanchor" anchor="right" relation="relative" offset="5" />
+				<right parent="rightanchor" anchor="left" relation="relative" offset="-10" />
+			</anchored>
+			<tabtarget next="bonus" />
+			<script>
+				function onDragStart(button, x, y, draginfo)
+					return window.actionDrag(draginfo);
+				end
+
+				function onDoubleClick(x, y)
+					return window.action();
+				end
+			</script>
+		</string_textlistitem>
+	</template>
+	<template name="anchor_modifier_left">
+		<genericcontrol name="leftanchor">
+			<anchored position="insidetopleft" offset="0,2" height="0" width="0" />
+		</genericcontrol>
+	</template>
+	<template name="button_modifier_activate">
+		<buttoncontrol>
+			<anchored to="leftanchor" width="20" height="20">
+				<top />
+				<left anchor="right" relation="relative" offset="2" />
+			</anchored>
+			<icon normal="button_action_modifier" pressed="button_action_modifier_down" />
+			<script>
+				function onDragStart(button, x, y, draginfo)
+					return window.actionDrag(draginfo);
+				end
+
+				function onButtonPress(x, y)
+					return window.action();
+				end
+			</script>
+		</buttoncontrol>
+	</template>
+	<template name="anchor_modifier_right">
+		<genericcontrol name="rightanchor">
+			<anchored position="insidetopright" offset="0,2" height="0" width="0" />
+		</genericcontrol>
+	</template>
+	<template name="button_modifier_idelete">
+		<button_idelete name="idelete">
+			<anchored to="rightanchor">
+				<top />
+				<right anchor="left" relation="relative" offset="-5" />
+			</anchored>
+		</button_idelete>
+	</template>
+	<template name="button_modifier_isgmonly">
+		<buttonfield name="isgmonly">
+			<anchored to="rightanchor" width="20" height="20">
+				<top />
+				<right anchor="left" relation="relative" offset="-5" />
+			</anchored>
+			<state icon="visibilityon" tooltipres="effect_visibilityon" />
+			<state icon="visibilityoff" tooltipres="effect_visibilityoff" />
+			<gmvisibleonly />
+		</buttonfield>
+	</template>
+	<template name="number_modifier_bonus">
+		<basicnumber name="duration">
+			<anchored to="rightanchor" width="30" height="20">
+				<top />
+				<right anchor="left" relation="relative" offset="-10" />
+			</anchored>
+			<displaysign />
+			<tabtarget prev="label" />
+			<script>
+				function onDragStart(button, x, y, draginfo)
+					return window.actionDrag(draginfo);
+				end
+
+				function onDoubleClick(x, y)
+					return window.action();
+				end
+
+				function onGainFocus()
+					window.setFrame("rowshade");
+				end
+
+				function onLoseFocus()
+					window.setFrame(nil);
+				end
+			</script>
+		</basicnumber>
+	</template>
+
+	<!-- Library -->
+	<template name="anchor_library">
+		<genericcontrol>
+			<anchored height="0">
+				<top parent="title" anchor="bottom" offset="0" />
+				<left parent="" anchor="left" offset="45" />
+				<right parent="" anchor="right" offset="-50" />
+			</anchored>
+			<disabled />
+		</genericcontrol>
+	</template>
+	<template name="list_library_books">
+		<windowlist>
+			<anchored to="contentanchor" width="250">
+				<top anchor="bottom" relation="relative" offset="15" />
+				<left />
+				<bottom parent="" offset="-75" />
+			</anchored>
+			<frame name="groupbox" offset="15,15,20,15" />
+			<skipempty />
+			<class>library_booklistentry</class>
+			<empty font="list-empty" gmtextres="library_empty_books" />
+			<sortby>
+				<control>category</control>
+				<control>name</control>
+			</sortby>
+		</windowlist>
+	</template>
+	<template name="frame_library_pages">
+		<genericcontrol>
+			<anchored to="booklist" position="right" offset="40,0">
+				<right parent="contentanchor" />
+			</anchored>
+			<frame name="groupbox" offset="15,15,20,15" />
+		</genericcontrol>
+	</template>
+	<template name="list_library_pages">
+		<windowlist>
+			<anchored to="booklist" position="right" offset="40,0">
+				<right parent="contentanchor" />
+			</anchored>
+			<skipempty />
+			<class>library_pagelistentry</class>
+			<child></child>
+			<child><backcolor>1A40301E</backcolor></child>
+			<filter><control>filter</control></filter>
+			<filteron><control>name</control></filteron>
+			<empty font="list-empty" textres="library_empty_pages" />
+			<invisible />
+		</windowlist>
+	</template>
+	<template name="anchor_library_buttons">
+		<genericcontrol name="buttonanchor">
+			<anchored height="20" width="0">
+				<top anchor="bottom" offset="-50" />
+				<left offset="25" />
+			</anchored>
+		</genericcontrol>
+	</template>
+	<template name="filter_library">
+		<filter>
+			<anchored to="buttonanchor" position="righthigh" height="20">
+				<left anchor="right" relation="relative" offset="45" />
+				<right parent="" offset="-45" />
+			</anchored>
+		</filter>
+	</template>
+	<template name="button_library_modules">
+		<button_text>
+			<anchored to="buttonanchor" position="righthigh" height="20" width="70">
+				<left anchor="right" relation="relative" offset="20" />
+			</anchored>
+			<state textres="library_button_modules" />
+			<script>
+				function onButtonPress()
+					Interface.openWindow("moduleselection", "");
+				end
+			</script>
+		</button_text>
+	</template>
+	<template name="button_library_store">
+		<button_store>
+			<anchored to="buttonanchor" position="righthigh" height="20" width="70">
+				<left anchor="right" relation="relative" offset="20" />
+			</anchored>
+			<gmvisibleonly />
+			<source>library</source>
+		</button_store>
+	</template>
+	<template name="button_library_export">
+		<button_text>
+			<anchored to="buttonanchor" position="righthigh" height="20" width="70">
+				<left anchor="right" relation="relative" offset="20" />
+			</anchored>
+			<state textres="library_button_export" />
+			<gmvisibleonly />
+			<script>
+				function onButtonPress()
+					Interface.openWindow("export", "export");
+				end
+			</script>
+		</button_text>
+	</template>
+    <template name="button_library_builder">
+        <button_text>
+			<anchored to="buttonanchor" position="righthigh" height="20" width="70">
+				<left anchor="right" relation="relative" offset="20" />
+			</anchored>
+            <state textres="library_button_referencemanual" />
+            <gmvisibleonly />
+            <script>
+                function onButtonPress()
+                    Interface.openWindow("reference_manual", ReferenceManualManager.MANUAL_DEFAULT_INDEX);
+                end
+            </script>
+        </button_text>
+    </template>
+	
+	<!-- Manual Rolls -->
+	<template name="button_manualrolls">
+		<button_text_sm>
+			<anchored position="insidetopleft" offset="5,5" width="50" />
+			<state textres="button_manualroll" />
+			<script>
+				function onButtonPress()
+					Interface.openWindow("manualrolls", "");
+				end
+			</script>
+		</button_text_sm>
+	</template>
+	<template name="label_manualroll">
+		<label>
+			<anchored>
+				<top parent="columnanchor" anchor="bottom" relation="current" offset="2" />
+				<left offset="20" />
+			</anchored>
+		</label>
+	</template>
+	<template name="stringc_manualroll">
+		<simplestringc>
+			<anchored>
+				<top parent="columnanchor" anchor="bottom" relation="relative" offset="2" />
+				<left offset="90" />
+				<right offset="-80" />
+			</anchored>
+			<multilinespacing>20</multilinespacing>
+			<readonly />
+		</simplestringc>
+	</template>
+
+	<!-- Modules -->
+	<template name="anchor_modules_bottom">
+		<genericcontrol name="bottomanchor">
+			<anchored to="contentanchor" height="0">
+				<left offset="5" />
+				<right offset="-10" />
+				<bottom parent="" offset="-100" />
+			</anchored>
+		</genericcontrol>
+	</template>
+	<template name="anchor_modules_paging">
+		<genericcontrol name="pageanchor">
+			<anchored to="contentanchor" height="24">
+				<left offset="53" />
+				<right offset="-58" />
+				<bottom parent="bottomanchor" anchor="top" relation="relative" offset="0" />
+			</anchored>
+		</genericcontrol>
+	</template>
+	<template name="list_modules">
+		<windowlist>
+			<anchored to="contentanchor">
+				<top anchor="bottom" relation="relative" offset="20" />
+				<left offset="5" />
+				<right offset="-10" />
+				<bottom parent="bottomanchor" anchor="top" relation="relative" offset="-20" />
+			</anchored>
+			<frame name="groupbox" offset="15,15,20,15" />
+			<class>moduleselection_entry</class>
+			<columns width="300" fillwidth="true" />
+			<skipempty />
+		</windowlist>
+	</template>
+	<template name="modulepermissioncontrol">
+		<genericcontrol>
+			<anchored to="bottomanchor" position="belowleft" offset="10,40" width="30" height="31" />
+			<cursor hover="hand" />
+			<gmvisibleonly />
+			<script>
+				function onInit()
+					if permissions[1] == "allow" then
+						registerMenuItem(Interface.getString("modulepermission_menu_allowall"), "windowshare", 3);
+						registerMenuItem(Interface.getString("modulepermission_menu_allowallconfirm"), "windowshare", 3, 3);
+					elseif permissions[1] == "disallow" then
+						registerMenuItem(Interface.getString("modulepermission_menu_disallowall"), "windowunshare", 3);
+						registerMenuItem(Interface.getString("modulepermission_menu_disallowallconfirm"), "windowunshare", 3, 3);
+					end
+				end
+				function onMenuSelection(selection, subselection)
+					if selection == 3 and subselection == 3 then
+						window.setPermissions(permissions[1]);
+					end
+				end
+				
+				function onDragStart(button, x, y, draginfo)
+					draginfo.setType("modulepermissions");
+					draginfo.setStringData(permissions[1]);
+					draginfo.setIcon(icon[1]);
+					setIcon(nil);
+					return true;
+				end
+				function onDragEnd(draginfo)
+					setIcon(icon[1]);
+				end
+			</script>
+		</genericcontrol>
+	</template>
+	<template name="button_modules_permission_block">
+		<modulepermissioncontrol>
+			<icon>module_stateblocked</icon>
+			<permissions>disallow</permissions>
+			<tooltip textres="module_block" />
+		</modulepermissioncontrol>
+	</template>
+	<template name="button_modules_permission_allow">
+		<modulepermissioncontrol>
+			<anchored offset="40,40" />
+			<icon>module_stateallowed</icon>
+			<permissions>allow</permissions>
+			<tooltip textres="module_allow" />
+		</modulepermissioncontrol>
+	</template>
+	<template name="filter_modules_name">
+		<filter name="filter_name">
+			<anchored to="bottomanchor" position="belowleft" offset="20,10" height="20">
+				<right anchor="center" offset="-25" />
+			</anchored>
+			<empty textres="module_empty_filter_name" />
+			<script>
+				function onValueChanged()
+					super.onValueChanged();
+					window.onNameFilterChanged();
+				end
+			</script>
+		</filter>
+	</template>
+	<template name="filter_modules_author">
+		<filter name="filter_author">
+			<anchored to="bottomanchor" position="belowright" offset="0,10" height="20">
+				<left anchor="center" offset="15" />
+			</anchored>
+			<empty textres="module_empty_filter_author" />
+			<script>
+				function onValueChanged()
+					super.onValueChanged();
+					window.onAuthorFilterChanged();
+				end
+			</script>
+		</filter>
+	</template>
+	<template name="anchor_modules_filter_buttons">
+		<genericcontrol name="filter_anchor_right">
+			<anchored to="bottomanchor" position="belowright" offset="-10,45" width="0" height="20" />
+		</genericcontrol>
+	</template>
+	<template name="button_modules_filter_loaded">
+		<button_text>
+			<anchored to="filter_anchor_right" width="100" height="20">
+				<top />
+				<right anchor="left" relation="relative" offset="-20" />
+			</anchored>
+			<state textres="module_label_filter_loaded_any" merge="add" />
+			<state textres="module_label_filter_loaded_on" merge="add" />
+			<state textres="module_label_filter_loaded_off" merge="add" />
+			<script>
+				function onValueChanged()
+					window.onLoadedFilterChanged();
+				end
+			</script>
+		</button_text>
+	</template>
+	<template name="button_modules_filter_shared">
+		<button_text>
+			<anchored to="filter_anchor_right" width="100" height="20">
+				<top />
+				<right anchor="left" relation="relative" offset="-20" />
+			</anchored>
+			<state textres="module_label_filter_shared_any" merge="add" />
+			<state textres="module_label_filter_shared_on" merge="add" />
+			<state textres="module_label_filter_shared_off" merge="add" />
+			<invisible />
+			<script>
+				function onValueChanged()
+					window.onSharedFilterChanged();
+				end
+			</script>
+		</button_text>
+	</template>
+	<template name="button_modules_filter_ruleset">
+		<button_text>
+			<anchored to="filter_anchor_right" width="100" height="20">
+				<top />
+				<right anchor="left" relation="relative" offset="-20" />
+			</anchored>
+			<state textres="module_label_filter_ruleset_any" merge="add" />
+			<state textres="module_label_filter_ruleset_specific" merge="add" />
+			<state textres="module_label_filter_ruleset_generic" merge="add" />
+			<script>
+				function onValueChanged()
+					window.onRulesetFilterChanged();
+				end
+			</script>
+		</button_text>
+	</template>
+
+	<!-- Options -->
+	<template name="list_options">
+		<windowlist>
+			<anchored to="contentanchor">
+				<top anchor="bottom" relation="relative" offset="20" />
+				<left offset="5" />
+				<right offset="-15" />
+				<bottom parent="bottomanchor" anchor="top" relation="relative" offset="-30" />
+			</anchored>
+			<frame name="groupbox" offset="15,15,25,15" />
+			<class>options_group</class>
+			<skipempty />
+			<sortby>
+				<control>sort</control>
+				<control>label</control>
+			</sortby>
+		</windowlist>
+	</template>
+	<template name="scrollbar_options">
+		<scrollbar_list>
+			<anchored offset="0,-5" />
+		</scrollbar_list>
+	</template>
+	<template name="list_options_buttons">
+		<windowlist>
+			<anchored to="contentanchor">
+				<left offset="0" />
+				<right offset="-10" />
+				<bottom parent="bottomanchor" anchor="top" relation="relative" offset="-15" />
+			</anchored>
+			<frame name="groupbox" offset="10,10,20,10" />
+			<class>options_button</class>
+			<skipempty />
+			<sortby><control>label</control></sortby>
+			<columns width="150" fillwidth="true" />
+		</windowlist>
+	</template>
+
+	<!-- Asset View -->
+	<template name="anchor_assetview_filter">
+		<genericcontrol>
+			<anchored width="0" height="20">
+				<top parent="contentanchor" anchor="bottom" relation="relative" offset="10" />
+				<left anchor="center" offset="-145" />
+			</anchored>
+		</genericcontrol>
+	</template>
+	<template name="button_assetview_filter">
+		<buttoncontrol>
+			<anchored to="anchor_assetview_filter" height="20" width="60">
+				<top />
+				<left anchor="right" relation="relative" offset="10" />
+			</anchored>
+			<state frame="buttonup" frameoffset="5,5,5,5" />
+			<state frame="buttondown" frameoffset="5,5,5,5" offset="1,1" />
+			<font>button-white</font>
+		</buttoncontrol>
+	</template>
+	<template name="button_assetview_filter_token">
+		<button_assetview_filter>
+			<textres>assetview_button_filter_token</textres>
+			<script>
+				function onButtonPress()
+					window.setTypeFilter("token");
+				end
+			</script>
+		</button_assetview_filter>
+	</template>
+	<template name="button_assetview_filter_portrait">
+		<button_assetview_filter>
+			<textres>assetview_button_filter_portrait</textres>
+			<script>
+				function onButtonPress()
+					window.setTypeFilter("portrait");
+				end
+			</script>
+		</button_assetview_filter>
+	</template>
+	<template name="button_assetview_filter_image">
+		<button_assetview_filter>
+			<textres>assetview_button_filter_image</textres>
+			<script>
+				function onButtonPress()
+					window.setTypeFilter("image");
+				end
+			</script>
+		</button_assetview_filter>
+	</template>
+	<template name="button_assetview_filter_all">
+		<button_assetview_filter>
+			<textres>assetview_button_filter_all</textres>
+			<script>
+				function onButtonPress()
+					window.setTypeFilter("");
+				end
+			</script>
+		</button_assetview_filter>
+	</template>
+	<template name="button_assetview_top">
+		<button_page_top>
+			<anchored to="contentanchor">
+				<top anchor="bottom" relation="current" offset="13" />
+				<left />
+			</anchored>
+		</button_page_top>
+	</template>
+	<template name="list_assetview_path">
+		<windowlist>
+			<anchored to="contentanchor">
+				<top anchor="bottom" relation="relative" offset="10" />
+				<left offset="35" />
+				<right />
+				<sizelimits>
+					<minimum height="20" />
+				</sizelimits>
+			</anchored>
+			<class>assetview_path_item</class>
+			<columns width="150" fillwidth="true" />
+			<invisible />
+		</windowlist>
+	</template>
+	<template name="assetview_tokens_step">
+		<assetviewcontrol name="tokens">
+			<folder>
+				<icon>tokenbag</icon>
+				<up>tokenbagup</up>
+			</folder>
+			<skipfolderup />
+			<grid spacing="0,0" width="100" height="100" frame="tokenbagasset" frameoffset="5,5,5,5" font="tokenbagasset_grid" />
+			<list spacing="0,0" height="75" frame="tokenbagasset" frameoffset="5,5,5,5" font="tokenbagasset_list" />
+			<icon hover="asset_preview" />
+			<filter control="filter" min="3" />
+			<empty font="assetview_empty" textres="assetview_empty" />
+			<script>
+				function onActivate(sAssetName, sAssetType)
+					window.handleAssetActivate(sAssetName, sAssetType);
+				end
+				function onViewChange()
+					window.handleViewUpdate();
+				end
+				function onValueChanged()
+					window.handleValueUpdate();
+				end
+			</script>
+		</assetviewcontrol>
+	</template>
+	<template name="assetview_tokens">
+		<assetview_tokens_step>
+			<anchored to="contentanchor">
+				<top anchor="bottom" relation="relative" offset="10" />
+				<left />
+				<right offset="-5" />
+				<bottom parent="bottomanchor" anchor="top" offset="-40" />
+			</anchored>
+		</assetview_tokens_step>
+	</template>
+	<template name="filter_tokens">
+		<filter name="filter">
+			<anchored to="contentanchor" height="20">
+				<top parent="bottomanchor" anchor="top" offset="-30" />
+				<left offset="20" />
+				<right offset="-45" />
+			</anchored>
+			<delaykeyupdate />
+		</filter>
+	</template>
+	<template name="button_tokens_viewchange">
+		<buttoncontrol>
+			<anchored to="filter" position="righthigh" offset="20,0" width="20" height="20" />
+			<state icon="button_grid" />
+			<state icon="button_lines" />
+			<tooltip textres="assetview_switchview" />
+			<script>
+				function onInit()
+					update();
+				end
+				
+				function update()
+					local sView = window.getView();
+					if sView == "list" then
+						setValue(1);
+					else
+						setValue(0);
+					end
+				end
+				
+				function onButtonPress()
+					if getValue() == 1 then
+						window.setView("list");
+					else
+						window.setView("grid");
+					end
+				end
+			</script>
+		</buttoncontrol>
+	</template>
+	<template name="button_assetview_page_prev">
+		<button_assets_page_prev>
+			<anchored height="60" width="20">
+				<top parent="tokens" anchor="center" offset="-30"/>
+				<right parent="contentanchor" anchor="left" offset="0" />
+			</anchored>
+		</button_assets_page_prev>
+	</template>
+	<template name="button_assetview_page_next">
+		<button_assets_page_next>
+			<anchored height="60" width="20">
+				<top parent="tokens" anchor="center" offset="-30"/>
+				<left parent="contentanchor" anchor="right" offset="-5" />
+			</anchored>
+		</button_assets_page_next>
+	</template>
+	<template name="button_assetview_store">
+		<button_store>
+			<anchored width="70" height="20">
+				<top parent="bottomanchor" offset="5" />
+				<left anchor="center" offset="-90" />
+			</anchored>
+			<script>
+				function getSource()
+					local sFilterName = window.getTypeFilter();
+					if sFilterName == "" then sFilterName = "asset"; end
+					return sFilterName;
+				end
+			</script>
+		</button_store>
+	</template>
+	<template name="button_assetview_folder">
+		<button_text>
+			<anchored width="70" height="20">
+				<top parent="bottomanchor" offset="5" />
+				<left anchor="center" offset="-10" />
+			</anchored>
+			<state textres="button_folder" />
+			<script>
+				function onButtonPress()
+					local sFilterName = window.getTypeFilter();
+					if sFilterName == "token" then
+						if Session.IsHost then
+							Interface.openCampaignFolder("tokens");
+						else
+							Interface.openDataFolder("tokens");
+						end
+					elseif sFilterName == "portrait" then
+						Interface.openDataFolder("portraits");
+					elseif sFilterName == "image" then
+						Interface.openCampaignFolder("images");
+					else
+						Interface.openDataFolder();
+					end
+				end
+			</script>
+		</button_text>
+	</template>
+	<template name="button_assetview_folder_refresh">
+		<buttoncontrol>
+			<anchored width="20" height="20">
+				<top parent="bottomanchor" offset="5" />
+				<left anchor="center" offset="70" />
+			</anchored>
+			<frame name="buttonup" offset="5,5,5,5" />
+			<stateframe>
+				<pressed name="buttondown" offset="5,5,5,5" nobaseframe="true" />
+			</stateframe>
+			<icon normal="refresh" />
+			<pressed offset="1,1" />
+			<tooltip textres="button_folder_refresh_tooltip" />
+			<script>
+				function onButtonPress()
+					Interface.refreshAssets();
+				end
+			</script>
+		</buttoncontrol>
+	</template>
+
+	<!-- Portrait Select (Native Asset Browser - Requires Client Update to enable Client Assets) -->
+	<!--
+	<template name="assetview_portraitselect_step">
+		<assetviewcontrol name="assets">
+			<folder>
+				<icon>tokenbag</icon>
+				<up>tokenbagup</up>
+			</folder>
+			<grid spacing="0,0" width="100" height="100" frame="tokenbagasset" frameoffset="5,5,5,5" font="tokenbagasset_grid" />
+			<list spacing="0,0" height="75" frame="tokenbagasset" frameoffset="5,5,5,5" font="tokenbagasset_list" />
+			<empty font="assetview_empty" textres="portraitselect_empty" />
+			<filter control="filter" min="3" type="portrait" />
+			<nodrag />
+			<script>
+				function onActivate(sAssetName, sAssetType)
+					window.onActivate(sAssetName, sAssetType);
+				end
+				function onValueChanged()
+					window.onValueUpdate();
+				end
+			</script>
+		</assetviewcontrol>
+	</template>
+	<template name="assetview_portraitselect">
+		<assetview_portraitselect_step>
+			<anchored to="contentanchor">
+				<top anchor="bottom" relation="relative" offset="5" />
+				<left />
+				<right offset="-5" />
+				<bottom parent="bottomanchor" anchor="top" offset="-40" />
+			</anchored>
+		</assetview_portraitselect_step>
+	</template>
+	<template name="filter_portraitselect">
+		<filter name="filter">
+			<anchored to="contentanchor" height="20">
+				<top parent="bottomanchor" anchor="top" offset="-30" />
+				<left offset="30" />
+				<right offset="-20" />
+			</anchored>
+			<delaykeyupdate />
+		</filter>
+	</template>
+	<template name="button_portraitselect_page_prev">
+		<button_assets_page_prev>
+			<anchored height="60" width="20">
+				<top parent="assets" anchor="center" offset="-30"/>
+				<right parent="contentanchor" anchor="left" offset="0" />
+			</anchored>
+		</button_assets_page_prev>
+	</template>
+	<template name="button_portraitselect_page_next">
+		<button_assets_page_next>
+			<anchored height="60" width="20">
+				<top parent="assets" anchor="center" offset="-30"/>
+				<left parent="contentanchor" anchor="right" offset="-5" />
+			</anchored>
+		</button_assets_page_next>
+	</template>
+	-->
+
+	<!-- Portrait Select (Old Style) -->
+	<template name="list_portraitselect">
+		<windowlist name="list">
+			<anchored to="contentanchor">
+				<top anchor="bottom" relation="relative" offset="5" />
+				<left />
+				<right offset="-5" />
+				<bottom parent="bottomanchor" anchor="top" offset="-10" />
+			</anchored>
+			<class>portrait_select_entry</class>
+			<columns width="100" fillwidth="true" />
+			<empty font="assetview_empty" textres="portraitselect_empty" />
+			<skipempty />
+		</windowlist>
+	</template>
+	<template name="button_portraitselect_folder">
+		<button_text>
+			<anchored width="70" height="20">
+				<top parent="bottomanchor" offset="5" />
+				<left anchor="center" offset="-10" />
+			</anchored>
+			<state textres="button_folder" />
+			<script>
+				function onButtonPress()
+					Interface.openDataFolder("portraits");
+					window.close();
+				end
+			</script>
+		</button_text>
+	</template>
+	<template name="button_portraitselect_store">
+		<button_store>
+			<anchored width="70" height="20">
+				<top parent="bottomanchor" offset="5" />
+				<left anchor="center" offset="-90" />
+			</anchored>
+			<source>portrait</source>
+		</button_store>
+	</template>
+	<template name="button_portraitselect_refresh">
+		<buttoncontrol>
+			<anchored width="20" height="20">
+				<top parent="bottomanchor" offset="5" />
+				<left anchor="center" offset="70" />
+			</anchored>
+			<frame name="buttonup" offset="5,5,5,5" />
+			<stateframe>
+				<pressed name="buttondown" offset="5,5,5,5" nobaseframe="true" />
+			</stateframe>
+			<icon normal="refresh" />
+			<pressed offset="1,1" />
+			<tooltip textres="button_folder_refresh_tooltip" />
+			<script>
+				function onButtonPress()
+					Interface.refreshAssets();
+					window.buildWindows();
+				end
+			</script>
+		</buttoncontrol>
+	</template>
+
+	<!-- Decal Select -->
+	<template name="assetview_decalselect_step">
+		<assetviewcontrol name="assets">
+			<folder>
+				<icon>tokenbag</icon>
+				<up>tokenbagup</up>
+			</folder>
+			<skipfolders />
+			<grid spacing="0,0" width="150" height="150" frame="tokenbagasset" frameoffset="5,5,5,5" font="tokenbagasset_grid" />
+			<list spacing="0,0" height="100" frame="tokenbagasset" frameoffset="5,5,5,5" font="tokenbagasset_list" />
+			<empty font="sheetlabel" textres="decalselect_empty" />
+			<filter control="filter" min="3" type="image" key="images/decals" />
+			<nodrag />
+			<script>
+				function onActivate(sAssetName, sAssetType)
+					window.onActivate(sAssetName, sAssetType);
+				end
+				function onValueChanged()
+					window.onValueUpdate();
+				end
+			</script>
+		</assetviewcontrol>
+	</template>
+	<template name="assetview_decalselect">
+		<assetview_decalselect_step>
+			<anchored to="contentanchor">
+				<top anchor="bottom" relation="relative" offset="5" />
+				<left />
+				<right offset="-5" />
+				<bottom parent="bottomanchor" anchor="top" offset="-40" />
+			</anchored>
+		</assetview_decalselect_step>
+	</template>
+	<template name="filter_decalselect">
+		<filter name="filter">
+			<anchored to="contentanchor" height="20">
+				<top parent="bottomanchor" offset="-30" />
+				<left offset="30" />
+				<right offset="-20" />
+			</anchored>
+			<delaykeyupdate />
+		</filter>
+	</template>
+	<template name="button_decalselect_page_prev">
+		<button_assets_page_prev>
+			<anchored height="60" width="20">
+				<top parent="assets" anchor="center" offset="-30"/>
+				<right parent="contentanchor" anchor="left" offset="0" />
+			</anchored>
+		</button_assets_page_prev>
+	</template>
+	<template name="button_decalselect_page_next">
+		<button_assets_page_next>
+			<anchored height="60" width="20">
+				<top parent="assets" anchor="center" offset="-30"/>
+				<left parent="contentanchor" anchor="right" offset="-5" />
+			</anchored>
+		</button_assets_page_next>
+	</template>
+	<template name="button_decalselect_clear">
+		<button_text>
+			<anchored width="80" height="20">
+				<top parent="bottomanchor" offset="5" />
+				<left parent="contentanchor" offset="15" />
+			</anchored>
+			<state textres="decalselect_button_clear" />
+			<script>
+				function onButtonPress()
+					window.handleClear();
+				end
+			</script>
+		</button_text>
+	</template>
+	<template name="button_decalselect_ok">
+		<button_text>
+			<anchored width="60" height="20">
+				<top parent="bottomanchor" offset="5" />
+				<right parent="contentanchor" offset="-90" />
+			</anchored>
+			<state textres="button_dialog_ok" />
+			<script>
+				function onButtonPress()
+					window.handleOK();
+				end
+			</script>
+		</button_text>
+	</template>
+	<template name="button_decalselect_cancel">
+		<button_text>
+			<anchored width="60" height="20">
+				<top parent="bottomanchor" offset="5" />
+				<right parent="contentanchor" offset="-20" />
+			</anchored>
+			<state textres="button_dialog_cancel" />
+			<script>
+				function onButtonPress()
+					window.handleCancel();
+				end
+			</script>
+		</button_text>
+	</template>
+	<template name="close_decalselect">
+		<close_utilitybox>
+			<script>
+				function onButtonPress()
+					window.handleCancel();
+				end
+			</script>
+		</close_utilitybox>
+	</template>
+</root>

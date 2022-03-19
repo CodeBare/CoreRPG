@@ -1,0 +1,187 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<!-- 
+  Please see the license.html file included with this distribution for 
+  attribution and copyright information.
+-->
+
+<root>
+	<template name="characterlist_entry">
+		<genericcontrol>
+			<anchored position="insidetopleft" />
+			<script file="desktop/scripts/characterlist_entry.lua" />
+		</genericcontrol>
+	</template>
+
+	<template name="chatentry_step">
+		<chatentry name="entry">
+			<anchored>
+				<sizelimits>
+					<maximum height="160" />
+				</sizelimits>
+			</anchored>
+			<frame name="chatentry" offset="2,2,50,2" />
+			<multilinespacing>20</multilinespacing>
+			<chatwindow>chat</chatwindow>
+			<font>chatfont</font>
+			<script file="desktop/scripts/chat_entry.lua" />
+		</chatentry>
+	</template>
+	<template name="basicchatentry">
+		<chatentry_step>
+			<anchored position="insidebottomleft" offset="18,14">
+				<right offset="-65" />
+				<sizelimits>
+					<maximum height="160" />
+				</sizelimits>
+			</anchored>
+		</chatentry_step>
+	</template>
+	<template name="basicchatentryscroll">
+		<scrollbar name="entryscroll">
+			<anchored to="entry">
+				<top offset="12" />
+				<bottom offset="-35" />
+				<left anchor="right" offset="28" />
+			</anchored>
+			<target>entry</target>
+		</scrollbar>
+	</template>
+	<template name="basicchatentrymode">
+		<genericcontrol name="mode">
+			<anchored to="entry" position="rightlow" offset="5,-1" width="43" height="24" />
+			<icon>chat_speak</icon>
+			<script file="desktop/scripts/chat_mode.lua" />
+		</genericcontrol>
+	</template>
+	<template name="chatwindow_step">
+		<chatwindow name="chat">
+			<droptypes>
+				<type>dice</type>
+				<type>number</type>
+				<type>string</type>
+			</droptypes>
+			<script file="desktop/scripts/chat_window.lua" />
+		</chatwindow>
+	</template>
+	<template name="basicchatwindow">
+		<chatwindow_step name="chat">
+			<anchored position="insidetopleft" offset="20,25">
+				<right offset="-30" />
+				<bottom parent="entry" anchor="top" relation="relative" offset="-15" />
+			</anchored>
+			<stateframe>
+				<drophilight name="chatboxhilight" offset="6,13,17,12" />
+			</stateframe>
+		</chatwindow_step>
+	</template>
+	<template name="basicchatwindowscroll">
+		<scrollbar name="chatscroll">
+			<anchored to="chat" />
+			<target>chat</target>
+		</scrollbar>
+	</template>
+	<template name="basicchatwindowstatus">
+		<genericcontrol name="chatstatus">
+			<anchored to="chat" position="insidetopright" width="60" height="61" />
+			<icon>chat_wait</icon>
+			<invisible />
+			<script>
+				function onUserStateChange(username, statename, state)
+					if username == "" then
+						if statename == "typing" then
+							setVisible(true);
+						elseif statename == "active" or statename == "idle" then
+							setVisible(false);
+						end
+					end
+				end
+			
+				function onInit()
+					User.onUserStateChange = onUserStateChange;
+				end
+			</script>
+		</genericcontrol>
+	</template>
+	<template name="chat_language_combo">
+		<combobox>
+			<anchored height="15">
+				<right parent="entry" anchor="right" offset="45" />
+				<bottom parent="entry" anchor="top" relation="relative" offset="-5" />
+				<left parent="" anchor="center" offset="35" />
+			</anchored>
+			<frame>
+				<name>tempmodsmall</name>
+				<offset>25,2,5,4</offset>
+			</frame>
+			<font>chatfont</font>
+			<listmaxsize>12</listmaxsize>
+		</combobox>
+	</template>
+	<template name="chat_language_icon">
+		<genericcontrol>
+			<anchored to="language" position="lefthigh" offset="5,0" width="16" height="16" />
+			<icon>button_speak</icon>
+			<tooltip textres="chat_tooltip_language" />
+		</genericcontrol>
+	</template>
+	<template name="chat_speaker_combo">
+		<combobox>
+			<anchored height="15">
+				<left parent="entry" anchor="left" offset="25" />
+				<bottom parent="entry" anchor="top" relation="absolute" offset="-5" />
+				<right parent="" anchor="center" offset="-10" />
+			</anchored>
+			<frame>
+				<name>tempmodsmall</name>
+				<offset>25,2,5,4</offset>
+			</frame>
+			<font>chatfont</font>
+			<listmaxsize>12</listmaxsize>
+			<gmvisibleonly />
+			<unsorted />
+			<script>
+				function onSelect(sValue)
+					if (sValue or "") ~= "" then
+						GmIdentityManager.setCurrent(sValue);
+					else
+						GmIdentityManager.activateGMIdentity();
+					end
+				end
+				function onDelete(sValue)
+					if (sValue or "") ~= "" then
+						GmIdentityManager.removeIdentity(sValue);
+					end
+					return true;
+				end
+			</script>
+		</combobox>
+	</template>
+	<template name="chat_speaker_icon">
+		<genericcontrol>
+			<anchored to="speaker" position="lefthigh" offset="5,0" width="16" height="16" />
+			<icon>button_speak</icon>
+			<tooltip textres="chat_tooltip_speaker" />
+			<gmvisibleonly />
+		</genericcontrol>
+	</template>
+	
+	<template name="button_imagebackpanel_sizedown">
+		<button_window_sizedown>
+			<anchored position="insidetopright" offset="73,1" />
+			<invisible />
+		</button_window_sizedown>
+	</template>
+	<template name="button_imagebackpanel_sizeup">
+		<button_window_sizeup>
+			<anchored position="insidetopright" offset="49,1" />
+			<invisible />
+		</button_window_sizeup>
+	</template>
+	<template name="button_imagefullpanel_sizedown">
+		<button_window_sizedown>
+			<anchored position="insidetopright" offset="49,1" />
+			<invisible />
+		</button_window_sizedown>
+	</template>
+</root>

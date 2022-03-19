@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<!-- 
+  Please see the license.html file included with this distribution for 
+  attribution and copyright information.
+-->
+
+<root>
+	<windowclass name="modifiers">
+		<frame>utilitybox3</frame>
+		<placement>
+			<size width="550" height="430" />
+		</placement>
+		<sizelimits>
+			<dynamic />
+			<minimum width="550" height="350" />
+		</sizelimits>
+		<playercontrol />
+		<nodelete />
+		<tooltip textres="library_recordtype_label_modifier" />
+		<script file="utility/scripts/modifierwindow.lua" />
+		<sheetdata>
+			<windowtitlebar name="title">
+				<resource>library_recordtype_label_modifier</resource>
+			</windowtitlebar>
+			<anchor_title_utilitybox3 name="contentanchor" />
+			
+			<anchor_modifier_list_bottom />
+
+			<sub_modifier_preset name="preset" />
+			<scrollbar name="scroll_preset">
+				<anchored to="preset" />
+				<target>preset</target>
+			</scrollbar>
+			<label_modifier_preset name="label_preset" />
+
+			<anchor_modifier_paging />
+			<list_page_info />
+			<list_page_start />
+			<list_page_prev />
+			<list_page_next />
+			<list_page_end />
+			
+			<list_modifier_custom name="list" />
+			<scrollbar_list name="scroll_list" />
+			<label_modifier_custom name="label_custom" />
+			
+			<anchor_bottom_utilitybox3 name="bottomanchor" />
+
+			<anchor_utility_controls />
+			<button_iedit_utility />
+			<button_iadd_utility />
+			<filter_utility />
+			
+			<resize_utilitybox3 />
+			<helper_modifiers />
+			<close_utilitybox3 />
+		</sheetdata>
+	</windowclass>
+
+	<windowclass name="modifier_presets">
+		<script file="utility/scripts/modifierlist_presets.lua" />
+		<sheetdata>
+			<anchor_column name="columnanchor" />
+		</sheetdata>
+	</windowclass>
+
+	<windowclass name="modifier_preset_item">
+		<margins control="0,0,0,7" />
+		<script>
+			function setData(sKey)
+				button.setData(sKey);
+			end
+		</script>
+		<sheetdata>
+			<button_modifier_preset name="button" />
+		</sheetdata>
+	</windowclass>
+
+	<windowclass name="modifier_preset_separator">
+		<margins control="0,0,0,7" />
+		<sheetdata>
+			<genericcontrol>
+				<anchored position="insidetop" offset="-7,7" height="20" />
+			</genericcontrol>
+		</sheetdata>
+	</windowclass>
+
+	<windowclass name="modifiersmall">
+		<margins control="0,0,0,2" />
+		<script file="utility/scripts/modifier.lua" />
+		<sheetdata>
+			<anchor_modifier_left name="leftanchor" />
+			<button_modifier_activate name="activate" />
+
+			<anchor_modifier_right name="rightanchor" />
+			<button_modifier_idelete name="idelete" />
+			<button_modifier_isgmonly name="isgmonly" />
+			<number_modifier_bonus name="bonus" />
+			
+			<string_modifier name="label" />
+		</sheetdata>
+	</windowclass>
+</root>

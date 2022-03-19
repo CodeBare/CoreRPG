@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<!-- 
+  Please see the license.html file included with this distribution for 
+  attribution and copyright information.
+-->
+
+<root>
+	<string name="ps_window_title">Party Sheet</string>
+	
+	<string name="ps_emptylistitems">Drop treasure parcel or items here\nto assign treasure to party members.</string>
+	<string name="ps_emptylistpartyitems">Click rebuild button to refresh party inventory from PCs.</string>
+	<string name="ps_emptylistclientitems">Party items for distribution listed here.</string>
+	<string name="ps_emptylist">Drop PCs here to add party members.</string>
+
+	<string name="ps_label_desc">Description</string>
+	<string name="ps_label_invmoney">Parcel Coins</string>
+	<string name="ps_label_invitems">Parcel Items</string>
+	<string name="ps_label_invassign">Assignment</string>
+	<string name="ps_label_partymoney">Party Coins</string>
+	<string name="ps_label_partycarried">Carried By</string>
+	<string name="ps_label_partyitems">Party Inventory</string>
+	<string name="ps_label_invname">Name</string>
+	<string name="ps_label_order">Watch Order</string>
+	<string name="ps_label_formation">Marching &amp; Formation</string>
+	
+	<string name="ps_tooltip_rebuild">Rebuild Party Inventory</string>
+	<string name="ps_tooltip_distribute">Distribute Assignments and Coins</string>
+	<string name="ps_tooltip_sell">Sell Items</string>
+	
+	<string name="ps_message_itemfailtoomanyassign">More item assignments than items available.</string>
+	<string name="ps_message_itemfailcreate">Unable to transfer item to character.</string>
+	<string name="ps_message_itemdistributesuccess">Distributed assigned items to the Party.</string>
+	<string name="ps_message_itemdistributeempty">No items assigned for distribution to the Party.</string>
+	<string name="ps_message_coindistributesuccess">Distributed across the Party.</string>
+	<string name="ps_message_itemsellcostmissing">Unable to determine cost or zero cost.</string>
+	<string name="ps_message_itemsellcostlow">Sell total is less than one currency unit.</string>
+	<string name="ps_message_itemsellsuccess">Selling</string>
+</root>

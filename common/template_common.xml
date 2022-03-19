@@ -1,0 +1,627 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<!-- 
+  Please see the license.html file included with this distribution for 
+  attribution and copyright information.
+-->
+
+<root>
+	<!-- Hidden fields -->
+	<template name="hn">
+		<numberfield>
+			<bounds>0,0,0,0</bounds>
+			<invisible />
+		</numberfield>
+	</template>
+	<template name="hnc">
+		<numbercontrol>
+			<bounds>0,0,0,0</bounds>
+			<invisible />
+		</numbercontrol>
+	</template>
+	<template name="hs">
+		<stringfield>
+			<bounds>0,0,0,0</bounds>
+			<invisible />
+		</stringfield>
+	</template>
+	<template name="hsc">
+		<stringcontrol>
+			<bounds>0,0,0,0</bounds>
+			<invisible />
+		</stringcontrol>
+	</template>
+	<template name="hlink">
+		<windowreferencefield>
+			<bounds>0,0,0,0</bounds>
+			<invisible />
+		</windowreferencefield>
+	</template>
+	<template name="htoken">
+		<tokenfield>
+			<bounds>0,0,0,0</bounds>
+			<invisible />
+		</tokenfield>
+	</template>
+	<template name="hnx">
+		<numberfield>
+			<bounds>0,0,0,0</bounds>
+			<invisible />
+			<script file="common/scripts/number_crosslink.lua" />
+		</numberfield>
+	</template>
+	<template name="hsx">
+		<stringfield>
+			<bounds>0,0,0,0</bounds>
+			<invisible />
+			<script file="common/scripts/string_crosslink.lua" />
+		</stringfield>
+	</template>
+	<template name="hsm">
+		<stringfield>
+			<bounds>0,0,0,0</bounds>
+			<invisible />
+			<script file="common/scripts/string_multilink.lua" />
+		</stringfield>
+	</template>
+	
+	<template name="label">
+		<stringcontrol>
+			<anchored height="20" />
+			<font>sheetlabel</font>
+			<nodrag />
+			<readonly />
+		</stringcontrol>
+	</template>
+	<template name="label_frametop">
+		<label>
+			<anchored position="insidetop" offset="0,10" />
+			<center />
+		</label>
+	</template>
+	<template name="label_fieldtop">
+		<stringcontrol>
+			<anchored position="above" offset="3,1" />
+			<font>sheetlabelmini</font>
+			<center />
+		</stringcontrol>
+	</template>
+	
+	<template name="simplestringc">
+		<stringcontrol>
+			<font>sheettext</font>
+		</stringcontrol>
+	</template>
+	<template name="simplestring">
+		<stringfield>
+			<droptypes>
+				<type>string</type>
+			</droptypes>
+			<font>sheettext</font>
+		</stringfield>
+	</template>
+	<template name="basicstring">
+		<simplestring>
+			<frame mergerule="replace" name="fielddark" offset="7,5,7,5" hidereadonly="true" />
+			<stateframe>
+				<keyedit name="fieldfocus" offset="7,5,7,5" />
+				<hover name="fieldfocus" offset="7,5,7,5" hidereadonly="true" />
+				<drophilight name="fieldfocus" offset="7,5,7,5" hidereadonly="true" />
+			</stateframe>
+		</simplestring>
+	</template>
+	<template name="stringu">
+		<stringfield>
+			<font>sheettext</font>
+			<controlline />
+		</stringfield>
+	</template>
+	<template name="stringcu">
+		<stringcontrol>
+			<font>sheettext</font>
+			<controlline />
+		</stringcontrol>
+	</template>
+
+	<template name="number">
+		<numberfield>
+			<noreset />
+			<script file="common/scripts/number.lua" />
+		</numberfield>
+	</template>
+	<template name="numberc">
+		<numbercontrol>
+			<noreset />
+			<script file="common/scripts/number.lua" />
+		</numbercontrol>
+	</template>
+	<template name="simplenumber">
+		<number>
+			<droptypes>
+				<type>number</type>
+			</droptypes>
+			<font>sheetnumber</font>
+		</number>
+	</template>
+	<template name="simplenumberc">
+		<numberc>
+			<droptypes>
+				<type>number</type>
+			</droptypes>
+			<font>sheetnumber</font>
+		</numberc>
+	</template>
+	<template name="basicnumber">
+		<simplenumber>
+			<frame mergerule="replace" name="fielddark" offset="7,5,7,5" />
+			<stateframe>
+				<keyedit name="fieldfocus" offset="7,5,7,5" />
+				<hover name="fieldfocus" offset="7,5,7,5" hidereadonly="true" />
+				<drophilight name="fieldfocus" offset="7,5,7,5" hidereadonly="true" />
+			</stateframe>
+		</simplenumber>
+	</template>
+	<template name="basicnumberc">
+		<simplenumberc>
+			<frame mergerule="replace" name="fielddark" offset="7,5,7,5" />
+			<stateframe>
+				<keyedit name="fieldfocus" offset="7,5,7,5" />
+				<hover name="fieldfocus" offset="7,5,7,5" hidereadonly="true" />
+				<drophilight name="fieldfocus" offset="7,5,7,5" hidereadonly="true" />
+			</stateframe>
+		</simplenumberc>
+	</template>
+	<template name="number_linked">
+		<simplenumber>
+			<readonly />
+			<source mergerule="resetandadd" />
+			<script file="common/scripts/number_linked.lua" />
+		</simplenumber>
+	</template>
+	<template name="numberc_linked">
+		<simplenumberc>
+			<readonly />
+			<source mergerule="resetandadd" />
+			<script file="common/scripts/number_linked.lua" />
+		</simplenumberc>
+	</template>
+	<template name="number_modifier">
+		<number_linked>
+			<script file="common/scripts/number_modifier.lua" />
+		</number_linked>
+	</template>
+	<template name="number_dropadd">
+		<basicnumber>
+			<stateframe>
+				<drophilight name="fieldfocusplus" />
+			</stateframe>
+			<script>
+				function onDrop(x, y, draginfo)
+					if draginfo.isType("number") then
+						setValue(getValue() + draginfo.getNumberData());
+						return true;
+					end
+				end
+			</script>
+		</basicnumber>
+	</template>
+
+	<template name="simpledice">
+		<diefield>
+			<basic />
+			<droptypes>
+				<type>dice</type>
+			</droptypes>
+		</diefield>
+	</template>
+	<template name="basicdice">
+		<simpledice>
+			<stateframe>
+				<drophilight name="fieldfocus" offset="7,5,7,5" hidereadonly="true" />
+			</stateframe>
+			<script>
+				function onInit()
+					onValueChanged();
+				end
+				function onValueChanged()
+					if isEmpty() then
+						setFrame("fielddice", 7,5,7,5);
+					else
+						setFrame("fielddark", 7,5,7,5);
+					end
+				end
+			</script>
+		</simpledice>
+	</template>
+	
+	<template name="linkcontrol">
+		<windowreferencecontrol>
+			<icon normal="button_link" pressed="button_link_down" empty="button_link_empty" />
+			<description mergerule="replace" field="name" />
+		</windowreferencecontrol>
+	</template>
+	<template name="linkfield">
+		<windowreferencefield>
+			<icon normal="button_link" pressed="button_link_down" empty="button_link_empty" />
+			<description mergerule="replace" field="name" />
+		</windowreferencefield>
+	</template>
+	<template name="linkcontrol_record">
+		<linkcontrol name="link">
+			<readonly />
+			<script file="common/scripts/link_record.lua" />
+		</linkcontrol>
+	</template>
+	<template name="linkcontrol_id">
+		<windowreferencecontrol>
+			<icon normal="button_link" pressed="button_link_down" empty="button_link_empty" />
+			<script>
+				function onDragStart(button, x, y, draginfo)
+					local sClass, sRecord = getValue();
+
+					draginfo.setType("shortcut");
+					draginfo.setIcon("button_link");
+					draginfo.setShortcutData(sClass, sRecord);
+					
+					local nodeWin = window.getDatabaseNode();
+					local bID = true;
+					local sRecordType = LibraryData.getRecordTypeFromDisplayClass(sClass);
+					if sRecordType ~= "" then
+						bID = LibraryData.getIDState(sRecordType, nodeWin, true);
+					end
+					
+					local sDesc;
+					if bID == true then
+						sDesc = DB.getValue(nodeWin, "name", "");
+						if sDesc == "" then
+							sDesc = Interface.getString("library_recordtype_empty_" .. sRecordType);
+						end
+					else
+						sDesc = DB.getValue(nodeWin, "nonid_name", "");
+						if sDesc == "" then
+							sDesc = Interface.getString("library_recordtype_empty_nonid_" .. sRecordType);
+						end
+					end
+					draginfo.setDescription(sDesc);
+					return true;
+				end
+			</script>
+		</windowreferencecontrol>
+	</template>
+	
+	<template name="simpleft">
+		<formattedtextfield />
+	</template>
+	<template name="basicft">
+		<simpleft>
+			<frame mergerule="replace" name="fielddark" offset="7,5,7,5" hidereadonly="true" />
+			<stateframe>
+				<keyedit name="fieldfocus" offset="7,5,7,5" />
+				<hover name="fieldfocus" offset="7,5,7,5" hidereadonly="true" />
+				<drophilight name="fieldfocus" offset="7,5,7,5" hidereadonly="true" />
+			</stateframe>
+		</simpleft>
+	</template>
+
+	<template name="anchor_column">
+		<genericcontrol>
+			<anchored position="insidetop" offset="0,-5" height="0"/>
+			<disabled />
+			<invisible />
+		</genericcontrol>
+	</template>
+	<template name="line_column">
+		<genericcontrol>
+			<anchored height="3">
+				<top parent="columnanchor" anchor="bottom" relation="relative" offset="7" />
+				<left />
+				<right />
+			</anchored>
+			<frame name="separatorline" />
+			<disabled />
+		</genericcontrol>
+	</template>
+	<template name="spacer_column">
+		<genericcontrol>
+			<anchored height="0">
+				<top parent="columnanchor" anchor="bottom" relation="relative" offset="5" />
+				<left />
+				<right />
+			</anchored>
+			<disabled />
+		</genericcontrol>
+	</template>
+
+	<template name="label_column">
+		<label>
+			<anchored>
+				<top parent="columnanchor" anchor="bottom" relation="current" offset="7" />
+				<left />
+			</anchored>
+		</label>
+	</template>
+	<template name="label_column_right">
+		<label>
+			<anchored>
+				<top />
+				<right parent="" offset="-60" />
+			</anchored>
+		</label>
+	</template>
+	
+	<template name="string_column">
+		<basicstring>
+			<anchored>
+				<top parent="columnanchor" anchor="bottom" relation="relative" offset="7" />
+				<left offset="97" />
+				<right offset="-5" />
+			</anchored>
+			<multilinespacing>20</multilinespacing>
+		</basicstring>
+	</template>
+	<template name="stringc_column">
+		<simplestringc>
+			<anchored>
+				<top parent="columnanchor" anchor="bottom" relation="relative" offset="7" />
+				<left offset="97" />
+				<right offset="-5" />
+			</anchored>
+			<multilinespacing>20</multilinespacing>
+			<readonly />
+		</simplestringc>
+	</template>
+	<template name="string_columnh">
+		<string_column>
+			<script file="common/scripts/column_string.lua" />
+		</string_column>
+	</template>
+	<template name="string_column_left">
+		<string_column>
+			<anchored width="60">
+				<right merge="delete" />
+			</anchored>
+		</string_column>
+	</template>
+	<template name="string_column_full">
+		<basicstring>
+			<anchored>
+				<top parent="columnanchor" anchor="bottom" relation="relative" offset="7" />
+				<left offset="5" />
+				<right offset="-5" />
+			</anchored>
+			<multilinespacing>20</multilinespacing>
+		</basicstring>
+	</template>
+	<template name="string_columnh_full">
+		<string_column_full>
+			<script file="common/scripts/column_string.lua" />
+		</string_column_full>
+	</template>
+	<template name="stringc_column_full">
+		<simplestringc>
+			<anchored>
+				<top parent="columnanchor" anchor="bottom" relation="relative" offset="7" />
+				<left offset="5" />
+				<right offset="-5" />
+			</anchored>
+			<multilinespacing>20</multilinespacing>
+		</simplestringc>
+	</template>
+
+	<template name="button_checkbox_column">
+		<button_checkbox>
+			<anchored width="20" height="20">
+				<top parent="columnanchor" anchor="bottom" relation="relative" offset="7" />
+				<left offset="92" />
+			</anchored>
+		</button_checkbox>
+	</template>
+	<template name="button_checkbox_columnh">
+		<button_checkbox_column>
+			<script file="common/scripts/column_number.lua" />
+		</button_checkbox_column>
+	</template>
+
+	<template name="number_column">
+		<basicnumber>
+			<anchored width="40" height="20">
+				<top parent="columnanchor" anchor="bottom" relation="relative" offset="7" />
+				<left offset="97" />
+			</anchored>
+		</basicnumber>
+	</template>
+	<template name="number_columnh">
+		<number_column>
+			<script file="common/scripts/column_number.lua" />
+		</number_column>
+	</template>
+	<template name="number_column_right">
+		<basicnumber>
+			<anchored width="40" height="20">
+				<top />
+				<right parent="" offset="-5" />
+			</anchored>
+		</basicnumber>
+	</template>
+	
+	<template name="ft_column">
+		<basicft>
+			<anchored>
+				<top parent="columnanchor" anchor="bottom" relation="relative" offset="7" />
+				<left offset="5" />
+				<right offset="-5" />
+			</anchored>
+		</basicft>
+	</template>
+	<template name="ft_columnh">
+		<ft_column>
+			<script file="common/scripts/column_ft.lua" />
+		</ft_column>
+	</template>
+	<template name="ft_column_labeled">
+		<basicft>
+			<anchored>
+				<top parent="columnanchor" anchor="bottom" relation="relative" offset="7" />
+				<left offset="97" />
+				<right offset="-5" />
+			</anchored>
+		</basicft>
+	</template>
+
+	<template name="header_column">
+		<label>
+			<anchored height="20">
+				<top parent="columnanchor" anchor="bottom" relation="relative" offset="10" />
+				<left offset="10" />
+				<right offset="-10" />
+			</anchored>
+			<frame name="headersimple" offset="10,3,10,3" />
+			<center />
+		</label>
+	</template>
+
+	<template name="list_column">
+		<list_text>
+			<anchored>
+				<top parent="columnanchor" anchor="bottom" relation="relative" offset="7" />
+				<left offset="0" />
+				<right offset="-5" />
+			</anchored>
+			<noscroll />
+			<script file="common/scripts/column_list.lua" />
+		</list_text>
+	</template>
+	<template name="anchor_listitem_column_right">
+		<genericcontrol name="rightanchor">
+			<anchored height="0" width="0">
+				<top offset="2" />
+				<right />
+			</anchored>
+		</genericcontrol>
+	</template>
+	<template name="link_listitem_column">
+		<linkcontrol_record name="shortcut">
+			<anchored to="rightanchor" width="20" height="20">
+				<top />
+				<right anchor="left" relation="relative" offset="-5" />
+			</anchored>
+		</linkcontrol_record>
+	</template>
+	<template name="button_listitem_column_delete">
+		<button_idelete name="idelete">
+			<anchored to="rightanchor">
+				<top />
+				<right anchor="left" offset="-5" />
+			</anchored>
+		</button_idelete>
+	</template>
+	<template name="string_listitem_column_name">
+		<stringfield name="name">
+			<anchored position="insidetopleft" offset="5,2">
+				<right parent="rightanchor" anchor="left" relation="relative" offset="-5" />
+			</anchored>
+			<font>sheetlabel</font>
+			<multilinespacing>20</multilinespacing>
+		</stringfield>
+	</template>
+	
+	<template name="button_activateid">
+		<buttoncontrol>
+			<icon normal="button_speak" pressed="button_speak_down" />
+			<script>
+				function onButtonPress()
+					local node = window.getDatabaseNode();
+					local sName = ActorManager.getDisplayName(node);
+					GmIdentityManager.addIdentity(sName);
+				end
+			</script>
+			<gmvisibleonly />
+		</buttoncontrol>
+	</template>
+	<template name="button_faction">
+		<button_iconcycler>
+			<anchored width="20" height="20" />
+			<parameters>
+				<icons>ct_faction_friend|ct_faction_neutral|ct_faction_foe</icons>
+				<values>friend|neutral|foe</values>
+				<tooltipsres>ct_tooltip_factionfriend|ct_tooltip_factionneutral|ct_tooltip_factionfoe</tooltipsres>
+				<defaulttooltipres>ct_tooltip_factionempty</defaulttooltipres>
+				<defaulticon>ct_faction_empty</defaulticon>
+			</parameters>
+		</button_iconcycler>
+	</template>
+
+	<template name="button_dialog_ok" >
+		<buttoncontrol>
+			<anchored width="35" height="35" />
+			<icon normal="button_dialog_ok" pressed="button_dialog_ok_down" />
+			<tooltip textres="button_dialog_ok" />
+			<script>
+				function onButtonPress()
+					window.processOK();
+				end
+			</script>
+		</buttoncontrol>
+	</template>
+	<template name="button_dialog_roll" >
+		<buttoncontrol>
+			<anchored width="35" height="35" />
+			<icon normal="button_dialog_roll" pressed="button_dialog_roll_down" />
+			<tooltip textres="button_dialog_roll" />
+			<script>
+				function onButtonPress()
+					window.processRoll();
+				end
+			</script>
+		</buttoncontrol>
+	</template>
+	<template name="button_dialog_fauxroll" >
+		<buttoncontrol>
+			<anchored width="35" height="35" />
+			<icon normal="button_dialog_fauxroll" pressed="button_dialog_fauxroll_down" />
+			<tooltip textres="button_dialog_fauxroll" />
+			<script>
+				function onButtonPress()
+					window.processFauxRoll();
+				end
+			</script>
+		</buttoncontrol>
+	</template>
+	<template name="button_dialog_cancel" >
+		<buttoncontrol>
+			<anchored width="35" height="35" />
+			<icon normal="button_dialog_cancel" pressed="button_dialog_cancel_down" />
+			<tooltip textres="button_dialog_cancel" />
+			<script>
+				function onButtonPress()
+					window.processCancel();
+				end
+			</script>
+		</buttoncontrol>
+	</template>	
+	
+	<template name="button_crosslink">
+		<buttonfield>
+			<script file="common/scripts/button_crosslink.lua" />
+		</buttonfield>
+	</template>
+	
+	<template name="progressbar">
+		<genericcontrol>
+			<frame name="border" />
+			<fillcolor>006600</fillcolor>
+			<script file="common/scripts/progressbar.lua" />
+		</genericcontrol>
+	</template>
+	<template name="progressbarfill">
+		<genericcontrol>
+			<anchored position="over" />
+		</genericcontrol>
+	</template>
+	<template name="progressbar_health_d20">
+		<progressbar>
+			<noautotext />
+			<script file="common/scripts/progressbar_health_d20.lua" />
+		</progressbar>
+	</template>
+</root>

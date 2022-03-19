@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<!-- 
+  Please see the license.html file included with this distribution for 
+  attribution and copyright information.
+-->
+<root>
+	<windowclass name="module_dialog_missinglink">
+		<frame>utilitybox3</frame>
+		<placement>
+			<size width="300" height="300" />
+			<nosave />
+		</placement>
+		<script file="utility/scripts/dialog_missinglink.lua" />
+		<sheetdata>
+			<windowtitlebar name="title">
+				<resource>module_dialog_missinglink_title</resource>
+			</windowtitlebar>
+			<anchor_title_utilitybox3 name="contentanchor" />
+			
+			<anchor_bottom_utilitybox3 name="bottomanchor" />
+
+			<stringcontrol name="message">
+				<anchored to="contentanchor" position="belowleft" offset="0,15">
+					<right offset="-10" />
+					<bottom parent="bottomanchor" offset="-15" />
+				</anchored>
+				<frame offset="10,10,20,10" name="groupbox"/>
+				<multilinespacing>16</multilinespacing>
+				<font>sheetlabel</font>
+				<nodrag />
+				<readonly />
+			</stringcontrol>
+			
+			<button_dialog_ok>
+				<anchored to="bottomanchor" position="insidetopright" offset="40,-5" />
+			</button_dialog_ok>
+			<button_dialog_cancel>
+				<anchored to="bottomanchor" position="insidetopright" offset="5,-5" />
+			</button_dialog_cancel>
+			
+			<close_utilitybox3 />
+		</sheetdata>
+	</windowclass>
+</root>
+
+

@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<!-- 
+  Please see the license.html file included with this distribution for 
+  attribution and copyright information.
+-->
+
+<root>
+	<template name="combobox">
+		<simplestring>
+			<frame>
+				<name>fieldlight</name>
+				<offset>7,5,7,5</offset>
+			</frame>
+			<readonly />
+			<listdirection mergerule="replace">up</listdirection>
+			<buttonoffset mergerule="replace">0,1</buttonoffset>
+			<!-- Possible parameters
+			<listoffset mergerule="replace">0,5</listoffset>
+			<listfonts>
+				<normal mergerule="replace">chatfont</normal>
+				<selected mergerule="replace">narratorfont</selected>
+			</listfonts>
+			<listframes>
+				<normal mergerule="replace"></normal>
+				<selected mergerule="replace">rowshade</selected>
+			</listframes>
+			<listmaxsize mergerule="replace">0</listmaxsize>
+			-->
+			<script file="common/scripts/combobox.lua"/>
+		</simplestring>
+	</template>
+	<template name="comboboxc">
+		<simplestringc>
+			<frame>
+				<name>fieldlight</name>
+				<offset>7,5,7,5</offset>
+			</frame>
+			<readonly />
+			<listdirection mergerule="replace">up</listdirection>
+			<buttonoffset mergerule="replace">0,1</buttonoffset>
+			<script file="common/scripts/combobox.lua"/>
+		</simplestringc>
+	</template>
+	<template name="combobox_button">
+		<genericcontrol>
+			<anchored width="15" height="10">
+				<top />
+				<right />
+			</anchored>
+			<invisible />
+			<script file="common/scripts/combobox_button.lua"/>
+		</genericcontrol>
+	</template>
+	<template name="combobox_list">
+		<windowlist>
+			<anchored height="50">
+				<right />
+				<bottom />
+			</anchored>
+			<frame name="combobox_list" offset="2,2,2,2" />
+			<datasource/>
+			<class>combobox_item</class>
+			<invisible/>
+			<skipempty/>
+			<sortby><control>Order</control></sortby>
+			<script file="common/scripts/combobox_list.lua" />
+		</windowlist>
+	</template>
+ 	<template name="combobox_list_sorted">
+		<combobox_list>
+			<sortby merge="replace"><control>Text</control></sortby>
+		</combobox_list>
+	</template>
+   <windowclass name="combobox_item">
+		<script file="common/scripts/combobox_item.lua" />
+		<sheetdata>
+			<hnc name="Order" />
+			<hsc name="Value" />
+
+			<genericcontrol name="rightanchor">
+				<anchored position="insideright" width="0" />
+				<disabled />
+			</genericcontrol>
+			<button_idelete name="idelete">
+				<anchored>
+					<top />
+					<right parent="rightanchor" anchor="left" relation="relative" />
+				</anchored>
+			</button_idelete>
+			<simplestring name="Text">
+				<anchored position="insidetopleft" height="20">
+					<right parent="rightanchor" anchor="left" relation="relative" />
+				</anchored>
+				<readonly />
+				<script>
+					function onClickDown()
+						return true;
+					end
+
+					function onClickRelease()
+						window.clicked();
+					end
+				</script>
+			</simplestring>
+		</sheetdata>
+	</windowclass>
+	<template name="combobox_scrollbar">
+		<scrollbarcontrol>
+			<anchored position="insideleft" width="10" />
+			<normal name="combobox_scrollbar" />
+		</scrollbarcontrol>
+	</template>
+</root>

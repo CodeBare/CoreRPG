@@ -1,0 +1,645 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<!-- 
+  Please see the license.html file included with this distribution for 
+  attribution and copyright information.
+-->
+
+<root>
+	<windowclass name="table">
+		<frame>recordsheet</frame>
+		<placement>
+			<size width="400" height="400" />
+		</placement>
+		<sizelimits>
+			<minimum width="400" height="400" />
+			<dynamic />
+		</sizelimits>
+		<minimize>minimized_utility</minimize>
+		<nodelete />
+		<sharable />
+		<tooltip field="name" />
+		<script>
+			function onLockChanged()
+				if header.subwindow then
+					header.subwindow.update();
+				end
+				if main.subwindow then
+					main.subwindow.update();
+				end
+
+				local bReadOnly = WindowManager.getReadOnlyState(getDatabaseNode());
+				notes.setReadOnly(bReadOnly);
+			end
+		</script>
+		<sheetdata>
+			<sub_record_header name="header">
+				<class>table_header</class>
+			</sub_record_header>
+
+			<frame_record_content_tabbed name="contentframe" />
+
+			<subwindow_record name="main">
+				<class>table_main</class>
+				<script>
+					function onDrop(x, y, draginfo)
+						return subwindow.onDrop(x, y, draginfo);
+					end
+				</script>
+			</subwindow_record>
+			<ft_record name="notes">
+				<anchored to="contentframe">
+					<top />
+					<left offset="10" />
+					<right />
+					<bottom />
+				</anchored>
+				<empty textres="ft_empty" hidereadonly="true" />
+				<invisible />
+			</ft_record>
+
+			<scrollbar_record>
+				<target>main</target>
+			</scrollbar_record>
+			<scrollbar_record>
+				<target>notes</target>
+			</scrollbar_record>
+
+			<tabs_recordsheet name="tabs">
+				<tab>
+					<icon>tab_main</icon>
+					<subwindow>main</subwindow>
+				</tab>
+				<tab>
+					<icon>tab_notes</icon>
+					<subwindow>notes</subwindow>
+				</tab>
+			</tabs_recordsheet>
+			
+			<resize_recordsheet />
+			<close_recordsheet />
+		</sheetdata>
+	</windowclass>
+
+	<windowclass name="table_header">
+		<margins control="0,0,0,7" />
+		<script file="common/scripts/record_header.lua" />
+		<sheetdata>
+			<link_record_header name="link" />
+			
+			<anchor_record_header_right name="rightanchor" />
+			<icon_record_locked />
+			<button_record_locked />
+
+			<string_record_name name="name" />
+		</sheetdata>
+	</windowclass>
+
+	<windowclass name="table_column_headers">
+		<script>
+			function setColumns(nColumns)
+				parentcontrol.window.setColumns(nColumns);
+			end
+			
+			function getColumns()
+				return parentcontrol.window.getColumns();
+			end
+			
+			function updateColumns()
+				parentcontrol.window.updateColumns();
+			end
+		</script>
+		<sheetdata>
+			<label name="header_die">
+				<anchored merge="replace" width="60">
+					<top />
+					<left offset="10" />
+				</anchored>
+				<multilinespacing>20</multilinespacing>
+				<center />
+			</label>
+		</sheetdata>
+	</windowclass>
+	
+	<template name="label_tablecolumn">
+		<stringfield>
+			<anchored width="100">
+				<top />
+				<left offset="50" />
+			</anchored>
+			<stateframe>
+				<keyedit name="fieldfocus" offset="7,5,7,5" />
+			</stateframe>
+			<font>sheetlabel</font>
+			<empty textres="table_emptylabel" />
+			<multilinespacing>20</multilinespacing>
+			<nodrag />
+			<nodragselect />
+			<center />
+			<script>
+				function onInit()
+					registerMenuItem(Interface.getString("table_menu_coldelete"), "delete", 4);
+				end
+				
+				function onMenuSelection(selection)
+					if selection == 4 then
+						window.setColumns(window.getColumns() - 1);
+					end
+				end
+				
+				function onValueChanged()
+					window.updateColumns();
+				end
+			</script>
+		</stringfield>
+	</template>
+	<template name="string_tableresult">
+		<stringfield>
+			<stateframe>
+				<keyedit name="fieldfocus" offset="7,5,7,5" />
+			</stateframe>
+			<font>sheettext</font>
+			<multilinespacing>20</multilinespacing>
+			<empty> -- </empty>
+			<nohighlight />
+			<script file="common/scripts/list_textitem.lua" />
+		</stringfield>
+	</template>
+	<template name="link_tableresult">
+		<windowreferencefield>
+			<anchored height="20" width="20" />
+			<icon normal="button_link" pressed="button_link_down" empty="button_link_empty" />
+			<description field="result" />
+		</windowreferencefield>
+	</template>
+	
+	<windowclass name="table_result">
+		<margins control="0,0,0,2" />
+		<script>
+			function onInit()
+				registerMenuItem(Interface.getString("table_menu_linkdelete"), "erase", 8);
+				updateDisplay();
+			end
+			
+			function onMenuSelection(selection)
+				if selection == 8 then
+					resultlink.setValue();
+				end
+			end
+			
+			function updateDisplay()
+				local bLink = not resultlink.isEmpty();
+				resultlink.setVisible(bLink);
+			end
+			
+			function onDrop(x, y, draginfo)
+				if draginfo.isType("shortcut") then
+					resultlink.setValue(draginfo.getShortcutData());
+					if result.getValue() == "" then
+						result.setValue(DB.getValue(draginfo.getDatabaseNode(), "name", ""));
+					end
+					return true;
+				end
+			end
+		</script>
+		<sheetdata>
+			<genericcontrol name="leftanchor">
+				<bounds>0,2,0,20</bounds>
+				<disabled />
+			</genericcontrol>
+			<genericcontrol name="base">
+				<anchored position="over" />
+				<script>
+					function onDrop(x, y, draginfo)
+						return window.onDrop(x, y, draginfo);
+					end
+				</script>
+			</genericcontrol>
+			<link_tableresult name="resultlink">
+				<anchored>
+					<top offset="2" />
+					<left parent="leftanchor" anchor="right" relation="relative" offset="5" />
+				</anchored>
+				<invisible />
+				<script>
+					function onValueChanged()
+						window.updateDisplay();
+					end
+					function onDrop(x, y, draginfo)
+						return window.onDrop(x, y, draginfo);
+					end
+				</script>
+			</link_tableresult>
+			<string_tableresult name="result">
+				<anchored>
+					<top offset="2" />
+					<left parent="leftanchor" anchor="right" relation="relative" offset="5" />
+					<right offset="-10" />
+				</anchored>
+				<script>
+					function onDragStart(button, x, y, draginfo)
+						local sResult = getValue();
+						if sResult ~= "" then
+							draginfo.setType("string");
+							draginfo.setStringData(sResult);
+							return true;
+						end
+					end
+					
+					function onDrop(x, y, draginfo)
+						if draginfo.getType() ~= "string" then
+							return window.onDrop(x, y, draginfo);
+						end
+					end
+				</script>
+			</string_tableresult>
+		</sheetdata>
+	</windowclass>
+	
+	<windowclass name="table_row">
+		<margins control="0,0,0,2" />
+		<sheetdata>
+			<basicnumber name="fromrange">
+				<bounds>5,2,20,20</bounds>
+				<hideonvalue>0</hideonvalue>
+				<delaykeyupdate />
+				<nodrag />
+			</basicnumber>
+			<label name="dash">
+				<bounds>30,2,5,20</bounds>
+				<static>-</static>
+				<center />
+			</label>
+			<basicnumber name="torange">
+				<bounds>40,2,20,20</bounds>
+				<hideonvalue>0</hideonvalue>
+				<delaykeyupdate />
+				<nodrag />
+			</basicnumber>
+			
+			<genericcontrol name="rightanchor">
+				<anchored height="0" width="0">
+					<top />
+					<right />
+				</anchored>
+			</genericcontrol>
+			<button_idelete name="idelete">
+				<anchored>
+					<top offset="2" />
+					<right parent="rightanchor" anchor="left" relation="relative" offset="-5" />
+				</anchored>
+			</button_idelete>
+
+			<windowlist name="results">
+				<anchored>
+					<top />
+					<left offset="70" />
+					<right parent="rightanchor" anchor="left" offset="-25" />
+				</anchored>
+				<class>table_result</class>
+				<datasource>.results</datasource>
+				<createonempty />
+				<noscroll />
+				<columns width="150" fillwidth="true" />
+			</windowlist>
+		</sheetdata>
+	</windowclass>
+
+	<windowclass name="table_main">
+		<margins control="0,0,0,5" />
+		<script file="campaign/scripts/table_main.lua" />
+		<sheetdata>
+			<hn name="table_positionoffset" />
+			<hn name="resultscols">
+				<default>1</default>
+				<min>1</min>
+				<script>
+					function onValueChanged()
+						window.onColumnsChanged();
+					end
+				</script>
+			</hn>
+			
+			<anchor_column name="columnanchor" />
+			
+			<string_column_full name="description">
+				<empty textres="table_emptydesc" />
+			</string_column_full>
+
+			<line_column name="divider" />
+			
+			<genericcontrol name="tabletoplabelanchor">
+				<anchored height="10" width="0">
+					<top parent="columnanchor" anchor="bottom" relation="relative" offset="2" />
+					<left />
+				</anchored>
+			</genericcontrol>
+			<label_tabletop name="label_roll">
+				<anchored width="30" />
+				<static textres="table_label_roll" />
+			</label_tabletop>
+			<label_tabletop name="label_showroll">
+				<anchored width="20">
+					<left offset="10" />
+				</anchored>
+				<static textres="table_label_showroll" />
+				<tooltip textres="table_tooltip_showroll" />
+			</label_tabletop>
+			<label_tabletop name="label_customroll">
+				<anchored width="80">
+					<left offset="15" />
+				</anchored>
+				<static textres="table_label_customroll" />
+			</label_tabletop>
+			<label_tabletop name="label_output">
+				<anchored width="40">
+					<left offset="15" />
+				</anchored>
+				<static textres="table_label_output" />
+			</label_tabletop>
+			
+			<genericcontrol name="leftanchor">
+				<anchored height="20" width="0">
+					<top parent="columnanchor" anchor="bottom" relation="relative" offset="8" />
+					<left />
+				</anchored>
+			</genericcontrol>
+			<button_roll name="button_roll">
+				<anchored to="leftanchor" width="30" height="30">
+					<top offset="-5" />
+					<left anchor="right" relation="relative" offset="0" />
+				</anchored>
+				<script>
+					function onDragStart(button, x, y, draginfo)
+						return window.actionRoll(draginfo);
+					end
+					
+					function onButtonPress()
+						return window.actionRoll();
+					end
+				</script>
+			</button_roll>
+			<buttonfield name="hiderollresults">
+				<anchored to="leftanchor" height="20" width="20">
+					<top />
+					<left anchor="right" relation="relative" offset="10" />
+				</anchored>
+				<frame name="fielddark" offset="8,7,8,5" />
+				<state icon="visibilityon" tooltipres="table_tooltip_rollshow" />
+				<state icon="visibilityoff" tooltipres="table_tooltip_rollhide" />
+			</buttonfield>
+			<basicdice name="dice">
+				<anchored to="leftanchor" height="20" width="50">
+					<top />
+					<left anchor="right" relation="relative" offset="15" />
+				</anchored>
+				<script>
+					function onDragStart(button, x, y, draginfo)
+						return window.actionRoll(draginfo);
+					end
+					
+					function onDoubleClick()
+						return window.actionRoll();
+					end
+				</script>
+			</basicdice>
+			<basicnumber name="mod">
+				<anchored to="leftanchor" height="20" width="20">
+					<top offset="-1" />
+					<left anchor="right" relation="relative" offset="10" />
+				</anchored>
+				<displaysign />
+				<script>
+					function onDragStart(button, x, y, draginfo)
+						return window.actionRoll(draginfo);
+					end
+					
+					function onDoubleClick()
+						return window.actionRoll();
+					end
+				</script>
+			</basicnumber>
+			<button_stringcycler name="output">
+				<anchored to="leftanchor" width="40">
+					<top offset="-1" />
+					<left anchor="right" relation="relative" offset="15" />
+				</anchored>
+				<gmvisibleonly />
+				<parameters>
+					<labelsres>table_label_output_story|table_label_output_parcel|table_label_output_encounter</labelsres>
+					<values>story|parcel|encounter</values>
+					<defaultlabelres>table_label_output_chat</defaultlabelres>
+				</parameters>
+			</button_stringcycler>
+
+			<button_iedit name="table_iedit">
+				<anchored>
+					<top parent="leftanchor" />
+					<right offset="-10" />
+				</anchored>
+				<target>list</target>
+				<script>
+					function onValueChanged()
+						local bEditMode = (getValue() == 1);
+						window.table_iadd_column.setVisible(bEditMode);
+						window.table_idelete_column.setVisible(bEditMode);
+						window.table_iadd_row.setVisible(bEditMode);
+						window.tablerows.update();
+					end
+				</script>
+			</button_iedit>
+			<button_iadd name="table_iadd_row">
+				<anchored to="table_iedit" position="lefthigh" offset="2,0" />
+				<tooltip textres="table_tooltip_rowadd" />
+				<invisible />
+				<script>
+					function onButtonPress()
+						window.addRow();
+					end
+				</script>
+			</button_iadd>
+			<button_icon name="table_idelete_column">
+				<anchored to="table_iadd_row" position="lefthigh" offset="4,0" width="20" height="20" />
+				<icon normal="button_col_delete" />
+				<tooltip textres="table_tooltip_coldelete" />
+				<invisible />
+				<script>
+					function onButtonPress()
+						window.setColumns(window.getColumns() - 1);
+					end
+				</script>
+			</button_icon>
+			<button_icon name="table_iadd_column">
+				<anchored to="table_idelete_column" position="lefthigh" offset="5,0" width="20" height="20" />
+				<icon normal="button_col_insert" />
+				<tooltip textres="table_tooltip_coladd" />
+				<invisible />
+				<script>
+					function onButtonPress()
+						window.setColumns(window.getColumns() + 1);
+					end
+				</script>
+			</button_icon>
+
+			<line_column name="divider2" />
+			
+			<subwindow name="tablecolumnheaders">
+				<anchored>
+					<top parent="columnanchor" anchor="bottom" relation="relative" offset="7" />
+					<left />
+					<right />
+				</anchored>
+				<class>table_column_headers</class>
+				<fastinit />
+				<activate />
+			</subwindow>
+			
+			<windowlist name="tablerows">
+				<anchored>
+					<top parent="columnanchor" anchor="bottom" relation="relative" offset="2" />
+					<left offset="5" />
+					<right offset="-5" />
+				</anchored>
+				<datasource>.tablerows</datasource>
+				<class>table_row</class>
+				<noscroll />
+				<sortby><control>fromrange</control></sortby>
+				<child />
+				<child><backcolor>1A40301E</backcolor></child>
+				<script>
+					function onListChanged()
+						update();
+					end
+					function update()
+						local bEditMode = (window.table_iedit.getValue() == 1);
+						for _,w in ipairs(getWindows()) do
+							w.idelete.setVisibility(bEditMode);
+						end
+					end
+				</script>
+			</windowlist>
+		</sheetdata>
+	</windowclass>
+
+    <windowclass name="tableimport">
+        <frame>utilitybox</frame>
+        <placement>
+            <size width="500" height="500" />
+        </placement>
+        <sizelimits>
+            <minimum width="500" height="500" />
+            <dynamic />
+        </sizelimits>
+        <script file="campaign/scripts/tableimport.lua" />
+        <sheetdata>
+            <windowtitlebar name="title">
+                <resource>tableimport_window_title</resource>
+            </windowtitlebar>
+ 			<anchor_title_utilitybox name="contentanchor" />
+
+			<anchor_bottom_utilitybox_buttons name="bottomanchor" />
+
+	 		<simplestringc name="name">
+				<anchored to="contentanchor" height="20">
+					<top anchor="bottom" relation="relative" offset="7" />
+					<left />
+					<right />
+				</anchored>
+				<frame mergerule="replace" name="fielddark" offset="10,5,10,5" hidereadonly="true" />
+				<stateframe>
+					<keyedit name="fieldfocus" offset="10,5,10,5" />
+					<hover name="fieldfocus" offset="10,5,10,5" hidereadonly="true" />
+					<drophilight name="fieldfocus" offset="10,5,10,5" hidereadonly="true" />
+				</stateframe>
+				<empty textres="tableimport_empty_name" />
+			</simplestringc>
+
+			<simplestringc name="text">
+				<anchored to="contentanchor">
+					<top anchor="bottom" relation="relative" offset="10" />
+					<left />
+					<right />
+					<bottom parent="bottomanchor" anchor="top" offset="-100" />
+				</anchored>
+				<frame mergerule="replace" name="fielddark" offset="10,5,10,5" hidereadonly="true" />
+				<stateframe>
+					<keyedit name="fieldfocus" offset="10,5,10,5" />
+					<hover name="fieldfocus" offset="10,5,10,5" hidereadonly="true" />
+					<drophilight name="fieldfocus" offset="10,5,10,5" hidereadonly="true" />
+				</stateframe>
+				<multilinespacing>20</multilinespacing>
+				<empty textres="tableimport_empty_text" />
+			</simplestringc>
+
+			<genericcontrol name="optionframe">
+				<anchored to="text" position="below" offset="0,10" height="80" />
+				<frame name="fieldlight" offset="10,5,10,5" />
+			</genericcontrol>
+			<label name="datatype_label">
+				<anchored to="optionframe" position="insidetopleft" />
+				<static textres="tableimport_label_datatype" />
+			</label>
+			<buttongroup_radio name="datatype">
+				<anchored to="optionframe" position="insidetopleft" offset="100,2" height="16" />
+				<parameters>
+					<optionwidth>70</optionwidth>
+					<labelsres>tableimport_label_datatype_simple|tableimport_label_datatype_delimited</labelsres>
+					<values>simple|delimited</values>
+				</parameters>
+				<script>
+					function onValueChanged()
+						window.onDataTypeChanged();
+					end
+				</script>
+			</buttongroup_radio>
+			<label name="delimiter_label">
+				<anchored to="optionframe" position="insidetopleft" offset="0,20" />
+				<static textres="tableimport_label_delimiter" />
+				<invisible />
+			</label>
+			<buttongroup_radio name="delimiter">
+				<anchored to="optionframe" position="insidetopleft" offset="100,22" height="16" />
+				<parameters>
+					<optionwidth>70</optionwidth>
+					<labelsres>tableimport_label_delimiter_comma|tableimport_label_delimiter_pipe|tableimport_label_delimiter_colon|tableimport_label_delimiter_semicolon</labelsres>
+					<values>comma|pipe|colon|semicolon</values>
+				</parameters>
+				<invisible />
+			</buttongroup_radio>
+			<label name="headerrow_label">
+				<anchored to="optionframe" position="insidetopleft" offset="0,40" />
+				<static textres="tableimport_label_headerrow" />
+				<invisible />
+			</label>
+			<button_checkbox name="headerrow">
+				<anchored to="headerrow_label" position="righthigh" offset="10,0" width="20" height="20" />
+				<invisible />
+			</button_checkbox>
+			<label name="rangecol_label">
+				<anchored to="optionframe" position="insidetopleft" offset="0,60" />
+				<static textres="tableimport_label_rangecol" />
+				<invisible />
+			</label>
+			<button_checkbox name="rangecol">
+				<anchored to="rangecol_label" position="righthigh" offset="10,0" width="20" height="20" />
+				<invisible />
+			</button_checkbox>
+
+			<button_text name="button_import">
+				<anchored width="120" height="20">
+					<top parent="bottomanchor" anchor="bottom" offset="5" />
+					<left parent="optionframe" anchor="center" offset="-60" />
+				</anchored>
+				<state textres="tableimport_label_import" />
+				<script>
+					function onButtonPress()
+						window.onImport();
+					end
+				</script>
+			</button_text>
+
+            <resize_utilitybox />
+            <close_utilitybox />
+        </sheetdata>
+    </windowclass>
+</root>

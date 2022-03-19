@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<!-- 
+  Please see the license.html file included with this distribution for 
+  attribution and copyright information.
+-->
+
+<root>
+	<windowclass name="library_booklistcategory">
+		<margins control="0,0,0,2" />
+		<frame>rowshade</frame>
+		<script>
+			local _sCategory = "";
+			function getName()
+				return "";
+			end
+			function getCategory()
+				return _sCategory;
+			end
+			function setData(sCategory)
+				_sCategory = sCategory;
+				category.setValue(sCategory);
+			end
+		</script>
+		<sheetdata>
+			<hsc name="name" />
+
+			<stringcontrol name="category">
+				<bounds>5,2,-1,24</bounds>
+				<font>reference-h</font>
+				<static />
+			</stringcontrol>
+		</sheetdata>
+	</windowclass>
+
+	<windowclass name="library_booklistentry">
+		<margins control="0,0,0,7" />
+		<sizelimits>
+			<minimum height="70" />
+		</sizelimits>
+		<script file="utility/scripts/library_booklist_entry.lua" />
+		<sheetdata>
+			<hsc name="category" />
+			
+			<buttoncontrol name="base">
+				<anchored position="over" />
+				<script>
+					function onHover(bOnControl)
+						window.name.setUnderline(bOnControl);
+						if bOnControl then
+							window.setFrame("fieldfocus");
+						else
+							window.setFrame("");
+						end
+					end
+					
+					function onButtonPress()
+						window.activate();
+						return true;
+					end
+				</script>
+			</buttoncontrol>
+			<genericcontrol name="thumbnail">
+				<bounds>7,7,63,63</bounds>
+				<disabled />
+			</genericcontrol>
+			<stringcontrol name="name">
+				<anchored position="insidetopleft" offset="85,20">
+					<right offset="-7" />
+				</anchored>
+				<multilinespacing>20</multilinespacing>
+				<font>sheetlabel</font>
+				<disabled />
+			</stringcontrol>
+		</sheetdata>
+	</windowclass>
+
+	<windowclass name="library_pagelistentry">
+		<margins control="0,0,0,2" />
+		<sheetdata>
+			<linkfield_list name="librarylink" />
+			<stringc_list_link name="name">
+				<linktarget>librarylink</linktarget>
+			</stringc_list_link>
+		</sheetdata>
+	</windowclass>
+
+	<windowclass name="library">
+		<frame>utilitybox3</frame>
+		<placement>
+			<size width="700" height="450" />
+		</placement>
+		<sizelimits>
+			<minimum width="600" height="400" />
+			<dynamic />
+		</sizelimits>
+		<script file="utility/scripts/library.lua" />
+		<sheetdata>
+			<windowtitlebar name="title">
+				<resource>library_window_title</resource>
+			</windowtitlebar>
+			<anchor_library name="contentanchor" />
+			
+			<list_library_books name="booklist" />
+			<scrollbar>
+				<anchored to="booklist" offset="-5,-10" />
+				<target>booklist</target>
+			</scrollbar>
+
+			<frame_library_pages name="pagelist_frame" />
+			<list_library_pages name="pagelist" />
+			<scrollbar>
+				<anchored to="pagelist" offset="-5,-10" />
+				<target>pagelist</target>
+			</scrollbar>
+
+			<anchor_library_buttons name="buttonanchor" />
+			<button_library_modules name="button_modules" />
+			<button_library_store name="button_store" />
+			<button_library_export name="button_export" />
+            <button_library_builder name="button_builder" />
+			<filter_library name="filter" />
+
+			<resize_utilitybox3 />
+			<helper_library />
+			<close_utilitybox3 />
+		</sheetdata>
+	</windowclass>
+</root>

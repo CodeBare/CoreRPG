@@ -1,0 +1,300 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<!-- 
+  Please see the license.html file included with this distribution for 
+  attribution and copyright information.
+-->
+
+<root>
+	<!-- General reference templates -->
+	<template name="anchor_reftitle">
+		<genericcontrol>
+			<anchored height="0">
+				<top parent="reftitle" anchor="bottom" offset="3" />
+				<left parent="" anchor="left" offset="35" />
+				<right parent="" anchor="right" offset="-40" />
+			</anchored>
+			<disabled />
+		</genericcontrol>
+	</template>
+
+	<!-- Basic reference list windows -->
+	<template name="frame_ref_content">
+		<genericcontrol name="contentframe">
+			<anchored>
+				<top parent="header" anchor="bottom" offset="15" />
+				<left offset="35" />
+				<right offset="-40" />
+				<bottom offset="-35" />
+			</anchored>
+			<frame name="groupbox" offset="15,15,20,15" />
+			<disabled />
+		</genericcontrol>
+	</template>
+	<template name="list_ref">
+		<windowlist>
+			<anchored to="contentanchor">
+				<top anchor="bottom" relation="relative" offset="20" />
+				<left />
+				<right />
+				<bottom parent="" offset="-65" />
+			</anchored>
+			<frame name="groupbox" offset="15,15,20,15" />
+			<child></child>
+			<child><backcolor>1A40301E</backcolor></child>
+			<filter control="filter" />
+			<filteron control="name" />
+		</windowlist>
+	</template>
+	<template name="filter_reftable">
+		<filter>
+			<anchored height="20">
+				<left parent="contentanchor" offset="85" />
+				<right parent="contentanchor" />
+				<bottom offset="-25" />
+			</anchored>
+			<target>grouplist,list</target>
+			<script file="ref/scripts/ref_filter.lua" />
+		</filter>
+	</template>
+	<template name="filter_ref">
+		<filter>
+			<anchored height="20">
+				<left parent="contentanchor" offset="20" />
+				<right parent="contentanchor" />
+				<bottom offset="-25" />
+			</anchored>
+		</filter>
+	</template>
+	<template name="anchor_reflist_paging">
+		<genericcontrol name="pageanchor">
+			<anchored to="contentanchor" height="24">
+				<left />
+				<right />
+				<bottom parent="bottomanchor" anchor="top" relation="relative" offset="-10" />
+			</anchored>
+		</genericcontrol>
+	</template>
+	<template name="sub_ref_header">
+		<subwindow>
+			<anchored>
+				<top offset="23" />
+				<left offset="13" />
+				<right offset="-13" />
+			</anchored>
+			<activate />
+		</subwindow>
+	</template>
+	<template name="sub_ref_content">
+		<subwindow>
+			<anchored to="contentframe" position="over" />
+			<activate />
+		</subwindow>
+	</template>
+	<template name="scrollbar_ref_content">
+		<scrollbar>
+			<anchored to="content" position="right" offset="-5,-5" />
+			<target>content</target>
+		</scrollbar>
+	</template>
+
+	<!-- Grouped reference lists -->
+	<template name="header_reftablegroup">
+		<genericcontrol name="headeranchor">
+			<anchored to="contentanchor" height="20" width="0">
+				<top anchor="bottom" relation="relative" offset="0" />
+				<left offset="30" />
+			</anchored>
+		</genericcontrol>
+	</template>
+	<template name="label_reftable">
+		<stringcontrol>
+			<anchored to="headeranchor" width="60">
+				<left anchor="right" relation="relative" />
+				<top />
+			</anchored>
+			<font>reference-header</font>
+			<multilinespacing>20</multilinespacing>
+			<readonly />
+		</stringcontrol>
+	</template>
+	<template name="list_reftablegroupitems">
+		<windowlist>
+			<anchored>
+				<top parent="topanchor" anchor="bottom" relation="relative" offset="2" />
+				<left />
+				<right />
+			</anchored>
+			<noscroll />
+			<child></child>
+			<child><backcolor>1A40301E</backcolor></child>
+			<readonly />
+			<script file="ref/scripts/ref_list.lua" />
+		</windowlist>
+	</template>
+	<template name="list_reftablegroup">
+		<windowlist>
+			<anchored to="contentanchor">
+				<top anchor="bottom" relation="relative" offset="10" />
+				<left />
+				<right />
+				<bottom parent="" offset="-70" />
+			</anchored>
+			<frame name="groupbox" offset="15,15,20,15" />
+			<readonly />
+		</windowlist>
+	</template>
+	<template name="button_reftable_expand">
+		<button_expand>
+			<anchored width="20" height="20">
+				<left parent="contentanchor" />
+				<bottom offset="-25" />
+			</anchored>
+		</button_expand>
+	</template>
+	<template name="button_reftable_collapse">
+		<button_collapse>
+			<anchored width="20" height="20">
+				<left parent="contentanchor" offset="30" />
+				<bottom offset="-25" />
+			</anchored>
+		</button_collapse>
+	</template>
+	<template name="scrollbar_reftablegroup">
+		<scrollbar>
+			<anchored to="grouplist" position="right" offset="-5,-5" />
+			<target>grouplist</target>
+		</scrollbar>
+	</template>
+	<template name="frame_groupdesc">
+		<genericcontrol>
+			<anchored height="25">
+				<top parent="topanchor" anchor="bottom" />
+				<left offset="10" />
+				<right />
+			</anchored>
+			<frame name="headerref" offset="10,0,0,0" />
+			<script>
+				function onClickDown(button, x, y)
+					return true;
+				end
+
+				function onClickRelease(button, x, y)
+					window.description.onClickRelease(button, x, y);
+					return true;
+				end
+			</script>
+		</genericcontrol>
+	</template>
+	<template name="string_groupdesc">
+		<stringfield>
+			<anchored height="20">
+				<top parent="topanchor" anchor="bottom" relation="relative" offset="5" />
+				<left offset="15" />
+			</anchored>
+			<font>reference-groupdesc</font>
+			<static />
+			<script file="ref/scripts/ref_groupdesc.lua" />
+		</stringfield>
+	</template>
+	<template name="string_groupsubdesc">
+		<stringfield>
+			<anchored to="description" position="right" offset="20,0" />
+			<font>reference-groupsubdesc</font>
+			<static />
+			<script>
+				function onClickDown(button, x, y)
+					return true;
+				end
+
+				function onClickRelease(button, x, y)
+					window.description.onClickRelease(button, x, y);
+					return true;
+				end
+			</script>
+		</stringfield>
+	</template>
+	<template name="ft_reftablefooter">
+		<basicft>
+			<anchored>
+				<top parent="list" anchor="bottom" relation="relative" />
+				<left offset="25" />
+				<right offset="-25" />
+			</anchored>
+			<readonly />
+			<script>
+				function onInit()
+					if isEmpty() then
+						setVisible(false);
+					end
+				end
+			</script>
+		</basicft>
+	</template>
+
+	<!-- Reference list fields -->
+	<template name="string_reftable">
+		<stringfield>
+			<anchored to="reftableanchor" width="60">
+				<left anchor="right" relation="relative" />
+				<top />
+			</anchored>
+			<font>reference-r</font>
+			<multilinespacing>20</multilinespacing>
+			<nodrag />
+			<nodragselect />
+			<readonly />
+		</stringfield>
+	</template>
+	<template name="number_reftable">
+		<numberfield>
+			<anchored to="reftableanchor" width="60" height="20">
+				<left anchor="right" relation="relative" />
+				<top />
+			</anchored>
+			<font>reference-r</font>
+			<hideonvalue>0</hideonvalue>
+			<nodrag />
+			<readonly />
+		</numberfield>
+	</template>
+	<template name="stringc_reftable">
+		<stringcontrol>
+			<anchored to="reftableanchor" width="60">
+				<left anchor="right" relation="relative" />
+				<top />
+			</anchored>
+			<font>reference-r</font>
+			<multilinespacing>20</multilinespacing>
+			<nodrag />
+			<nodragselect />
+			<readonly />
+		</stringcontrol>
+	</template>
+	<template name="stringc_reftable_linked">
+		<stringc_reftable>
+			<script>
+				function onInit()
+					local sName = DB.getValue(window.link.getTargetDatabaseNode(), getName(), "");
+					setValue(sName);
+				end
+			</script>
+		</stringc_reftable>
+	</template>
+	<template name="number_ref_weightwithsuffix">
+		<hn>
+			<script>
+				function onInit()
+					onValueChanged();
+				end
+				function onValueChanged()
+					local nDecimal = 3;
+					local nValue = math.floor((getValue() * 10^nDecimal) + 0.5) / (10^nDecimal);
+					
+					local sValue = "" .. nValue .. " " .. Interface.getString("ref_label_weightsuffix");
+					window.weightwithsuffix.setValue(sValue);
+				end
+			</script>
+		</hn>
+	</template>
+</root>

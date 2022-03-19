@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<!-- 
+  Please see the license.html file included with this distribution for 
+  attribution and copyright information.
+-->
+
+<root>
+	<windowclass name="imagewindow">
+		<frame>imagebox</frame>
+		<placement>
+			<size width="580" height="580" />
+		</placement>
+		<sizelimits>
+			<minimum width="320" height="320" />
+			<dynamic />
+		</sizelimits>
+		<sharable />
+		<nodelete />
+		<tooltip field="name" />
+		<minimize>minimized_image</minimize>
+		<script file="campaign/scripts/imagewindow.lua" />
+		<sheetdata>
+			<sub_record_header_image name="header" />
+			<sub_record_toolbar_image name="toolbar" />
+			
+			<image_record name="image" />
+			<scrollercontrol name="scroller_image">
+				<anchored to="image" position="insidebottomright" offset="3,3" width="40" height="38" />
+				<target>image</target>
+				<button normal="button_scrollerpan" pressed="button_scrollerpan_down" zoom="button_zoomer" zoompressed="button_zoomer_down" />
+			</scrollercontrol>
+			<imagedata_record name="imagedata" source="image" />
+
+			<list_viewers />
+			<resize_imagebox />
+			<button_imagewindow_sizeup />
+			<helper_image />
+			<close_imagebox />
+		</sheetdata>
+	</windowclass>
+	<windowclass name="imagepanelwindow">
+		<sharable shareas="imagewindow" />
+		<frame>imagepanel</frame>
+		<script file="campaign/scripts/imagewindow.lua" />
+		<sheetdata>
+			<sub_record_toolbar_imagepanel name="toolbar" />
+			
+			<imagepanel_record name="image" />
+			<scrollercontrol name="scroller_image">
+				<anchored to="image" position="insidebottomright" offset="3,3" width="40" height="38" />
+				<target>image</target>
+				<button normal="button_scrollerpan" pressed="button_scrollerpan_down" zoom="button_zoomer" zoompressed="button_zoomer_down" />
+			</scrollercontrol>
+			<imagepaneldata_record name="imagedata" source="image" />
+		</sheetdata>
+	</windowclass>
+
+	<windowclass name="imagewindow_header">
+		<margins control="0,2,0,8" />
+		<frame>imagebox_header</frame>
+		<script file="campaign/scripts/imagewindow_header.lua" />
+		<sheetdata>
+			<link_record_header_id name="link">
+				<class>imagewindow</class>
+			</link_record_header_id>
+
+			<anchor_record_image_header_right name="rightanchor" />
+			<icon_record_locked />
+			<button_record_locked />
+			<button_record_toolbar />
+
+			<string_record_name_image name="nonid_name">
+				<empty textres="library_recordtype_empty_nonid_image" />
+			</string_record_name_image>
+			<button_record_isidentified_image name="isidentified" />
+			<string_record_name_image name="name">
+				<empty textres="library_recordtype_empty_image" />
+			</string_record_name_image>
+		</sheetdata>
+	</windowclass>
+	
+	<windowclass name="imagewindow_toolbar">
+		<frame>toolbar_back</frame>
+		<script file="campaign/scripts/imagewindow_toolbar.lua" />
+		<sheetdata>
+			<image_toolbar_anchor />
+			
+			<image_toolbar_toggle_lock name="locked" />
+			<image_toolbar_separator name="h5" />
+
+			<image_toolbar_toggle_preview name="toggle_preview" />
+			<image_toolbar_toggle_tokenlock name="toggle_tokenlock" />
+			<image_toolbar_toggle_shortcut name="toggle_shortcut" />
+			<image_toolbar_separator name="h4" />
+
+			<image_toolbar_targeting name="toolbar_targeting" />
+			<image_toolbar_mode_targetselect name="toggle_targetselect" />
+			<image_toolbar_separator name="h3" />
+
+			<image_toolbar_mode_select name="toggle_select" />
+			<image_toolbar_separator name="h2" />
+
+			<image_toolbar_draw name="toolbar_draw" />
+			<image_toolbar_mode_unmask name="toggle_unmask" />
+			<image_toolbar_separator name="h1" />
+
+			<image_toolbar_button_zoomtofit name="zoom_to_fit" />
+		</sheetdata>
+	</windowclass>
+</root>

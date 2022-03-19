@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<!-- 
+  Please see the license.html file included with this distribution for 
+  attribution and copyright information.
+-->
+
+<root>
+	<!-- Grouped content -->
+	<template name="filter_reflist">
+		<filter>
+			<anchored to="contentanchor" height="20">
+				<left offset="25" />
+				<right />
+				<bottom parent="bottomanchor" anchor="top" relation="relative" offset="-10" />
+			</anchored>
+		</filter>
+	</template>
+	<template name="list_reflist">
+		<windowlist name="list">
+			<anchored to="contentanchor">
+				<top anchor="bottom" relation="relative" offset="15" />
+				<left />
+				<right />
+				<bottom parent="bottomanchor" anchor="top" relation="relative" offset="-20" />
+			</anchored>
+			<frame name="groupbox" offset="15,15,20,15" />
+			<class>reference_list_item</class>
+			<child></child>
+			<child><backcolor>1A40301E</backcolor></child>
+			<skipempty />
+			<readonly />
+			<sortby><control>name</control></sortby>
+			<filter><control>filter</control></filter>
+			<filteron><control>name</control></filteron>
+		</windowlist>
+	</template>
+	<template name="link_reflistitem">
+		<linkcontrol_record>
+			<bounds>5,2,20,20</bounds>
+		</linkcontrol_record>
+	</template>
+	<template name="string_reflistitem">
+		<stringfield>
+			<anchored position="insidetopleft" offset="30,2" height="20">
+				<right offset="-5" />
+			</anchored>
+			<font>reference-r</font>
+			<empty>-</empty>
+			<readonly />
+			<script file="common/scripts/string_reflistitem_link.lua" />
+		</stringfield>
+	</template>
+	
+	<template name="sub_reflist_notes">
+		<subwindow>
+			<anchored to="contentanchor">
+				<sizelimits><maximum height="80" /></sizelimits>
+				<left />
+				<right />
+				<bottom parent="bottomanchor" anchor="top" relation="relative" offset="-10" />
+			</anchored>
+			<invisible />
+		</subwindow>
+	</template>
+	<template name="scrollbar_reflist_notes">
+		<scrollbar>
+			<anchored to="notes" />
+			<target>notes</target>
+		</scrollbar>
+	</template>
+	<template name="ft_reflist_notes">
+		<simpleft>
+			<anchored position="insidetop" />
+		</simpleft>
+	</template>
+
+	<windowclass name="reference_list_notes">
+		<sheetdata />
+	</windowclass>
+	<windowclass name="reference_list_item">
+		<margins control="0,0,0,2" />
+		<script>
+			function setItemRecordType(sRecordType)
+				local sDisplayClass = LibraryData.getRecordDisplayClass(sRecordType, getDatabaseNode());
+				setItemClass(sDisplayClass);
+			end
+
+			function setItemClass(sDisplayClass)
+				local node = getDatabaseNode();
+				if node and sDisplayClass ~= "" then
+					link.setValue(sDisplayClass, node.getPath());
+				else
+					link.setVisible(false);
+					link.setEnabled(false);
+				end
+			end
+		</script>
+		<sheetdata>
+			<link_reflistitem name="link" />
+			<string_reflistitem name="name" />
+		</sheetdata>
+	</windowclass>
+	<windowclass name="reference_list">
+		<frame>referencelist</frame>
+		<placement>
+			<size width="350" height="450" />
+			<nosave />
+		</placement>
+		<sizelimits>
+			<minimum width="250" height="350" />
+			<dynamic />
+		</sizelimits>
+		<minimize>minimized_reference</minimize>
+		<tooltip field="name" />
+		<nodelete />
+		<script file="ref/scripts/ref_simplelist.lua" />
+		<sheetdata>
+			<windowtitlebar name="reftitle">
+				<field>name</field>
+			</windowtitlebar>
+			<anchor_reftitle name="contentanchor" />
+			
+			<anchor_refgroupedlist_bottom name="bottomanchor" />
+			<filter_reflist name="filter" />
+			
+			<sub_reflist_notes name="notes" />
+			<scrollbar_reflist_notes name="scrollbar_notes" />
+
+			<anchor_reflist_paging name="pageanchor" />
+			<list_page_info name="page_info" />
+			<list_page_start name="page_start" />
+			<list_page_prev name="page_prev" />
+			<list_page_next name="page_next" />
+			<list_page_end name="page_end" />
+			
+			<list_reflist name="list" />
+			<scrollbar_list name="scroll_list" />
+	
+			<resize_referencelist />
+			<close_referencelist />
+		</sheetdata>
+	</windowclass>
+</root>

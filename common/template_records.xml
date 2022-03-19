@@ -1,0 +1,384 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<!-- 
+  Please see the license.html file included with this distribution for 
+  attribution and copyright information.
+-->
+
+<root>
+	<template name="sub_record_header">
+		<subwindow>
+			<anchored>
+				<top offset="23" />
+				<left offset="15" />
+				<right offset="-15" />
+			</anchored>
+			<activate />
+			<fastinit />
+		</subwindow>
+	</template>
+	<template name="frame_record_content">
+		<genericcontrol name="contentframe">
+			<anchored>
+				<top parent="header" anchor="bottom" offset="15" />
+				<left offset="35" />
+				<right offset="-35" />
+				<bottom offset="-32" />
+			</anchored>
+			<frame name="groupbox" offset="20,17,20,17" />
+			<disabled />
+		</genericcontrol>
+	</template>
+	<template name="frame_record_content_tabbed">
+		<genericcontrol name="contentframe">
+			<anchored>
+				<top parent="header" anchor="bottom" offset="15" />
+				<left offset="35" />
+				<right offset="-45" />
+				<bottom offset="-32" />
+			</anchored>
+			<frame name="groupbox" offset="20,17,24,17" />
+			<disabled />
+		</genericcontrol>
+	</template>
+	<template name="area_parcel_content">
+		<genericcontrol name="contentframe">
+			<anchored>
+				<top parent="header" anchor="bottom" offset="15" />
+				<left offset="35" />
+				<right offset="-35" />
+				<bottom offset="-32" />
+			</anchored>
+			<disabled />
+		</genericcontrol>
+	</template>
+	<template name="anchor_record_header_right">
+		<genericcontrol name="rightanchor">
+			<anchored height="0" width="0">
+				<top offset="5" />
+				<right />
+			</anchored>
+		</genericcontrol>
+	</template>
+	<template name="anchor_record_image_header_right">
+		<genericcontrol name="rightanchor">
+			<anchored height="0" width="0">
+				<top offset="5" />
+				<right offset="-65" />
+			</anchored>
+		</genericcontrol>
+	</template>
+	<template name="sub_note_header">
+		<subwindow>
+			<anchored>
+				<top offset="23" />
+				<left offset="15" />
+				<right offset="-15" />
+			</anchored>
+			<activate />
+			<fastinit />
+		</subwindow>
+	</template>
+	<template name="frame_note_content">
+		<genericcontrol name="contentframe">
+			<anchored>
+				<top parent="header" anchor="bottom" offset="5" />
+				<left offset="25" />
+				<right offset="-25" />
+				<bottom offset="-20" />
+			</anchored>
+			<disabled />
+		</genericcontrol>
+	</template>
+	<template name="frame_story_content">
+		<genericcontrol name="contentframe">
+			<anchored>
+				<top parent="header" anchor="bottom" offset="5" />
+				<left offset="25" />
+				<right offset="-25" />
+				<bottom offset="-40" />
+			</anchored>
+			<disabled />
+		</genericcontrol>
+	</template>
+	<template name="frame_storytemplate_content">
+		<genericcontrol name="contentframe">
+			<anchored>
+				<top parent="header" anchor="bottom" offset="5" />
+				<left offset="25" />
+				<right offset="-25" />
+				<bottom offset="-40" />
+			</anchored>
+			<disabled />
+		</genericcontrol>
+	</template>
+	
+	<template name="sub_record_header_image_step">
+		<subwindow>
+			<class>imagewindow_header</class>
+			<activate />
+			<fastinit />
+		</subwindow>
+	</template>
+	<template name="sub_record_header_image">
+		<sub_record_header_image_step>
+			<bounds>21,22,-27,35</bounds>
+		</sub_record_header_image_step>
+	</template>
+	<template name="sub_record_toolbar_image_step">
+		<subwindow name="toolbar">
+			<class>imagewindow_toolbar</class>
+		</subwindow>
+	</template>
+	<template name="sub_record_toolbar_image">
+		<sub_record_toolbar_image_step>
+			<bounds>21,57,-27,36</bounds>
+		</sub_record_toolbar_image_step>
+	</template>
+	<template name="sub_record_toolbar_imagepanel_step">
+		<subwindow name="toolbar">
+			<class>imagewindow_toolbar</class>
+			<activate />
+			<fastinit />
+		</subwindow>
+	</template>
+	<template name="sub_record_toolbar_imagepanel">
+		<sub_record_toolbar_imagepanel_step>
+			<bounds>1,1,-1,36</bounds>
+		</sub_record_toolbar_imagepanel_step>
+	</template>
+	<template name="image_record_step">
+		<imagecontrol name="image">
+			<indicators locked="image_locked" loading="image_loading" />
+			<default snap="on" drawingsize="500,500" />
+			<script file="campaign/scripts/image.lua" />
+		</imagecontrol>
+	</template>
+	<template name="image_record">
+		<image_record_step>
+			<bounds>21,57,-27,-29</bounds>
+		</image_record_step>
+	</template>
+	<template name="imagepanel_record">
+		<image_record_step>
+			<bounds>1,37,-1,-1</bounds>
+		</image_record_step>
+	</template>
+	<template name="imagedata_record_step">
+		<imagedatacontrol>
+			<invisible />
+			<color>564E28</color>
+			<backcolor>E8E4BB</backcolor>
+		</imagedatacontrol>
+	</template>
+	<template name="imagedata_record">
+		<imagedata_record_step>
+			<bounds>-315,57,-27,-29</bounds>
+		</imagedata_record_step>
+	</template>
+	<template name="imagepaneldata_record_step">
+		<imagedatacontrol>
+			<invisible />
+			<color>564E28</color>
+			<backcolor>E8E4BB</backcolor>
+		</imagedatacontrol>
+	</template>
+	<template name="imagepaneldata_record">
+		<imagepaneldata_record_step>
+			<bounds>-289,37,-1,-1</bounds>
+		</imagepaneldata_record_step>
+	</template>
+	<template name="string_record_name_image">
+		<string_record_name_id>
+			<anchored height="20" merge="merge" />
+			<multilinespacing merge="delete" />
+		</string_record_name_id>
+	</template>
+	<template name="list_viewers">
+		<genericcontrol>
+			<anchored>
+				<left offset="21" />
+				<bottom offset="-27" />
+			</anchored>
+			<invalididentityicon>miniportrait_base</invalididentityicon>
+			<portraitset>miniportrait</portraitset>
+			<portraitspacing>21</portraitspacing>
+			<script file="common/scripts/list_viewers.lua" />
+		</genericcontrol>
+	</template>
+	
+	<template name="link_record_header">
+		<linkcontrol_record>
+			<bounds>5,2,20,20</bounds>
+		</linkcontrol_record>
+	</template>
+	<template name="link_record_header_id">
+		<linkcontrol_record>
+			<bounds>5,2,20,20</bounds>
+		</linkcontrol_record>
+	</template>
+	<template name="string_record_name">
+		<stringfield>
+			<anchored mergerule="replace">
+				<top offset="5" />
+				<left offset="40" />
+				<right parent="rightanchor" anchor="left" relation="relative" offset="-15" />
+			</anchored>
+			<frame name="groupbox" offset="15,10,15,10" />
+			<font>sheettext</font>
+			<multilinespacing>20</multilinespacing>
+			<nodrag />
+			<delaykeyupdate />
+		</stringfield>
+	</template>
+	<template name="string_record_name_ref">
+		<string_record_name>
+			<anchored merge="merge">
+				<right parent="" anchor="right" relation="absolute" offset="-35" />
+			</anchored>
+			<readonly />
+		</string_record_name>
+	</template>
+	<template name="string_record_name_id">
+		<string_record_name>
+			<script>
+				function onValueChanged()
+					if window.parentcontrol and window.parentcontrol.window.onNameUpdated then
+						window.parentcontrol.window.onNameUpdated();
+					elseif window.onNameUpdated then
+						window.onNameUpdated();
+					end
+				end
+			</script>
+		</string_record_name>
+	</template>
+
+	<template name="frame_record">
+		<genericcontrol>
+			<frame name="groupbox" />
+		</genericcontrol>
+	</template>
+	<template name="subwindow_record">
+		<subwindow>
+			<anchored to="contentframe" position="over" />
+		</subwindow>
+	</template>
+	<template name="scrollbar_record">
+		<scrollbar>
+			<anchored to="contentframe" />
+		</scrollbar>
+	</template>
+
+	<template name="link_story">
+		<linkcontrol>
+			<bounds>15,26,20,20</bounds>
+			<readonly />
+		</linkcontrol>
+	</template>
+
+	<template name="ft_record">
+		<formattedtextfield>
+			<footer>footer_narrow</footer>
+		</formattedtextfield>
+	</template>
+
+	<template name="icon_record_locked">
+		<genericcontrol name="hardlocked">
+			<anchored to="rightanchor" width="20" height="20">
+				<top />
+				<right anchor="left" relation="relative" offset="0" />
+			</anchored>
+			<icon>record_readonly</icon>
+			<tooltip textres="tooltip_readonly" />
+			<script>
+				function onInit()
+					local node = window.getDatabaseNode();
+					local bShow = (not node or node.isReadOnly());
+					setVisible(bShow);
+				end
+			</script>
+		</genericcontrol>
+	</template>
+	<template name="button_record_locked">
+		<buttoncontrol name="locked">
+			<anchored to="rightanchor" width="20" height="20">
+				<top />
+				<right anchor="left" relation="relative" offset="0" />
+			</anchored>
+			<state icon="padlock_open" tooltipres="tooltip_unlock" />
+			<state icon="padlock_closed" tooltipres="tooltip_lock" />
+			<script file="common/scripts/button_record_locked.lua" />
+		</buttoncontrol>
+	</template>
+	<template name="button_record_isidentified">
+		<buttoncontrol name="isidentified">
+			<anchored to="rightanchor" width="20" height="20">
+				<top />
+				<right anchor="left" relation="relative" offset="-5" />
+			</anchored>
+			<state icon="record_unidentified" tooltipres="tooltip_nonid" />
+			<state icon="record_identified" tooltipres="tooltip_id" />
+			<gmeditonly />
+			<gmvisibleonly />
+			<script file="common/scripts/button_record_isidentified.lua" />
+		</buttoncontrol>
+	</template>
+	<template name="button_record_isidentified_image">
+		<button_record_isidentified>
+			<anchored>
+				<top parent="nonid_name" anchor="center" offset="-10" />
+			</anchored>
+		</button_record_isidentified>
+	</template>
+	<template name="hidden_record_isidentified">
+		<genericcontrol>
+			<bounds>0,0,0,0</bounds>
+			<invisible />
+			<script>
+				local nodeSrc = nil;
+				function onInit()
+					nodeSrc = window.getDatabaseNode();
+					if nodeSrc then
+						onValueChanged();
+						DB.addHandler(DB.getPath(nodeSrc, "isidentified"), "onUpdate", onValueChanged);
+					end
+				end
+				function onClose()
+					if nodeSrc then
+						DB.removeHandler(DB.getPath(nodeSrc, "isidentified"), "onUpdate", onValueChanged);
+					end
+				end
+				function onValueChanged()
+					if window.onIDChanged then
+						window.onIDChanged();
+					elseif class then
+						local bIgnoreHost = false;
+						if ignorehost then bIgnoreHost = true; end
+						local bID = LibraryData.getIDState(class[1], nodeSrc, bIgnoreHost);
+						window.name.setVisible(bID);
+						window.nonid_name.setVisible(not bID);
+					end
+				end
+			</script>
+		</genericcontrol>
+	</template>
+	<template name="button_record_toolbar">
+		<buttoncontrol name="button_toolbar">
+			<anchored to="rightanchor" width="20" height="20">
+				<top />
+				<right anchor="left" relation="relative" offset="-5" />
+			</anchored>
+			<state icon="toolbar_off" tooltipres="tooltip_toolbar" />
+			<state icon="toolbar_on" tooltipres="tooltip_toolbar" />
+			<script>
+				function onValueChanged()
+					if window.parentcontrol and window.parentcontrol.window.onToolbarChanged then
+						window.parentcontrol.window.onToolbarChanged(getValue());
+					elseif window.onToolbarChanged then
+						window.onToolbarChanged(getValue());
+					end
+				end
+			</script>
+		</buttoncontrol>
+	</template>
+</root>

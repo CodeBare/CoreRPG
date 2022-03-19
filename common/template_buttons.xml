@@ -1,0 +1,273 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<!-- 
+  Please see the license.html file included with this distribution for 
+  attribution and copyright information.
+-->
+
+<root>
+	<template name="button_text_sm">
+		<buttoncontrol>
+			<anchored height="20" />
+			<frame name="buttonup" offset="2,2,2,2" />
+			<stateframe>
+				<pressed name="buttondown" offset="2,2,2,2" nobaseframe="true" />
+			</stateframe>
+			<font>button-white</font>
+			<pressed offset="1,1" />
+		</buttoncontrol>
+	</template>
+	<template name="button_text">
+		<buttoncontrol>
+			<frame name="buttonup" offset="5,5,5,5" />
+			<stateframe>
+				<pressed name="buttondown" offset="5,5,5,5" nobaseframe="true" />
+			</stateframe>
+			<font>button-white</font>
+			<pressed offset="1,1" />
+		</buttoncontrol>
+	</template>
+	<template name="button_text_large">
+		<buttoncontrol>
+			<frame name="buttonup" offset="5,5,5,5" />
+			<stateframe>
+				<pressed name="buttondown" offset="5,5,5,5" nobaseframe="true" />
+			</stateframe>
+			<font>button-white-large</font>
+			<pressed offset="1,1" />
+		</buttoncontrol>
+	</template>
+	<template name="button_icon">
+		<buttoncontrol>
+			<frame name="buttonup" offset="2,2,2,2" />
+			<stateframe>
+				<pressed name="buttondown" offset="2,2,2,2" nobaseframe="true" />
+			</stateframe>
+			<pressed offset="1,1" />
+		</buttoncontrol>
+	</template>
+
+	<template name="button_expand">
+		<button_icon>
+			<icon normal="button_expand_w" />
+			<tooltip textres="tooltip_expand" />
+			<target>grouplist,list</target>
+			<expand />
+			<script file="common/scripts/button_expand_collapse.lua" />
+		</button_icon>
+	</template>
+	<template name="button_collapse">
+		<button_icon>
+			<icon normal="button_collapse_w" />
+			<tooltip textres="tooltip_collapse" />
+			<target>grouplist,list</target>
+			<collapse />
+			<script file="common/scripts/button_expand_collapse.lua" />
+		</button_icon>
+	</template>
+
+	<template name="label_page_info">
+		<simplestringc name="page_info">
+			<anchored height="24" />
+			<frame name="fieldlight" offset="2,2,2,2" />
+			<invisible />
+			<center />
+			<readonly />
+		</simplestringc>
+	</template>
+	<template name="button_page_top">
+		<buttoncontrol name="page_top">
+			<anchored height="24" width="24" />
+			<frame name="fieldlight" offset="2,2,2,2" />
+			<state tooltipres="tooltip_page_top" icon="button_page_top" />
+			<invisible />
+			<script>
+				function onButtonPress()
+					window.handlePageTop();
+					return true;
+				end
+			</script>
+		</buttoncontrol>
+	</template>
+	<template name="button_page_start">
+		<buttoncontrol name="page_start">
+			<anchored height="24" width="24" />
+			<frame name="fieldlight" offset="2,2,2,2" />
+			<state tooltipres="tooltip_page_start" icon="button_page_start" />
+			<invisible />
+			<script>
+				function onButtonPress()
+					if window.handlePageStart then
+						window.handlePageStart();
+					else
+						ListManager.handlePageStart(window);
+					end
+					return true;
+				end
+			</script>
+		</buttoncontrol>
+	</template>
+	<template name="button_page_prev">
+		<buttoncontrol name="page_prev">
+			<anchored height="24" width="24" />
+			<frame name="fieldlight" offset="2,2,2,2" />
+			<state tooltipres="tooltip_page_prev" icon="button_page_prev" />
+			<allowdoubleclick />
+			<invisible />
+			<script>
+				function onButtonPress()
+					if window.handlePagePrev then
+						window.handlePagePrev();
+					else
+						ListManager.handlePagePrev(window);
+					end
+					return true;
+				end
+			</script>
+		</buttoncontrol>
+	</template>
+	<template name="button_page_next">
+		<buttoncontrol name="page_next">
+			<anchored height="24" width="24" />
+			<frame name="fieldlight" offset="2,2,2,2" />
+			<state tooltipres="tooltip_page_next" icon="button_page_next" />
+			<allowdoubleclick />
+			<invisible />
+			<script>
+				function onButtonPress()
+					if window.handlePageNext then
+						window.handlePageNext();
+					else
+						ListManager.handlePageNext(window);
+					end
+					return true;
+				end
+			</script>
+		</buttoncontrol>
+	</template>
+	<template name="button_page_end">
+		<buttoncontrol name="page_end">
+			<anchored height="24" width="24" />
+			<frame name="fieldlight" offset="2,2,2,2" />
+			<state tooltipres="tooltip_page_end" icon="button_page_end" />
+			<invisible />
+			<script>
+				function onButtonPress()
+					if window.handlePageEnd then
+						window.handlePageEnd();
+					else
+						ListManager.handlePageEnd(window);
+					end
+					return true;
+				end
+			</script>
+		</buttoncontrol>
+	</template>
+	<template name="list_page_info">
+		<label_page_info>
+			<anchored to="pageanchor">
+				<left offset="48" />
+				<right offset="-48" />
+				<top />
+			</anchored>
+		</label_page_info>
+	</template>
+	<template name="list_page_start">
+		<button_page_start>
+			<anchored to="page_info" position="lefthigh" offset="24,0" />
+		</button_page_start>
+	</template>
+	<template name="list_page_prev">
+		<button_page_prev>
+			<anchored to="page_info" position="lefthigh" offset="0,0" />
+		</button_page_prev>
+	</template>
+	<template name="list_page_next">
+		<button_page_next>
+			<anchored to="page_info" position="righthigh" offset="0,0" />
+		</button_page_next>
+	</template>
+	<template name="list_page_end">
+		<button_page_end>
+			<anchored to="page_info" position="righthigh" offset="24,0" />
+		</button_page_end>
+	</template>
+
+	<template name="button_roll">
+		<buttoncontrol>
+			<anchored width="20" height="20" />
+			<icon normal="button_roll" pressed="button_roll_down" />
+		</buttoncontrol>
+	</template>
+	<template name="button_details">
+		<buttoncontrol>
+			<anchored width="20" height="20" />
+			<icon normal="button_details" pressed="button_details_down" />
+		</buttoncontrol>
+	</template>
+	
+	<template name="button_checkbox">
+		<buttonfield>
+			<state icon="button_checkoff" />
+			<state icon="button_checkon" />
+		</buttonfield>
+	</template>
+	<template name="buttonc_checkbox">
+		<buttoncontrol>
+			<state icon="button_checkoff" />
+			<state icon="button_checkon" />
+		</buttoncontrol>
+	</template>
+
+	<template name="button_iconcycler">
+		<genericcontrol>
+			<anchored height="20" />
+			<script file="common/scripts/button_iconcycler.lua" />
+		</genericcontrol>
+	</template>
+	<template name="button_stringcycler">
+		<genericcontrol>
+			<anchored height="20" />
+			<frame name="fielddark" offset="7,5,7,5" hidereadonly = "true" />
+			<stateframe>
+				<hover name="fieldfocus" offset="7,5,7,5" hidereadonly="true" />
+			</stateframe>
+			<script file="common/scripts/button_stringcycler.lua" />
+		</genericcontrol>
+	</template>
+
+	<template name="buttongroup_radio">
+		<genericcontrol>
+			<stateicons>
+				<on>button_checkon</on>
+				<off>button_checkoff</off>
+			</stateicons>
+			<script file="common/scripts/buttongroup_radio.lua" />
+		</genericcontrol>
+	</template>
+	<template name="buttongroup_counter">
+		<genericcontrol>
+			<stateicons>
+				<on>button_checkon</on>
+				<off>button_checkoff</off>
+			</stateicons>
+			<script file="common/scripts/buttongroup_counter.lua" />
+		</genericcontrol>
+	</template>
+
+	<template name="buttongroup_tabs">
+		<genericcontrol>
+			<frame name="tabs" />
+			<tab mergerule="resetandadd" />
+			<script file="common/scripts/buttongroup_tabs.lua" />
+		</genericcontrol>
+	</template>
+	<template name="buttongroup_tabs_h">
+		<genericcontrol>
+			<frame name="tabs_h" />
+			<tab mergerule="resetandadd" />
+			<horizontal />
+			<script file="common/scripts/buttongroup_tabs.lua" />
+		</genericcontrol>
+	</template>
+</root>

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<!-- 
+  Please see the license.html file included with this distribution for 
+  attribution and copyright information.
+-->
+
+<root>
+	<template name="button_header_lock">
+		<buttoncontrol>
+			<anchored width="20" height="20" />
+			<state icon="button_header_locked_off" tooltipres="tooltip_unlock" />
+			<state icon="button_header_locked_on" tooltipres="tooltip_lock" />
+		</buttoncontrol>
+	</template>
+	<template name="button_header_reset">
+		<buttoncontrol>
+			<anchored width="20" height="20" />
+			<state icon="button_header_reset" tooltipres="tooltip_resetpos" />
+		</buttoncontrol>
+	</template>
+</root>

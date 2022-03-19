@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<!-- 
+  Please see the license.html file included with this distribution for 
+  attribution and copyright information.
+-->
+
+<root>
+	<windowclass name="vehicle">
+		<frame>recordsheet</frame>
+		<placement>
+			<size width="350" height="400" />
+		</placement>
+		<sizelimits>
+			<minimum width="350" height="400" />
+			<dynamic />
+		</sizelimits>
+		<minimize>minimized_item</minimize>
+		<nodelete />
+		<tooltip field="name" />
+		<sharable />
+		<script>
+			function onLockChanged()
+				if header.subwindow then
+					header.subwindow.update();
+				end
+				if content and content.subwindow then
+					content.subwindow.update();
+				end
+			end
+		</script>
+		<sheetdata>
+			<sub_record_header name="header">
+				<class>vehicle_header</class>
+			</sub_record_header>
+
+			<frame_record_content name="contentframe" />
+			<subwindow_record name="content">
+				<class>vehicle_main</class>
+				<activate />
+			</subwindow_record>
+			<scrollbar_record>
+				<target>main</target>
+			</scrollbar_record>
+
+			<resize_recordsheet />
+			<close_recordsheet />
+		</sheetdata>
+	</windowclass>
+	
+	<windowclass name="vehicle_header">
+		<margins control="0,0,0,7" />
+		<script>
+			function onInit()
+				update();
+			end
+			function update()
+				local bReadOnly = WindowManager.getReadOnlyState(getDatabaseNode());
+				name.setReadOnly(bReadOnly);
+			end
+		</script>
+		<sheetdata>
+			<link_record_header>
+				<class>vehicle</class>
+			</link_record_header>
+
+			<anchor_record_header_right name="rightanchor" />
+			<tokenfield name="token">
+				<anchored to="rightanchor" width="25" height="25">
+					<top offset="-2" />
+					<right parent="rightanchor" anchor="left" relation="relative" offset="-3" />
+				</anchored>
+				<empty>token_empty</empty>
+			</tokenfield>
+			<icon_record_locked />
+			<button_record_locked />
+
+			<string_record_name name="name">
+				<empty textres="library_recordtype_empty_vehicle" />
+			</string_record_name>
+		</sheetdata>
+	</windowclass>
+	
+	<windowclass name="vehicle_main">
+		<script>
+			function onInit()
+				update();
+			end
+			function update()
+				local bReadOnly = WindowManager.getReadOnlyState(getDatabaseNode());
+				
+				local bSection1 = false;
+				if type.update(bReadOnly) then bSection1 = true; end;
+				if cost.update(bReadOnly) then bSection1 = true; end;
+				if weight.update(bReadOnly) then bSection1 = true; end;
+				if speed.update(bReadOnly) then bSection1 = true; end;
+				divider.setVisible(bSection1);
+				notes.setReadOnly(bReadOnly);
+			end
+		</script>
+		<sheetdata>
+			<anchor_column name="columnanchor" />
+			
+			<label_column name="type_label">
+				<static textres="vehicle_label_type" />
+			</label_column>
+			<string_columnh name="type">
+				<delaykeyupdate />
+			</string_columnh>
+
+			<label_column name="cost_label">
+				<static textres="vehicle_label_cost" />
+			</label_column>
+			<string_columnh name="cost" />
+
+			<label_column name="weight_label">
+				<static textres="vehicle_label_weight" />
+			</label_column>
+			<number_columnh name="weight" />
+
+			<label_column name="speed_label">
+				<static textres="vehicle_label_speed" />
+			</label_column>
+			<string_columnh name="speed" />
+
+			<line_column name="divider" />
+
+			<ft_columnh name="notes" />
+		</sheetdata>
+	</windowclass>
+</root>

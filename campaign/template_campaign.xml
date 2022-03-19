@@ -1,0 +1,742 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<!-- 
+  Please see the license.html file included with this distribution for 
+  attribution and copyright information.
+-->
+
+<root>
+	<template name="button_iadd">
+		<buttoncontrol>
+			<anchored width="20" height="20" />
+			<icon normal="button_add" pressed="button_add_down" />
+			<tooltip textres="button_add" />
+			<script>
+				function onInit()
+					if visible then
+						return;
+					end
+					local node = window.getDatabaseNode();
+					if node and node.isReadOnly() then
+						setVisible(false);
+					end
+				end
+				function onButtonPress()
+					window[target[1]].addEntry(true);
+				end
+			</script>
+		</buttoncontrol>
+	</template>
+	<template name="button_iedit">
+		<buttoncontrol>
+			<anchored width="20" height="20" />
+			<state icon="button_edit" tooltipres="button_editon" />
+			<state icon="button_edit_down" tooltipres="button_editoff" />
+			<script>
+				function onInit()
+					if visible then
+						return;
+					end
+					local node = window.getDatabaseNode();
+					if node and node.isReadOnly() then
+						setVisible(false);
+					end
+				end
+				function onValueChanged()
+					if window.onEditModeChanged then
+						window.onEditModeChanged(getValue() == 1);
+					end
+					window[target[1]].update();
+				end
+			</script>
+		</buttoncontrol>
+	</template>
+	<template name="button_idelete">
+		<buttoncontrol>
+			<anchored width="20" height="20" />
+			<state icon="button_delete" tooltipres="button_delete" />
+			<state icon="button_deleteconfirm" tooltipres="button_deleteconfirm" />
+			<tooltip textres="button_delete" />
+			<allowdoubleclick />
+			<invisible />
+			<script>
+				function setVisibility(bVisible)
+					setValue(0);
+					setVisible(bVisible);
+				end
+				
+				function onButtonPress()
+					if getValue() == 0 then
+						if window.delete then
+							window.delete();
+						else
+							window.getDatabaseNode().delete();
+						end
+					end
+				end
+			</script>
+		</buttoncontrol>
+	</template>
+	
+	<template name="anchor_campaign">
+		<genericcontrol name="rightanchor">
+			<anchored to="list" height="0" width="0">
+				<top anchor="bottom" offset="10" />
+				<right />
+			</anchored>
+		</genericcontrol>
+	</template>
+	<template name="anchor_campaign2">
+		<genericcontrol name="rightanchor">
+			<anchored to="list" height="0" width="0">
+				<top anchor="bottom" offset="20" />
+				<right />
+			</anchored>
+		</genericcontrol>
+	</template>
+	<template name="button_iadd_campaign">
+		<button_iadd name="list_iadd">
+			<anchored to="rightanchor">
+				<top />
+				<right anchor="left" relation="relative" offset="-5" />
+			</anchored>
+			<target>list</target>
+		</button_iadd>
+	</template>
+	<template name="button_iedit_campaign">
+		<button_iedit name="list_iedit">
+			<anchored to="rightanchor">
+				<top />
+				<right anchor="left" relation="relative" offset="-5" />
+			</anchored>
+			<target>list</target>
+		</button_iedit>
+	</template>
+	<template name="filter_campaign">
+		<filter name="filter">
+			<anchored height="20">
+				<top parent="rightanchor" />
+				<left parent="list" offset="15" />
+				<right parent="rightanchor" anchor="left" relation="relative" offset="-10" />
+			</anchored>
+		</filter>
+	</template>
+
+	<template name="anchor_listitem_right">
+		<genericcontrol name="rightanchor">
+			<anchored position="insidetopright" offset="0,5" width="0" height="0" />
+			<invisible />
+		</genericcontrol>
+	</template>
+	<template name="button_listitem_idelete">
+		<button_idelete name="idelete">
+			<anchored to="rightanchor">
+				<top />
+				<right anchor="left" relation="relative" offset="-5" />
+			</anchored>
+		</button_idelete>
+	</template>
+	<template name="link_listitem">
+		<linkfield name="link">
+			<anchored to="rightanchor" width="20" height="20">
+				<top />
+				<right anchor="left" relation="relative" offset="-5" />
+			</anchored>
+		</linkfield>
+	</template>
+	<template name="linkc_listitem">
+		<linkcontrol_record>
+			<anchored to="rightanchor" width="20" height="20">
+				<top />
+				<right anchor="left" relation="relative" offset="-5" />
+			</anchored>
+		</linkcontrol_record>
+	</template>
+	<template name="button_listitem_faction">
+		<button_faction	name="faction">
+			<anchored to="rightanchor" >
+				<top />
+				<right anchor="left" relation="relative" offset="-5" />
+			</anchored>
+		</button_faction>
+	</template>
+	
+	<template name="anchor_listitem_left_encounter">
+		<genericcontrol name="leftanchor">
+			<anchored position="insidetopleft" height="30" width="0" />
+		</genericcontrol>
+	</template>
+	<template name="token_listitem_encounter">
+		<tokenfield name="token">
+			<anchored to="leftanchor" width="24" height="24">
+				<top offset="3" />
+				<left anchor="right" relation="relative" offset="3" />
+			</anchored>
+			<empty>token_empty</empty>
+			<script>
+				function onValueChanged()
+					if window.synchTokenView then window.synchTokenView(); end
+				end
+			</script>
+		</tokenfield>
+	</template>
+	<template name="string_listitem_name_encounter">
+		<stringu name="name">
+			<anchored to="rightanchor">
+				<top />
+				<left parent="leftanchor" anchor="right" relation="relative" offset="10" />
+				<right anchor="left" relation="relative" offset="-5" />
+			</anchored>
+			<multilinespacing>20</multilinespacing>
+		</stringu>
+	</template>
+	<template name="number_listitem_count_encounter">
+		<basicnumber name="count">
+			<anchored to="leftanchor" width="25" height="20">
+				<top offset="5" />
+				<left anchor="right" relation="relative" offset="8" />
+			</anchored>
+			<default>1</default>
+			<min>1</min>
+			<script>
+				function onValueChanged()
+					window.synchToCount();
+				end
+			</script>
+		</basicnumber>
+	</template>
+	<template name="string_listitem_expr_encounterrandom">
+		<basicstring name="expr">
+			<anchored to="leftanchor" width="60" height="20">
+				<top offset="5" />
+				<left anchor="right" relation="relative" offset="8" />
+			</anchored>
+			<empty textres="battlerandom_empty_expr" />
+			<center />
+		</basicstring>
+	</template>
+	<template name="label_listitem_maplinks_encounter">
+		<label name="maplinks_label">
+			<anchored>
+				<top parent="name" anchor="bottom" offset="5" />
+				<left offset="5" />
+			</anchored>
+			<static textres="battle_label_placement" />
+		</label>
+	</template>
+	<template name="list_listitem_maplinks_encounter">
+		<windowlist name="maplinks">
+			<anchored>
+				<top parent="name" anchor="bottom" relation="relative" offset="0" />
+				<left parent="maplinks_label" anchor="right" offset="5" />
+				<right offset="-5" />
+			</anchored>			
+			<datasource>.maplink</datasource>
+			<class>battle_npcmaplink</class>
+			<columns width="28" fillwidth="true" />
+			<skipempty />
+			<noscroll />
+		</windowlist>
+	</template>
+
+	<template name="frame_parcel">
+		<genericcontrol>
+			<frame name="groupbox" offset="20,17,20,17" />
+		</genericcontrol>
+	</template>
+	<template name="number_parcel">
+		<number_dropadd>
+			<anchored width="25" height="20">
+				<top parent="rightanchor" />
+				<left offset="5" />
+			</anchored>
+		</number_dropadd>
+	</template>
+	<template name="string_parcel">
+		<string_textlistitem>
+			<anchored>
+				<left offset="40" />
+				<top parent="rightanchor" />
+				<right parent="rightanchor" anchor="left" relation="relative" offset="-5" />
+			</anchored>
+			<frame />
+			<multilinespacing>20</multilinespacing>
+		</string_textlistitem>
+	</template>
+	
+	<template name="label_tabletop">
+		<stringcontrol>
+			<anchored to="tabletoplabelanchor">
+				<top />
+				<left anchor="right" relation="relative" />
+			</anchored>
+			<font>sheetlabelmini</font>
+			<center />
+		</stringcontrol>
+	</template>
+
+	<!-- Master Index -->
+	<template name="masterindex_anchor_button">
+		<genericcontrol insertbefore="filter_category">
+			<anchored to="contentanchor" height="30" width="0">
+				<top anchor="bottom" relation="relative" />
+				<left offset="-5" />
+			</anchored>
+		</genericcontrol>
+	</template>
+	<template name="masterindex_anchor_bottom">
+		<genericcontrol>
+			<anchored height="0">
+				<bottom offset="-20" />
+				<left parent="" anchor="left" offset="35" />
+				<right parent="" anchor="right" offset="-40" />
+			</anchored>
+			<disabled />
+		</genericcontrol>
+	</template>
+	<template name="masterindex_anchor_paging">
+		<genericcontrol>
+			<anchored to="listbottomanchor" height="24">
+				<left offset="48" />
+				<right offset="-48" />
+				<top anchor="bottom" relation="relative" offset="0" />
+			</anchored>
+		</genericcontrol>
+	</template>
+	<template name="masterindex_list">
+		<windowlist name="list">
+			<anchored to="contentanchor">
+				<top anchor="bottom" relation="relative" offset="20" />
+				<left />
+				<right />
+				<bottom parent="bottomanchor" anchor="top" relation="relative" offset="-70" />
+			</anchored>
+			<frame name="groupbox" offset="15,15,20,15" />
+			<child></child>
+			<child><backcolor>1A40301E</backcolor></child>
+			<class>masterindexitem</class>
+			<allowdelete />
+			<useallmodules />
+			<skipempty />
+			<script file="campaign/scripts/masterindex_list.lua" />
+		</windowlist>
+	</template>
+	<template name="button_iadd_masterindex">
+		<button_iadd_campaign>
+			<script file="campaign/scripts/campaign_button_new.lua" />
+		</button_iadd_campaign>
+	</template>
+	<template name="masterindex_filter_sharedonly">
+		<buttoncontrol name="filter_sharedonly">
+			<anchored to="rightanchor" height="20" width="60">
+				<top />
+				<right anchor="left" relation="relative" offset="-5" />
+			</anchored>
+			<font>button-white</font>
+			<state frame="buttonup" frameoffset="2,2,2,2" textres="masterindex_label_filter_sharedonly_all" tooltipres="masterindex_tooltip_filter_sharedonly" />
+			<state frame="buttondown" frameoffset="2,2,2,2" textres="masterindex_label_filter_sharedonly_shared" />
+			<script>
+				function onValueChanged()
+					window.onSharedOnlyFilterChanged();
+				end
+			</script>
+		</buttoncontrol>
+	</template>
+	<template name="masterindex_filter_name">
+		<filter name="filter_name">
+			<anchored to="rightanchor" height="20">
+				<left parent="list" offset="20" />
+				<top />
+				<right anchor="left" relation="relative" offset="-10" />
+			</anchored>
+			<script>
+				function onValueChanged()
+					super.onValueChanged();
+					window.onNameFilterChanged();
+				end
+			</script>
+		</filter>
+	</template>
+	<template name="masterindex_filter_custom">
+		<simplestringc>
+			<anchored to="listbottomanchor" height="20" width="120">
+				<left offset="20" />
+				<top anchor="bottom" relation="relative" offset="5" />
+			</anchored>
+			<frame>
+				<name>search</name>
+				<offset>22,5,5,5</offset>
+			</frame>
+			<readonly />
+		</simplestringc>
+	</template>
+	<template name="masterindex_filter_custom_value">
+		<comboboxc>
+			<anchored to="listbottomanchor" height="20">
+				<top anchor="bottom" relation="current" offset="-20" />
+				<left offset="155" />
+				<right />
+			</anchored>
+			<listmaxsize>8</listmaxsize>
+			<unsorted />
+			<script>
+				local m_sType = nil;
+				function onInit()
+					super.onInit();
+					updateDisplay();
+				end
+				function setFilterType(sType)
+					m_sType = sType;
+				end
+				function updateDisplay()
+					if getValue() == "" then
+						setFrame("filter", 5,5,5,5);
+					else
+						setFrame("filter_active", 5,5,5,5);
+					end
+				end
+				function onValueChanged()
+					updateDisplay();
+					window.onCustomFilterValueChanged(m_sType, self);
+				end
+			</script>
+		</comboboxc>
+	</template>
+	<template name="masterindex_category_label">
+		<stringcontrol name="label_category">
+			<anchored to="contentanchor" height="20">
+				<left />
+				<top anchor="bottom" relation="current" />
+			</anchored>
+			<font>reference-header</font>
+			<static textres="masterindex_label_category" />
+			<invisible />
+		</stringcontrol>
+	</template>
+	<template name="masterindex_category_filter_label">
+		<stringcontrol name="filter_category_label">
+			<anchored to="contentanchor" height="20">
+				<left parent="label_category" anchor="right" offset="10" />
+				<top anchor="bottom" relation="relative" />
+				<right offset="-25" />
+			</anchored>
+			<frame name="groupbox" offset="7,7,45,7" />
+			<center />
+			<static />
+			<invisible />
+			<script>
+				function onClickDown()
+					return true;
+				end
+				function onClickRelease()
+					window.button_category_detail.setValue(1);
+					return true;
+				end
+			</script>
+		</stringcontrol>
+	</template>
+	<template name="masterindex_category_list">
+		<windowlist name="list_category">
+			<anchored to="contentanchor">
+				<left parent="label_category" anchor="right" offset="10" />
+				<top anchor="bottom" relation="relative" />
+				<right offset="-25" />
+				<sizelimits>
+					<minimum height="65" />
+					<maximum height="120" />
+				</sizelimits>
+			</anchored>
+			<frame name="groupbox" offset="7,7,45,7" />
+			<class>masterindexcategory</class>
+			<skipempty />
+			<sortby><control>category_label</control></sortby>
+			<invisible />
+			<script>
+				function update()
+					local bEditMode = (window.button_category_iedit.getValue() == 1);
+					for _,w in pairs(getWindows()) do
+						local sCategory = w.category.getValue();
+						if sCategory ~= "" and sCategory ~= "*" then
+							w.category_label.setReadOnly(not bEditMode);
+							w.idelete.setVisibility(bEditMode);
+						end
+					end
+				end
+			</script>
+		</windowlist>
+	</template>
+	<template name="masterindex_category_scroll">
+		<scrollbar name="scroll_category">
+			<anchored to="list_category" offset="-5,-15" />
+			<target>list_category</target>
+		</scrollbar>
+	</template>
+	<template name="masterindex_category_detail">
+		<buttoncontrol name="button_category_detail">
+			<anchored width="20" height="20">
+				<right parent="contentanchor" offset="10" />
+				<top parent="label_category" />
+			</anchored>
+			<state icon="combobox_button" />
+			<state icon="combobox_button_active" />
+			<invisible />
+			<script>
+				function onValueChanged()
+					local bEdit = (getValue() == 1);
+					window.filter_category_label.setVisible(not bEdit);
+					window.list_category.setVisible(bEdit);
+					window.scroll_category.setVisible(bEdit);
+
+					if Session.IsHost then
+						window.button_category_iedit.setValue(0);
+						window.button_category_iedit.setVisible(bEdit);
+						window.button_category_iadd.setVisible(bEdit);
+					end
+				end
+			</script>
+		</buttoncontrol>
+	</template>
+	<template name="masterindex_category_iedit">
+		<buttoncontrol name="button_category_iedit">
+			<anchored to="button_category_detail" position="belowleft" width="20" height="20" />
+			<state icon="button_edit" tooltipres="masterindex_button_category_editon" />
+			<state icon="button_edit_down" tooltipres="masterindex_button_category_editoff" />
+			<invisible />
+			<script>
+				function onValueChanged()
+					window.list_category.update();
+				end
+			</script>
+		</buttoncontrol>
+	</template>
+	<template name="masterindex_category_iadd">
+		<buttoncontrol name="button_category_iadd">
+			<anchored to="button_category_iedit" position="belowleft" offset="0,5" width="20" height="20" />
+			<icon normal="button_add" pressed="button_add_down" />
+			<tooltip textres="masterindex_button_category_add" />
+			<invisible />
+			<script>
+				function onButtonPress()
+					window.handleCategoryAdd();
+				end
+			</script>
+		</buttoncontrol>
+	</template>
+	<template name="masterindexcategory_label">
+		<stringcontrol name="category_label">
+			<anchored position="insidetopleft" offset="30,2" height="20">
+				<right parent="rightanchor" anchor="left" relation="relative" offset="-5" />
+			</anchored>
+			<frame name="fielddark" offset="7,3,7,3" hidereadonly="true" />
+			<stateframe>
+				<keyedit name="fieldfocus" offset="7,3,7,3" />
+				<hover name="fieldfocus" offset="7,3,7,3" hidereadonly="true" />
+			</stateframe>
+			<font>reference-r</font>
+			<nodrag />
+			<static />
+			<delaykeyupdate />
+			<droptypes>
+				<type>shortcut</type>
+			</droptypes>
+			<script file="campaign/scripts/masterindexcategory_label.lua" />
+		</stringcontrol>
+	</template>
+	<template name="masterindexitem_link">
+		<linkcontrol_record>
+			<bounds>5,2,20,20</bounds>
+		</linkcontrol_record>
+	</template>
+	<template name="masterindexitem_link_id">
+		<linkcontrol_record>
+			<bounds>5,2,20,20</bounds>
+		</linkcontrol_record>
+	</template>
+	<template name="masterindexitem_anchor_right">
+		<genericcontrol>
+			<anchored height="20" width="0">
+				<top offset="2" />
+				<right />
+			</anchored>
+		</genericcontrol>
+	</template>
+	<template name="masterindexitem_idelete">
+		<button_idelete>
+			<anchored to="rightanchor">
+				<top />
+				<right anchor="left" relation="relative" offset="-5" />
+			</anchored>
+		</button_idelete>
+	</template>
+	<template name="masterindexitem_access">
+		<buttoncontrol>
+			<anchored to="rightanchor" width="20" height="20">
+				<top />
+				<right parent="rightanchor" anchor="left" relation="relative" offset="-2" />
+			</anchored>
+			<invisible />
+			<state icon="" tooltip="" />
+			<state icon="record_shared" tooltipres="tooltip_shared" />
+			<state icon="record_public" tooltipres="tooltip_public" />
+			<script>
+				function onValueChanged()
+					setVisible(getValue() ~= 0);
+				end
+				function onClickDown()
+					return true;
+				end
+				function onClickRelease()
+					if getValue() ~= 0 then
+						window.unshareRecord();
+					end
+					return true;
+				end
+			</script>
+		</buttoncontrol>
+	</template>
+	<template name="masterindexitem_modified">
+		<genericcontrol>
+			<anchored width="20" height="20">
+				<top />
+				<right parent="rightanchor" anchor="left" relation="relative" offset="-2" />
+			</anchored>
+			<icon>record_intact</icon>
+			<invisible />
+		</genericcontrol>
+	</template>
+	<template name="masterindexitem_category">
+		<stringcontrol>
+			<anchored to="rightanchor" height="20">
+				<top />
+				<right anchor="left" relation="relative" offset="-5" />
+				<sizelimits>
+					<maximum width="150" />
+				</sizelimits>
+			</anchored>
+			<font>reference-r</font>
+			<nodrag />
+			<static />
+			<script file="campaign/scripts/masterindexitem_category.lua" />
+		</stringcontrol>
+	</template>
+	<template name="masterindexitem_owner">
+		<stringcontrol>
+			<anchored to="rightanchor" height="20">
+				<top />
+				<right anchor="left" relation="relative" offset="-5" />
+				<sizelimits width="200" />
+			</anchored>
+			<font>reference-r</font>
+			<nodrag />
+			<static />
+		</stringcontrol>
+	</template>
+	<template name="masterindexitem_name">
+		<stringfield>
+			<anchored position="insidetopleft" offset="30,2" height="20">
+				<right parent="rightanchor" anchor="left" relation="relative" offset="-5" />
+			</anchored>
+			<font>reference-r</font>
+			<nodrag />
+			<static />
+			<script file="campaign/scripts/masterindexitem_name.lua" />
+		</stringfield>
+	</template>
+
+	<template name="button_vehicle_type">
+		<button_text_sm>
+			<anchored to="buttonanchor" width="80">
+				<top />
+				<left anchor="right" relation="relative" offset="5" />
+			</anchored>
+			<state textres="library_recordview_label_vehicle_bytype" />
+			<script>
+				function onButtonPress()
+					local w = Interface.findWindow("reference_groupedlist", "reference.vehiclebytype");
+					if w then
+						Interface.toggleWindow("reference_groupedlist", "reference.vehiclebytype");
+					else
+						w = Interface.openWindow("reference_groupedlist", "reference.vehiclebytype");
+						w.init({ sRecordType = "vehicle", sListView = "bytype" });
+					end
+				end
+			</script>
+		</button_text_sm>
+	</template>
+
+	<template name="button_storytemplate">
+		<button_text_sm>
+			<anchored to="buttonanchor" width="80">
+				<top />
+				<left anchor="right" relation="relative" offset="5" />
+			</anchored>
+			<state textres="story_button_templates" />
+			<script>
+				function onButtonPress()
+					Interface.openWindow("masterindex", "storytemplate");
+				end
+			</script>
+		</button_text_sm>
+	</template>
+	<template name="button_battlerandom">
+		<button_text_sm>
+			<anchored to="buttonanchor" width="80">
+				<top />
+				<left anchor="right" relation="relative" offset="5" />
+			</anchored>
+			<state textres="battle_button_random" />
+			<script>
+				function onButtonPress()
+					Interface.openWindow("masterindex", "battlerandom");
+				end
+			</script>
+		</button_text_sm>
+	</template>
+	<template name="button_add_npc_import">
+		<buttoncontrol insertbefore="filter_sharedonly">
+			<anchored to="rightanchor" width="20" height="20">
+				<top />
+				<right anchor="left" relation="relative" offset="-5" />
+			</anchored>
+			<icon normal="button_import" pressed="button_import_down" />
+			<tooltip textres="npc_button_import" />
+            <script>
+				function onButtonPress()
+					CampaignDataManager.importNPC();
+				end
+            </script>
+		</buttoncontrol>
+	</template>
+	<template name="button_add_table_guided">
+		<buttoncontrol insertbefore="filter_sharedonly">
+			<anchored to="rightanchor" width="20" height="20">
+				<top />
+				<right anchor="left" relation="relative" offset="-5" />
+			</anchored>
+			<icon normal="button_add_table_guided" pressed="button_add_table_guided_down" />
+			<tooltip textres="table_button_add_guided" />
+			<script file="campaign/scripts/table_add.lua" />
+		</buttoncontrol>
+	</template>
+	<template name="button_add_table_import_text">
+		<buttoncontrol insertbefore="filter_sharedonly">
+			<anchored to="rightanchor" width="20" height="20">
+				<top />
+				<right anchor="left" relation="relative" offset="-5" />
+			</anchored>
+			<icon normal="button_import_text" pressed="button_import_text_down" />
+			<tooltip textres="button_import_text" />
+            <script>
+                function onButtonPress()
+                	Interface.openWindow("tableimport", "tableimport");
+                end
+            </script>
+		</buttoncontrol>
+	</template>
+
+	<template name="button_imagewindow_sizeup">
+		<button_window_sizeup>
+			<anchored position="insidetopright" offset="67,14" />
+		</button_window_sizeup>
+	</template>
+</root>

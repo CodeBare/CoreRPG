@@ -1,0 +1,424 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<!-- 
+  Please see the license.html file included with this distribution for 
+  attribution and copyright information.
+-->
+
+<root>
+	<template name="label_export_frame">
+		<label>
+			<anchored position="insidetop" offset="0,0" />
+			<static />
+			<center />
+			<underline />
+		</label>
+	</template>
+	<template name="text_export_frame_tip">
+		<stringcontrol>
+			<anchored position="insidebottom" offset="0,0" />
+			<font>sheettext</font>
+			<static />
+			<multilinespacing>15</multilinespacing>
+			<center />
+		</stringcontrol>
+	</template>
+
+	<windowclass name="export">
+		<frame>utilitybox3</frame>
+		<placement>
+			<size width="480" height="800" />
+			<nosave />
+		</placement>
+		<sizelimits>
+			<minimum width="400" height="640" />
+			<dynamic />
+		</sizelimits>
+		<nodelete />
+		<script file="utility/scripts/export.lua" />
+		<sheetdata>
+			<windowtitlebar name="title">
+				<resource>export_window_title</resource>
+			</windowtitlebar>
+			<anchor_title_utilitybox3 name="contentanchor" />
+			
+			<anchor_bottom_utilitybox3 name="bottomanchor" />
+
+			<!-- Module File Data -->
+			<genericcontrol name="frame_file_data">
+				<anchored to="contentanchor" height="40">
+					<top anchor="bottom" relation="relative" offset="10" />
+					<left />
+					<right />
+				</anchored>
+				<frame name="groupbox" offset="10,10,10,10" />
+			</genericcontrol>
+			
+			<stringu name="file">
+				<anchored to="frame_file_data" position="insidetopleft" offset="95,-2" height="20">
+					<right offset="-10" />
+				</anchored>
+				<frame name="required" offset="7,6,7,6" />
+				<empty textres="export_empty_file" />
+				<script>
+					function onValueChanged()
+						window.onFileValueChanged();
+					end
+				</script>
+			</stringu>
+			<label>
+				<anchored to="file" position="insidetopleft" offset="-90,0" />
+				<static textres="export_label_file" />
+			</label>
+
+			<stringu name="thumbnail">
+				<anchored to="file" position="below" offset="0,2" height="20">
+					<right offset="-35" />
+				</anchored>
+				<empty textres="export_empty_thumbnail" />
+			</stringu>
+			<label>
+				<anchored to="thumbnail" position="insidetopleft" offset="-90,0" />
+				<static textres="export_label_thumbnail" />
+			</label>
+			<button_text_sm name="thumbnail_chooser">
+				<anchored to="thumbnail" position="righthigh" offset="10,2" width="25" height="20" />
+				<state text="..." />
+				<script>
+					function onButtonPress()
+						window.onThumbnailButtonPress();
+					end
+				</script>
+			</button_text_sm>
+
+			<!-- Module Meta Data -->
+			<genericcontrol name="frame_meta_data">
+				<anchored to="contentanchor" height="104">
+					<top anchor="bottom" relation="relative" offset="20" />
+					<left />
+					<right />
+				</anchored>
+				<frame name="groupbox" offset="10,10,10,10" />
+			</genericcontrol>
+			
+			<stringu name="name">
+				<anchored to="frame_meta_data" position="insidetopleft" offset="95,-2" height="20">
+					<right offset="-10" />
+				</anchored>
+				<frame name="required" offset="7,6,7,6" />
+				<empty textres="export_empty_name" />
+				<script>
+					function onValueChanged()
+						window.onNameValueChanged();
+					end
+				</script>
+			</stringu>
+			<label>
+				<anchored to="name" position="insidetopleft" offset="-90,2" />
+				<static textres="export_label_name" />
+			</label>
+
+			<stringu name="displayname">
+				<anchored to="name" position="below" offset="0,2" height="20" />
+				<empty textres="export_empty_displayname" />
+			</stringu>
+			<label>
+				<anchored to="displayname" position="insidetopleft" offset="-90,2" />
+				<static textres="export_label_displayname" />
+			</label>
+
+			<stringu name="category">
+				<anchored to="displayname" position="below" offset="0,2" height="20" />
+				<empty textres="export_empty_category" />
+			</stringu>
+			<label>
+				<anchored to="category" position="insidetopleft" offset="-90,2" />
+				<static textres="export_label_category" />
+			</label>
+
+			<stringu name="author">
+				<anchored to="category" position="below" offset="0,2" height="20" />
+				<empty textres="export_empty_author" />
+			</stringu>
+			<label>
+				<anchored to="author" position="insidetopleft" offset="-90,2" />
+				<static textres="export_label_author" />
+			</label>
+
+			<button_checkbox name="readonly">
+				<anchored width="20" height="20">
+					<top parent="author" anchor="bottom" offset="2" />
+					<left parent="frame_meta_data" anchor="center" offset="-100" />
+				</anchored>
+			</button_checkbox>
+			<label>
+				<anchored to="readonly" position="lefthigh" />
+				<static textres="export_label_readonly" />
+			</label>
+
+			<button_checkbox name="playervisible">
+				<anchored width="20" height="20">
+					<top parent="readonly" />
+					<left parent="frame_meta_data" anchor="center" offset="35" />
+				</anchored>
+			</button_checkbox>
+			<label>
+				<anchored to="playervisible" position="lefthigh" />
+				<static textres="export_label_playervisible" />
+			</label>
+
+			<button_checkbox name="anyruleset">
+				<anchored width="20" height="20">
+					<top parent="readonly" />
+					<left parent="frame_meta_data" anchor="center" offset="150" />
+				</anchored>
+			</button_checkbox>
+			<label>
+				<anchored to="anyruleset" position="lefthigh" />
+				<static textres="export_label_anyruleset" />
+			</label>
+
+			<!-- Node list -->
+			<genericcontrol name="frame_recordtype_data">
+				<anchored to="contentanchor">
+					<top anchor="bottom" relation="relative" offset="20" />
+					<left />
+					<right />
+					<bottom parent="bottomanchor" anchor="top" offset="-232" />
+				</anchored>
+				<frame name="groupbox" offset="10,10,10,10" />
+			</genericcontrol>
+			<label_export_frame name="label_recordtypes">
+				<anchored to="frame_recordtype_data" />
+				<static textres="export_label_recordtypes" />
+			</label_export_frame>
+			<text_export_frame_tip name="text_recordtypes_bottom">
+				<anchored to="frame_recordtype_data" />
+				<static textres="export_label_recordtypes_bottom" />
+			</text_export_frame_tip>
+			<button_text_sm name="button_select_all">
+				<anchored to="frame_recordtype_data" position="insidetopleft" offset="5,0" width="40" />
+				<state textres="export_button_selectall" />
+				<script>
+					function onButtonPress()
+						window.onRecordTypeSelectAll();
+					end
+				</script>
+			</button_text_sm>
+			<button_text_sm name="button_deselect_all">
+				<anchored to="button_select_all" position="righthigh" offset="5,0" width="40" />
+				<state textres="export_button_deselectall" />
+				<script>
+					function onButtonPress()
+						window.onRecordTypeSelectNone();
+					end
+				</script>
+			</button_text_sm>
+			<windowlist name="recordtypes">
+				<anchored to="contentanchor">
+					<left />
+					<right offset="-10" />
+					<top parent="label_recordtypes" anchor="bottom" offset="5" />
+					<bottom parent="text_recordtypes_bottom" anchor="top" offset="-5" />
+				</anchored>
+				<class>export_recordtype</class>
+				<sortby><control>label</control></sortby>
+				<skipempty />
+				<script>
+					function onDrop(x, y, draginfo)
+						return window.onRecordTypeListDrop(draginfo);
+					end
+				</script>
+			</windowlist>
+			<scrollbar name="scrollbar_recordtypes">
+				<anchored to="recordtypes" />
+				<target>recordtypes</target>
+			</scrollbar>
+
+			<!-- Module Record Views -->
+			<genericcontrol name="frame_recordview_data">
+				<anchored to="contentanchor" height="90">
+					<left />
+					<right />
+					<bottom parent="bottomanchor" anchor="top" offset="-122" />
+				</anchored>
+				<frame name="groupbox" offset="10,10,10,10" />
+			</genericcontrol>
+			<label_export_frame name="label_recordviews">
+				<anchored to="frame_recordview_data" />
+				<static textres="export_label_recordviews" />
+			</label_export_frame>
+			<windowlist name="recordviews">
+				<anchored to="contentanchor">
+					<left />
+					<right offset="-10" />
+					<top parent="label_recordviews" anchor="bottom" offset="5" />
+					<bottom parent="frame_recordview_data" offset="-5" />
+				</anchored>
+				<class>export_recordview</class>
+				<sortby><control>label</control></sortby>
+				<skipempty />
+			</windowlist>
+			<scrollbar name="scrollbar_recordviews">
+				<anchored to="recordviews" />
+				<target>recordviews</target>
+			</scrollbar>
+
+			<!-- Module Extra Tokens -->
+			<genericcontrol name="frame_token_data">
+				<anchored to="contentanchor" height="90">
+					<left />
+					<right />
+					<bottom parent="bottomanchor" anchor="top" offset="-12" />
+				</anchored>
+				<frame name="groupbox" offset="10,10,10,10" />
+			</genericcontrol>
+			<label_export_frame name="label_tokens">
+				<anchored to="frame_token_data" />
+				<static textres="export_label_tokens" />
+			</label_export_frame>
+			<text_export_frame_tip name="text_tokens_bottom">
+				<anchored to="frame_token_data" />
+				<static textres="export_label_tokens_bottom" />
+			</text_export_frame_tip>
+			<windowlist name="tokens">
+				<anchored to="contentanchor">
+					<left />
+					<right offset="-10" />
+					<top parent="label_tokens" anchor="bottom" offset="5" />
+					<bottom parent="text_tokens_bottom" anchor="top" offset="-5" />
+				</anchored>
+				<datasource>.tokens</datasource>
+				<class>export_token</class>
+				<columns width="22" fillwidth="true" />
+				<allowdelete />
+				<script>
+					function onDrop(x, y, draginfo)
+						return window.onTokenListDrop(draginfo);
+					end
+				</script>
+			</windowlist>
+			<scrollbar name="scrollbar_tokens">
+				<anchored to="tokens" />
+				<target>tokens</target>
+			</scrollbar>
+
+			<!-- Controls -->
+			<button_text name="button_clear">
+				<anchored width="60" height="20">
+					<right anchor="center" offset="-30" />
+					<top parent="bottomanchor" anchor="bottom" offset="5" />
+				</anchored>
+				<state textres="export_button_clear" />
+				<script>
+					function onButtonPress()
+						window.performClear();
+					end
+				</script>
+			</button_text>
+			<button_text name="button_export">
+				<anchored width="60" height="20">
+					<left anchor="center" offset="30" />
+					<top parent="bottomanchor" anchor="bottom" offset="5" />
+				</anchored>
+				<state textres="export_button" />
+				<script>
+					function onButtonPress()
+						window.performExport();
+					end
+				</script>
+			</button_text>
+
+			<resize_utilitybox3 />
+			<close_utilitybox3 />
+		</sheetdata>
+	</windowclass>
+
+	<windowclass name="export_recordtype">
+		<script file="utility/scripts/export_recordtype.lua" />
+		<sheetdata>
+			<button_checkbox name="select">
+				<bounds>0,0,20,20</bounds>
+				<script>
+					function onValueChanged()
+						window.onSelectValueChanged();
+					end
+				</script>
+			</button_checkbox>
+			<label name="label">
+				<bounds>25,0,-21,20</bounds>
+			</label>
+			
+			<windowlist name="entries">
+				<bounds>0,20,-1,-1</bounds>
+				<datasource>.entries</datasource>
+				<class>export_recordtype_single</class>
+				<sortby><control>name</control></sortby>
+				<allowdelete />
+			</windowlist>
+		</sheetdata>
+	</windowclass>
+
+	<windowclass name="export_recordtype_single">
+		<script>
+			function onInit()
+				onLinkChanged();
+			end
+			function onLinkChanged()
+				local _,sRecord = link.getValue();
+				local sName = "";
+				if (sRecord or "") ~= "" then
+					local sName = DB.getValue(DB.getPath(sRecord, "name"), "");
+					if sName == "" then
+						sName = Interface.getString("export_empty_recordtype_single");
+					end
+					name.setValue(sName);
+				else
+					name.setValue(Interface.getString("export_missing_recordtype_single"));
+				end
+			end
+		</script>
+		<sheetdata>
+			<linkfield name="link">
+				<bounds>25,0,20,20</bounds>
+				<readonly />
+				<script>
+					function onValueChanged()
+						window.onLinkChanged();
+					end
+				</script>
+			</linkfield>
+			<stringcontrol name="name">
+				<bounds>50,0,-60,20</bounds>
+				<font>sheettext</font>
+				<static />
+			</stringcontrol>
+		</sheetdata>
+	</windowclass>
+
+	<windowclass name="export_recordview">
+		<script file="utility/scripts/export_recordview.lua" />
+		<sheetdata>
+			<button_checkbox name="select">
+				<bounds>0,0,20,20</bounds>
+			</button_checkbox>
+			<label name="label">
+				<bounds>25,0,-21,20</bounds>
+			</label>
+		</sheetdata>
+	</windowclass>
+
+	<windowclass name="export_token">
+		<margins control="0,0,1,1" />
+		<sheetdata>
+			<tokenfield name="token">
+				<bounds>1,1,20,20</bounds>
+				<script>
+					function onDrop(x, y, draginfo)
+						return false;
+					end
+				</script>
+			</tokenfield>
+		</sheetdata>
+	</windowclass>
+</root>

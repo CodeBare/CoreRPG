@@ -1,0 +1,195 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<!-- 
+  Please see the license.html file included with this distribution for 
+  attribution and copyright information.
+-->
+
+<root>
+	<!-- Asset View -->
+	<windowclass name="tokenbag">
+		<frame>tokenbag</frame>
+		<placement>
+			<size width="500" height="600" />
+		</placement>
+		<sizelimits>
+			<dynamic />
+			<minimum width="500" height="465" />
+		</sizelimits>
+		<script file="utility/scripts/tokenbag.lua" />
+		<sheetdata>
+			<windowtitlebar name="title">
+				<resource>assetview_window_title</resource>
+			</windowtitlebar>
+			<anchor_title_tokenbag name="contentanchor" />
+
+			<anchor_bottom_tokenbag_buttons name="bottomanchor" />
+
+			<anchor_assetview_filter name="anchor_assetview_filter" />
+			<button_assetview_filter_token name="button_assetview_filter_token" />
+			<button_assetview_filter_portrait name="button_assetview_filter_portrait" />
+			<button_assetview_filter_image name="button_assetview_filter_image">
+				<gmvisibleonly />
+			</button_assetview_filter_image>
+			<button_assetview_filter_all name="button_assetview_filter_all" />
+			
+			<filter_tokens name="filter" />
+			<button_tokens_viewchange name="button_assetview_viewchange" />
+			
+			<button_assetview_top name="button_top" />
+			<list_assetview_path name="list_path" />
+			
+			<assetview_tokens name="tokens" />
+			
+			<button_assetview_page_prev name="button_assetview_page_prev" />
+			<button_assetview_page_next name="button_assetview_page_next" />
+			
+			<button_assetview_store name="button_assetview_store" />
+			<button_assetview_folder name="button_assetview_folder" />
+			<button_assetview_folder_refresh name="button_assetview_folder_refresh" />
+			
+			<resize_tokenbag />
+			<helper_tokenbag />
+			<close_tokenbag />
+		</sheetdata>
+	</windowclass>
+	<windowclass name="assetview_path_item">
+		<margins control="0,0,5,5" />
+		<script>
+			local sSavedPath = "";
+			
+			function setData(sText, sPath)
+				local sCapText = StringManager.capitalize(sText);
+				button.setText(sCapText);
+				button.setTooltipText(sCapText);
+				sSavedPath = sPath;
+			end
+			
+			function activate()
+				windowlist.window.setPathFilter(sSavedPath);
+			end
+		</script>
+		<sheetdata>
+			<button_text name="button">
+				<anchored position="insidetopleft" offset="5,5" width="140" height="20" />
+				<font>assetview-path-active</font>
+				<script>
+					function onButtonPress()
+						window.activate();
+					end
+				</script>
+			</button_text>
+		</sheetdata>
+	</windowclass>
+	<windowclass name="assetview_path_item_current">
+		<margins control="0,0,5,5" />
+		<script>
+			function setData(sText)
+				local sCapText = StringManager.capitalize(sText);
+				button.setText(sCapText);
+				button.setTooltipText(sCapText);
+			end
+		</script>
+		<sheetdata>
+			<button_text name="button">
+				<anchored position="insidetopleft" offset="5,5" width="140" height="20" />
+				<font>assetview-path-inactive</font>
+			</button_text>
+		</sheetdata>
+	</windowclass>
+	<windowclass name="assetview_path_filter">
+		<margins control="0,0,5,5" />
+		<script>
+			local sSsavedFilter = "";
+			
+			function setData(sFilter)
+				local sText = Interface.getString("assetview_path_filter") .. ": " .. sFilter
+				button.setText(sText);
+				button.setTooltipText(sText);
+				sSavedFilter = sFilter;
+			end
+			
+			function activate()
+				windowlist.window.setSearchFilter("");
+			end
+		</script>
+		<sheetdata>
+			<button_text name="button">
+				<anchored position="insidetopleft" offset="5,5" width="140" height="20" />
+				<font>assetview-path-active</font>
+				<script>
+					function onButtonPress()
+						window.activate();
+					end
+				</script>
+			</button_text>
+		</sheetdata>
+	</windowclass>
+
+	<!-- Asset Preview -->
+	<windowclass name="asset_preview">
+		<frame>tokenbag</frame>
+		<placement>
+			<size width="485" height="540" />
+			<nosave />
+		</placement>
+		<sizelimits>
+			<dynamic />
+			<minimum width="485" height="540" />
+		</sizelimits>
+		<script file="utility/scripts/tokenbag_preview.lua" />
+		<sheetdata>
+			<windowtitlebar name="title">
+				<resource>asset_preview_window_title</resource>
+			</windowtitlebar>
+			<anchor_title_tokenbag name="contentanchor" />
+
+			<genericcontrol name="preview">
+				<anchored to="contentanchor">
+					<top anchor="bottom" relation="relative" offset="20" />
+					<left offset="10" />
+					<right offset="-10" />
+					<bottom parent="" offset="-80" />
+				</anchored>
+				<frame name="groupbox" offset="15,15,15,15"/>
+				<script>
+					function onDragStart(button, x, y, draginfo)
+						return window.handleDrag(draginfo);
+					end
+				</script>
+			</genericcontrol>
+
+			<button_text name="button_import">
+				<anchored width="180" height="20">
+					<left parent="contentanchor" offset="10" />
+					<bottom offset="-35" />
+				</anchored>
+				<state textres="asset_preview_import" />
+				<invisible />
+				<script>
+					function onButtonPress()
+						window.onImportClicked();
+					end
+				</script>
+			</button_text>
+
+			<button_text name="button_decal">
+				<anchored width="180" height="20">
+					<right parent="contentanchor" offset="-10" />
+					<bottom offset="-35" />
+				</anchored>
+				<state textres="asset_preview_decal" />
+				<invisible />
+				<script>
+					function onButtonPress()
+						window.onDecalClicked();
+					end
+				</script>
+			</button_text>
+
+			<resize_tokenbag />
+			<helper_tokenbag />
+			<close_tokenbag />
+		</sheetdata>
+	</windowclass>
+</root>

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<!-- 
+  Please see the license.html file included with this distribution for 
+  attribution and copyright information.
+-->
+
+<root>
+	<template name="label_ps">
+		<label>
+			<font>sheetlabel_ps</font>
+		</label>
+	</template>
+	
+	<template name="sub_ps">
+		<subwindow>
+			<anchored to="contentanchor" position="below">
+				<bottom parent="" offset="-1" />
+			</anchored>
+		</subwindow>
+	</template>
+</root>

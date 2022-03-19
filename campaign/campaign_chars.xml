@@ -1,0 +1,560 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<!-- 
+  Please see the license.html file included with this distribution for 
+  attribution and copyright information.
+-->
+
+<root>
+	<windowclass name="charselect_host">
+		<frame>charselect</frame>
+		<placement>
+			<size width="660" height="372" />
+			<nosave />
+		</placement>
+		<sizelimits>
+			<minimum width="660" height="372" />
+			<dynamic />
+		</sizelimits>
+		<nodelete />
+		<sheetdata>
+			<windowtitlebar name="title">
+				<resource>charselect_window_title</resource>
+			</windowtitlebar>
+			<anchor_title_charselect name="contentanchor" />
+
+			<windowlist name="list">
+				<anchored to="contentanchor" position="below">
+					<bottom parent="" offset="-55" />
+				</anchored>
+				<datasource>.</datasource>
+				<class>charselect_host_entry</class>
+				<allowcreate />
+				<allowdelete />
+				<columns width="300" fillwidth="true" />
+				<sortby><control>name</control></sortby>
+				<filter><control>filter</control></filter>
+				<filteron><control>name</control></filteron>
+				<script file="campaign/scripts/charselect_host_list.lua" />
+			</windowlist>
+			<scrollbar_list />
+			
+			<anchor_charselect_button name="rightanchor" />
+			<button_iedit name="list_iedit">
+				<anchored to="rightanchor">
+					<top />
+					<right anchor="left" relation="relative" offset="-5" />
+				</anchored>
+				<gmvisibleonly />
+				<script>
+					function onValueChanged()
+						local bEdit = (getValue() == 1);
+						window.list.update();
+					end
+				</script>
+			</button_iedit>
+			<button_iadd name="list_iadd">
+				<anchored to="rightanchor">
+					<top />
+					<right anchor="left" relation="relative" offset="-5" />
+				</anchored>
+				<class>charsheet</class>
+				<script file="campaign/scripts/campaign_button_new.lua" />
+			</button_iadd>
+			<button_importcharwindow name="list_iimport">
+				<anchored to="rightanchor">
+					<top />
+					<right anchor="left" relation="relative" offset="-5" />
+				</anchored>
+				<script>
+					function onButtonPress()
+						Interface.openWindow("charselect_import", "");
+						window.close();
+					end
+				</script>
+			</button_importcharwindow>
+			<filter_charselect name="filter" />
+
+			<resize_charselect name="resize_charselect" />
+			<helper_charselect name="help_charselect" />
+			<close_charselect name="close_charselect" />
+		</sheetdata>
+	</windowclass>
+	<windowclass name="charselect_host_entry">
+		<frame>charselectentry</frame>
+		<sizelimits>
+			<maximum width="300" />
+		</sizelimits>
+		<script file="campaign/scripts/charselect_host_entry.lua" />
+		<sheetdata>
+			<genericcontrol name="portraitbase">
+				<bounds>10,10,72,72</bounds>
+				<disabled />
+				<icon>charlist_base</icon>
+			</genericcontrol>
+			<genericcontrol name="portrait">
+				<bounds>10,10,72,72</bounds>
+				<disabled />
+			</genericcontrol>
+
+			<stringfield name="name">
+				<anchored position="insidetopleft" offset="90,20">
+					<right offset="-40" />
+				</anchored>
+				<multilinespacing>20</multilinespacing>
+				<font>charselecttitle</font>
+				<empty textres="library_recordtype_empty_charsheet" />
+				<disabled />
+			</stringfield>
+			<stringcontrol name="details">
+				<anchored to="name" position="belowleft">
+					<right />
+				</anchored>
+				<multilinespacing>20</multilinespacing>
+				<font>charselectbody</font>
+				<disabled />
+			</stringcontrol>
+			<stringcontrol name="owner">
+				<anchored to="details" position="belowleft">
+					<right />
+				</anchored>
+				<multilinespacing>20</multilinespacing>
+				<font>charselecttitle</font>
+				<disabled />
+			</stringcontrol>
+
+			<buttoncontrol name="base">
+				<anchored position="insidetopleft">
+					<right />
+					<bottom parent="owner" offset="12" />
+				</anchored>
+				<script>
+					function onButtonPress()
+						window.openCharacter();
+						return true;
+					end
+
+					function onDragStart(button, x, y, draginfo)
+						window.dragCharacter(draginfo);
+						return true;
+					end
+				</script>
+			</buttoncontrol>
+
+			<button_idelete name="idelete">
+				<bounds>-30,10,20,20</bounds>
+			</button_idelete>
+			<button_exportchar name="iexport">
+				<anchored to="base" position="insidebottomright" offset="10,10" />
+				<script>
+					function onButtonPress()
+						CampaignDataManager.exportChar(window.getDatabaseNode());
+					end
+				</script>
+			</button_exportchar>
+		</sheetdata>
+	</windowclass>
+
+	<windowclass name="charselect_client">
+		<frame>charselect</frame>
+		<placement>
+			<size width="660" height="372" />
+			<nosave />
+		</placement>
+		<sizelimits>
+			<minimum width="660" height="372" />
+			<dynamic />
+		</sizelimits>
+		<sheetdata>
+			<windowtitlebar name="title">
+				<resource>charselect_window_title</resource>
+			</windowtitlebar>
+			<anchor_title_charselect name="contentanchor" />
+
+			<windowlist name="list">
+				<anchored to="contentanchor" position="below">
+					<bottom parent="" offset="-55" />
+				</anchored>
+				<class>charselect_client_entry</class>
+				<columns width="300" fillwidth="true" />
+				<skipempty />
+				<sortby>
+					<control desc="true">campaign</control>
+					<control>name</control>
+				</sortby>
+				<filter><control>filter</control></filter>
+				<filteron><control>name</control></filteron>
+				<script file="campaign/scripts/charselect_client_list.lua" />
+			</windowlist>
+			<scrollbar_list />
+			
+			<anchor_charselect_button name="rightanchor" />
+			<button_iadd name="button_add">
+				<anchored to="rightanchor">
+					<top />
+					<right anchor="left" relation="relative" offset="-5" />
+				</anchored>
+				<visible />
+				<script>
+					function onButtonPress()
+						if not bRequested then
+							User.requestIdentity(nil, "charsheet", "name", nil, requestResponse);
+							bRequested = true;
+						end
+						window.close();
+					end
+					function requestResponse(result, identity)
+					end
+				</script>
+			</button_iadd>
+			<button_importcharwindow name="button_import">
+				<anchored to="rightanchor">
+					<top />
+					<right anchor="left" relation="relative" offset="-5" />
+				</anchored>
+				<script>
+					function onButtonPress()
+						Interface.openWindow("charselect_import", "");
+						window.close();
+					end
+				</script>
+			</button_importcharwindow>
+			<filter_charselect name="filter" />
+
+			<resize_charselect name="resize_charselect" />
+			<helper_charselect name="help_charselect" />
+			<close_charselect name="close_charselect" />
+		</sheetdata>
+	</windowclass>
+	<windowclass name="charselect_client_entry">
+		<margins control="0,0,0,10" />
+		<frame>charselectentry</frame>
+		<sizelimits>
+			<maximum width="300" />
+		</sizelimits>
+		<script file="campaign/scripts/charselect_client_entry.lua" />
+		<sheetdata>
+			<genericcontrol name="portraitbase">
+				<bounds>10,10,72,72</bounds>
+				<icon>charlist_base</icon>
+				<disabled />
+			</genericcontrol>
+			<genericcontrol name="portrait">
+				<bounds>10,10,72,72</bounds>
+				<disabled />
+			</genericcontrol>
+			
+			<genericcontrol name="error">
+				<bounds>-65,15,56,56</bounds>
+				<icon>error</icon>
+				<disabled />
+				<invisible />
+			</genericcontrol>
+
+			<stringcontrol name="name">
+				<anchored position="insidetopleft" offset="90,20">
+					<right offset="-40" />
+				</anchored>
+				<multilinespacing>20</multilinespacing>
+				<font>charselecttitle</font>
+				<empty textres="library_recordtype_empty_charsheet" />
+				<disabled />
+			</stringcontrol>
+			<stringcontrol name="details">
+				<anchored to="name" position="belowleft">
+					<right />
+				</anchored>
+				<multilinespacing>20</multilinespacing>
+				<font>charselectbody</font>
+				<disabled />
+			</stringcontrol>
+			<stringcontrol name="campaign">
+				<anchored to="details" position="belowleft">
+					<right />
+				</anchored>
+				<multilinespacing>20</multilinespacing>
+				<font>charselecttitle</font>
+				<static textres="charselect_label_server" />
+				<disabled />
+			</stringcontrol>
+
+			<buttoncontrol name="base">
+				<anchored position="insidetopleft">
+					<right />
+					<bottom parent="campaign" offset="12" />
+				</anchored>
+				<script>
+					function onButtonPress()
+						window.openCharacter();
+						return true;
+					end
+				</script>
+			</buttoncontrol>
+		</sheetdata>
+	</windowclass>
+
+	<windowclass name="charselect_import">
+		<frame>charselect</frame>
+		<placement>
+			<size width="660" height="372" />
+			<nosave />
+		</placement>
+		<sizelimits>
+			<minimum width="660" height="372" />
+			<dynamic />
+		</sizelimits>
+		<nodelete />
+		<sheetdata>
+			<windowtitlebar name="title">
+				<resource>charselect_import_window_title</resource>
+			</windowtitlebar>
+			<anchor_title_charselect name="contentanchor" />
+
+			<windowlist name="list">
+				<anchored to="contentanchor" position="below">
+					<bottom parent="" offset="-55" />
+				</anchored>
+				<class>charselect_import_entry</class>
+				<columns width="300" fillwidth="true" />
+				<skipempty />
+				<sortby><control>name</control></sortby>
+				<filter><control>filter</control></filter>
+				<filteron><control>name</control></filteron>
+				<script file="campaign/scripts/charselect_import_list.lua" />
+			</windowlist>
+			<scrollbar_list />
+			
+			<anchor_charselect_button name="rightanchor" />
+			<button_backcharwindow name="button_back">
+				<anchored to="rightanchor">
+					<top />
+					<right anchor="left" relation="relative" offset="-5" />
+				</anchored>
+				<script>
+					function onButtonPress()
+						if Session.IsHost then
+							Interface.openWindow("charselect_host", "charsheet");
+						else
+							Interface.openWindow("charselect_client", "charsheet");
+						end
+						window.close();
+					end
+				</script>
+			</button_backcharwindow>
+			<button_importcharfile name="button_import">
+				<anchored to="rightanchor">
+					<top />
+					<right anchor="left" relation="relative" offset="-5" />
+				</anchored>
+				<gmvisibleonly />
+				<script>
+					function onButtonPress()
+						CampaignDataManager.importChar();
+					end
+				</script>
+			</button_importcharfile>
+			<filter_charselect name="filter" />
+
+			<resize_charselect name="resize_charselect" />
+			<helper_charselect name="help_charselect" />
+			<close_charselect name="close_charselect" />
+		</sheetdata>
+	</windowclass>
+	<windowclass name="charselect_import_entry">
+		<margins control="0,0,0,10" />
+		<frame>charselectentry</frame>
+		<sizelimits>
+			<maximum width="300" />
+		</sizelimits>
+		<script file="campaign/scripts/charselect_import_entry.lua" />
+		<sheetdata>
+			<genericcontrol name="portraitbase">
+				<bounds>10,10,72,72</bounds>
+				<icon>charlist_base</icon>
+				<disabled />
+			</genericcontrol>
+			<portraitselectioncontrol name="portrait">
+				<bounds>10,10,72,72</bounds>
+				<base>charlist_base</base>
+				<mask>charlist_mask</mask>
+			</portraitselectioncontrol>
+			
+			<stringcontrol name="name">
+				<anchored position="insidetopleft" offset="90,20">
+					<right offset="-40" />
+				</anchored>
+				<multilinespacing>20</multilinespacing>
+				<font>charselecttitle</font>
+				<empty textres="library_recordtype_empty_charsheet" />
+				<disabled />
+			</stringcontrol>
+			<stringcontrol name="details">
+				<anchored to="name" position="belowleft">
+					<right />
+				</anchored>
+				<multilinespacing>20</multilinespacing>
+				<font>charselectbody</font>
+				<disabled />
+			</stringcontrol>
+			<stringcontrol name="source_label">
+				<anchored to="details" position="belowleft">
+					<right />
+				</anchored>
+				<multilinespacing>20</multilinespacing>
+				<font>charselecttitle</font>
+				<disabled />
+			</stringcontrol>
+			<stringcontrol name="source">
+				<anchored to="source_label" position="belowleft">
+					<right />
+				</anchored>
+				<multilinespacing>20</multilinespacing>
+				<font>charselectbody</font>
+				<disabled />
+			</stringcontrol>
+
+			<buttoncontrol name="base">
+				<anchored position="insidetopleft">
+					<right />
+					<bottom parent="source" offset="12" />
+				</anchored>
+			</buttoncontrol>
+
+			<button_importcharadd name="button_import">
+				<anchored to="base" position="insidetopright" offset="10,10" />
+				<script>
+					function onButtonPress()
+						window.importCharacter();
+					end
+				</script>
+			</button_importcharadd>
+		</sheetdata>
+	</windowclass>
+
+	<windowclass name="pregencharselect">
+		<frame>charselect</frame>
+		<placement>
+			<size width="660" height="372" />
+			<nosave />
+		</placement>
+		<sizelimits>
+			<minimum width="660" height="372" />
+			<dynamic />
+		</sizelimits>
+		<nodelete />
+		<sheetdata>
+			<windowtitlebar name="title">
+				<resource>pregencharselect_window_title</resource>
+			</windowtitlebar>
+			<anchor_title_charselect name="contentanchor" />
+
+			<windowlist name="list">
+				<anchored to="contentanchor" position="below">
+					<bottom parent="" offset="-55" />
+				</anchored>
+				<datasource>.</datasource>
+				<class>pregencharselect_entry</class>
+				<columns width="300" fillwidth="true" />
+				<readonly />
+				<sortby><control>name</control></sortby>
+				<filter><control>filter</control></filter>
+				<filteron><control>name</control></filteron>
+			</windowlist>
+			<scrollbar_list />
+			
+			<anchor_charselect_button name="rightanchor" />
+			<filter_charselect name="filter" />
+
+			<resize_charselect name="resize_charselect" />
+			<close_charselect name="close_charselect" />
+		</sheetdata>
+	</windowclass>
+	<windowclass name="pregencharselect_entry">
+		<frame>charselectentry</frame>
+		<sizelimits>
+			<maximum width="300" />
+		</sizelimits>
+		<script>
+			function onInit()
+				local node = getDatabaseNode();
+				if GameSystem.getPregenCharSelectDetail then
+					details.setValue(GameSystem.getPregenCharSelectDetail(node));
+				end
+				source_label.setValue(Interface.getString("charselect_label_pregen"));
+				local aModuleInfo = Module.getModuleInfo(node.getModule());
+				if aModuleInfo then
+					source.setValue(aModuleInfo.displayname);
+				end
+			end
+			
+			function addCharacter()
+				CampaignDataManager.addPregenChar(getDatabaseNode()); 
+			end
+		</script>
+		<script file="campaign/scripts/charselect_host_entry.lua" />
+		<sheetdata>
+			<genericcontrol name="portraitbase">
+				<bounds>10,10,72,72</bounds>
+				<disabled />
+				<icon>charlist_base</icon>
+			</genericcontrol>
+			<genericcontrol name="portrait">
+				<bounds>10,10,72,72</bounds>
+				<disabled />
+			</genericcontrol>
+
+			<stringfield name="name">
+				<anchored position="insidetopleft" offset="90,20">
+					<right offset="-40" />
+				</anchored>
+				<multilinespacing>20</multilinespacing>
+				<font>charselecttitle</font>
+				<empty textres="library_recordtype_empty_charsheet" />
+				<disabled />
+			</stringfield>
+			<stringcontrol name="details">
+				<anchored to="name" position="belowleft">
+					<right />
+				</anchored>
+				<multilinespacing>20</multilinespacing>
+				<font>charselectbody</font>
+				<disabled />
+			</stringcontrol>
+			<stringcontrol name="source_label">
+				<anchored to="details" position="belowleft">
+					<right />
+				</anchored>
+				<multilinespacing>20</multilinespacing>
+				<font>charselecttitle</font>
+				<disabled />
+			</stringcontrol>
+			<stringcontrol name="source">
+				<anchored to="source_label" position="belowleft">
+					<right />
+				</anchored>
+				<multilinespacing>20</multilinespacing>
+				<font>charselectbody</font>
+				<disabled />
+			</stringcontrol>
+
+			<buttoncontrol name="base">
+				<anchored position="insidetopleft">
+					<right />
+					<bottom parent="source" offset="12" />
+				</anchored>
+			</buttoncontrol>
+
+			<buttoncontrol name="iadd">
+				<anchored to="base" position="insidebottomright" offset="10,10" width="20" height="20" />
+				<icon normal="button_add" pressed="button_add_down" />
+				<tooltip textres="charselect_tooltip_pregen" />
+				<script>
+					function onButtonPress()
+						window.addCharacter();
+					end
+				</script>
+				<gmvisibleonly />
+			</buttoncontrol>
+		</sheetdata>
+	</windowclass>
+</root>

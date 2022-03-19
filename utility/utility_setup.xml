@@ -1,0 +1,507 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<!-- 
+  Please see the license.html file included with this distribution for 
+  attribution and copyright information.
+-->
+
+<root>
+	<template name="frame_setup">
+		<genericcontrol name="contentframe">
+			<anchored to="contentanchor">
+				<top anchor="bottom" offset="20" />
+				<left offset="5" />
+				<right offset="-10" />
+				<bottom parent="bottomanchor" anchor="top" offset="-25" />
+			</anchored>
+			<frame name="groupbox" offset="15,15,20,15" />
+			<disabled />
+		</genericcontrol>
+	</template>
+	<template name="button_setup_next">
+		<button_text name="button_next">
+			<anchored to="contentanchor" height="20" width="60">
+				<right offset="-10" />
+				<bottom parent="bottomanchor" anchor="top" offset="20" />
+			</anchored>
+			<state textres="setup_button_next" />
+			<script>
+				function onButtonPress()
+					window.onButtonNext();
+				end
+			</script>
+		</button_text>
+	</template>
+	<template name="button_setup_prev">
+		<button_text name="button_prev">
+			<anchored to="contentanchor" height="20" width="60">
+				<left offset="10" />
+				<bottom parent="bottomanchor" anchor="top" offset="20" />
+			</anchored>
+			<state textres="setup_button_prev" />
+			<invisible />
+			<script>
+				function onButtonPress()
+					window.onButtonPrev();
+				end
+			</script>
+		</button_text>
+	</template>
+	<template name="button_setup_finish">
+		<button_text name="button_finish">
+			<anchored to="contentanchor" height="20" width="60">
+				<right offset="-10" />
+				<bottom parent="bottomanchor" anchor="top" offset="20" />
+			</anchored>
+			<state textres="setup_button_finish" />
+			<invisible />
+			<script>
+				function onButtonPress()
+					window.close();
+				end
+			</script>
+		</button_text>
+	</template>
+	<template name="frame_setup_showonload">
+		<genericcontrol name="showonload_frame">
+			<anchored to="contentanchor" width="120" height="20">
+				<left anchor="center" offset="-60" />
+				<bottom parent="bottomanchor" anchor="top" offset="20" />
+			</anchored>
+			<frame name="groupbox" offset="15,10,15,10" />
+		</genericcontrol>
+	</template>
+	<template name="button_setup_showonload">
+		<buttonfield name="showonload">
+			<anchored to="showonload_frame" position="insidetopright" height="20" width="20" />
+			<state icon="button_checkoff" />
+			<state icon="button_checkon" />
+			<script>
+				function onInit()
+					if CampaignRegistry.setup then
+						setValue(0);
+					else
+						setValue(1);
+					end
+				end
+				function onClose()
+					if getValue() == 0 then
+						CampaignRegistry.setup = true;
+					else
+						CampaignRegistry.setup = nil;
+					end
+				end
+			</script>
+		</buttonfield>
+	</template>
+	<template name="button_setup_link">
+		<button_text>
+			<script>
+				function onButtonPress()
+					if urlres then
+						Interface.openWindow("url", Interface.getString(urlres[1]));
+					elseif url then
+						Interface.openWindow("url", url[1])
+					end
+				end
+			</script>
+		</button_text>
+	</template>
+	<template name="button_setup_left_link">
+		<button_setup_link>
+			<anchored height="20">
+				<top parent="columnanchor" anchor="bottom" relation="relative" offset="12" />
+				<left offset="5" />
+				<right anchor="center" offset="-5" />
+			</anchored>
+		</button_setup_link>
+	</template>
+	<template name="button_setup_right_link">
+		<button_setup_link>
+			<anchored height="20">
+				<top parent="columnanchor" anchor="bottom" relation="current" offset="-20" />
+				<left anchor="center" offset="5" />
+				<right offset="-5" />
+			</anchored>
+		</button_setup_link>
+	</template>
+	<template name="button_setup_moduleset">
+		<button_text insertbefore="spacer_modules">
+			<script>
+				local sModuleSetName = nil;
+				local aModuleSet = nil;
+				function setData(sNameValue, aModuleSetValue)
+					sModuleSetName = sNameValue;
+					aModuleSet = aModuleSetValue;
+					setText(sModuleSetName);
+				end
+				function onButtonPress()
+					local w = Interface.openWindow("modulesetload", "");
+					w.setData(sModuleSetName, aModuleSet);
+				end
+			</script>
+		</button_text>
+	</template>
+	<template name="button_setup_left_moduleset">
+		<button_setup_moduleset>
+			<anchored height="20">
+				<top parent="columnanchor" anchor="bottom" relation="relative" offset="12" />
+				<left offset="5" />
+				<right anchor="center" offset="-5" />
+			</anchored>
+		</button_setup_moduleset>
+	</template>
+	<template name="button_setup_right_moduleset">
+		<button_setup_moduleset>
+			<anchored height="20">
+				<top parent="columnanchor" anchor="bottom" relation="current" offset="-20" />
+				<left anchor="center" offset="5" />
+				<right offset="-5" />
+			</anchored>
+		</button_setup_moduleset>
+	</template>
+	<template name="button_setup_full">
+		<button_text>
+			<anchored height="20">
+				<top parent="columnanchor" anchor="bottom" relation="relative" offset="12" />
+				<left offset="5" />
+				<right offset="-5" />
+			</anchored>
+		</button_text>
+	</template>
+	<template name="button_setup_column_help">
+		<help>
+			<anchored to="header" height="24" width="24">
+				<top offset="-2" />
+				<right offset="10" />
+			</anchored>
+		</help>
+	</template>
+	
+	<windowclass name="setup">
+		<frame>utilitybox</frame>
+		<placement>
+			<size width="480" height="400" />
+			<nosave />
+		</placement>
+		<sizelimits>
+			<minimum width="480" height="400" />
+			<dynamic />
+		</sizelimits>
+		<playercontrol />
+		<nodelete />
+		<script file="utility/scripts/setup.lua" />
+		<sheetdata>
+			<windowtitlebar name="title">
+				<resource>setup_window_title</resource>
+			</windowtitlebar>
+			<anchor_title_utilitybox name="contentanchor" />
+
+			<anchor_bottom_utilitybox_buttons name="bottomanchor" />
+
+			<frame_setup name="contentframe" />
+			
+			<button_setup_next name="button_next" />
+			<button_setup_prev name="button_prev" />
+			<button_setup_finish name="button_finish" />
+			
+			<frame_setup_showonload name="showonload_frame" />
+			<button_setup_showonload name="showonload" />
+			<label name="showonload_label">
+				<anchored to="showonload_frame" position="insidetopleft" height="20">
+					<right parent="showonload" anchor="left" offset="-5" />
+				</anchored>
+				<static textres="setup_label_showonload" />
+			</label>
+			
+			<subwindow name="step1">
+				<anchored to="contentframe" position="over" />
+				<class>setup_step1</class>
+				<fastinit />
+				<activate />
+			</subwindow>
+			<scrollbar>
+				<anchored to="step1" />
+				<target>step1</target>
+			</scrollbar>
+			<subwindow name="step2">
+				<anchored to="contentframe" position="over" />
+				<class>setup_step2</class>
+			</subwindow>
+			<scrollbar>
+				<anchored to="step2" />
+				<target>step2</target>
+			</scrollbar>
+			<subwindow name="step3">
+				<anchored to="contentframe" position="over" />
+				<class>setup_step3</class>
+			</subwindow>
+			<scrollbar>
+				<anchored to="step3" />
+				<target>step3</target>
+			</scrollbar>
+			
+			<resize_utilitybox />
+			<close_utilitybox />
+		</sheetdata>
+	</windowclass>
+	
+	<windowclass name="setup_step1">
+		<sheetdata>
+			<anchor_column name="columnanchor" />
+
+			<header_column name="header">
+				<static textres="setup_header_help" />
+				<center />
+			</header_column>
+			<stringc_column_full>
+				<static textres="setup_text_help" />
+			</stringc_column_full>
+			<button_setup_left_link>
+				<state textres="setup_button_manual" />
+				<urlres>setup_url_manual</urlres>
+			</button_setup_left_link>
+			<button_setup_right_link>
+				<state textres="setup_button_wiki" />
+				<urlres>setup_url_userguides</urlres>
+			</button_setup_right_link>
+			<button_setup_left_link>
+				<state textres="setup_button_forums" />
+				<urlres>setup_url_forums</urlres>
+			</button_setup_left_link>
+			<spacer_column />
+			<header_column name="header">
+				<static textres="setup_header_purchases" />
+				<center />
+			</header_column>
+			<stringc_column_full>
+				<static textres="setup_text_purchases" />
+			</stringc_column_full>
+			<spacer_column />
+		</sheetdata>
+	</windowclass>
+	
+	<windowclass name="setup_step2">
+		<script>
+			function onInit()
+				local bRight = false;
+				local aModuleSets = DesktopManager.getDataModuleSets();
+				for k,v in ipairs(aModuleSets) do
+					local c;
+					if bRight then
+						c = createControl("button_setup_right_moduleset", "button_moduleset" .. k);
+					else
+						c = createControl("button_setup_left_moduleset", "button_moduleset" .. k);
+					end
+					c.setData(v.sName, v.aModules);
+					bRight = not bRight;
+				end
+			end
+		</script>
+		<sheetdata>
+			<anchor_column name="columnanchor" />
+
+			<header_column name="header">
+				<static textres="setup_header_modules" />
+				<center />
+			</header_column>
+			<button_setup_column_help>
+				<urlres>setup_url_modules</urlres>
+			</button_setup_column_help>
+			<stringc_column_full>
+				<static textres="setup_text_modules" />
+			</stringc_column_full>
+			<button_setup_full>
+				<state textres="setup_button_modules" />
+				<script>
+					function onButtonPress()
+						Interface.openWindow("moduleselection", "");
+					end
+				</script>
+			</button_setup_full>
+			<spacer_column name="spacer_modules" />
+		</sheetdata>
+	</windowclass>
+	
+	<windowclass name="setup_step3">
+		<sheetdata>
+			<anchor_column name="columnanchor" />
+
+			<header_column name="header">
+				<static textres="setup_header_options" />
+				<center />
+			</header_column>
+			<button_setup_column_help>
+				<urlres>setup_url_options</urlres>
+			</button_setup_column_help>
+			<stringc_column_full>
+				<static textres="setup_text_options" />
+			</stringc_column_full>
+			<button_setup_full>
+				<state textres="setup_button_options" />
+				<script>
+					function onButtonPress()
+						Interface.openWindow("options", "");
+					end
+				</script>
+			</button_setup_full>
+			<spacer_column />
+		</sheetdata>
+	</windowclass>
+	
+	<windowclass name="modulesetload">
+		<frame>utilitybox</frame>
+		<placement>
+			<size width="650" height="450" />
+			<nosave />
+		</placement>
+		<sizelimits>
+			<minimum width="400" height="400" />
+			<dynamic />
+		</sizelimits>
+		<playercontrol />
+		<nodelete />
+		<script>
+			function setData(sSetName, aModules)
+				list.closeAll();
+				setname.setValue(sSetName);
+				
+				local aModuleText = {};
+				for _,v in ipairs(aModules) do
+					local w = list.createWindow();
+					if w then
+						w.setData(v);
+					end
+				end
+			end
+		</script>
+		<sheetdata>
+			<windowtitlebar name="title">
+				<resource>modulesetload_window_title</resource>
+			</windowtitlebar>
+			<anchor_title_utilitybox name="contentanchor" />
+			
+			<anchor_bottom_utilitybox name="bottomanchor" />
+
+			<label name="setname">
+				<anchored to="contentanchor">
+					<top anchor="bottom" relation="relative" offset="10" />
+					<left />
+					<right />
+				</anchored>
+				<frame name="groupbox" offset="10,10,10,10" />
+				<center />
+			</label>
+			<genericcontrol name="contentframe">
+				<anchored to="contentanchor">
+					<top anchor="bottom" relation="relative" offset="20" />
+					<left offset="5" />
+					<right offset="-10" />
+					<bottom parent="bottomanchor" anchor="top" offset="-20" />
+				</anchored>
+				<frame name="groupbox" offset="15,15,20,15" />
+				<disabled />
+			</genericcontrol>
+			<windowlist name="list">
+				<anchored to="contentframe" position="over" />
+				<class>modulesetload_entry</class>
+				<skipempty />
+			</windowlist>
+			<scrollbar_list />
+			
+			<resize_utilitybox />
+			<close_utilitybox />
+		</sheetdata>
+	</windowclass>
+	
+	<windowclass name="modulesetload_entry">
+		<margins control="0,0,0,5" />
+		<frame>moduleselectentry</frame>
+		<script>
+		
+			local m_sStoreID = "";
+			
+			function setData(tModuleRecord)
+				m_sStoreID = tModuleRecord.storeid;
+				
+				local sDisplayName = tModuleRecord.displayname or tModuleRecord.name;
+				name.setValue(sDisplayName);
+
+				local info = Module.getModuleInfo(tModuleRecord.name);
+				if not info then
+					statusicon.setIcon("module_stateblocked");
+					if (tModuleRecord.storeid or "") ~= "" then
+						button_shopping.setVisible(true);
+					end
+					if not Session.IsHost then
+						status.setValue("Not Available");
+					else
+						status.setValue("Not Installed");
+					end
+				else
+					if not Session.IsHost and (info.permission == "disallow") then
+						statusicon.setIcon("module_stateblocked");
+						status.setValue("Disabled by GM");
+					else
+						statusicon.setIcon("module_stateallowed");
+						if info.loaded then
+							status.setValue("Already loaded");
+						else
+							Module.activate(tModuleRecord.name);
+							status.setValue("Loaded");
+						end
+					end
+				end
+			end
+			function onButtonShop()
+				Interface.openWindow("url", "https://www.fantasygrounds.com/store/product.xcp?id=" .. m_sStoreID);
+			end
+		</script>
+		<sheetdata>
+			<genericcontrol name="anchor_right">
+				<anchored height="20" width="0">
+					<top offset="5" />
+					<right />
+				</anchored>
+			</genericcontrol>
+			<genericcontrol name="statusicon">
+				<anchored to="anchor_right" width="40" height="40">
+					<top />
+					<right anchor="left" relation="relative" offset="-5" />
+				</anchored>
+			</genericcontrol>
+			<buttoncontrol name="button_shopping">
+				<anchored to="anchor_right" width="16" height="16">
+					<top offset="12" />
+					<right anchor="left" relation="relative" offset="-5" />
+				</anchored>
+				<frame name="fielddark" offset="8,8,8,8" />
+				<state icon="shopping" />
+				<invisible />
+				<script>
+					function onButtonPress()
+						window.onButtonShop();
+					end
+				</script>
+			</buttoncontrol>
+			<label name="status">
+				<anchored to="anchor_right" width="200">
+					<top offset="10" />
+					<right anchor="left" relation="relative" offset="-5" />
+				</anchored>
+				<disabled />
+			</label>
+			
+			<simplestringc name="name">
+				<anchored to="anchor_right">
+					<top offset="10" />
+					<left parent="" offset="15" />
+					<right anchor="left" relation="relative" offset="-10" />
+				</anchored>
+				<multilinespacing>20</multilinespacing>
+				<static />
+				<disabled />
+			</simplestringc>
+		</sheetdata>
+	</windowclass>
+</root>

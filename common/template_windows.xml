@@ -1,0 +1,702 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<!-- 
+  Please see the license.html file included with this distribution for 
+  attribution and copyright information.
+-->
+
+<root>
+	<template name="windowtitlebar">
+		<genericcontrol>
+			<bounds>0,0,-1,40</bounds>
+			<frame name="windowtitle" offset="30,0,30,0" />
+			<font>windowtitle</font>
+			<parameters>
+				<windowmargin>60</windowmargin>
+				<controly>0</controly>
+				<controlheight>40</controlheight>
+				<minwidth>100</minwidth>
+			</parameters>
+			<script file="common/scripts/windowtitlebar.lua" />
+		</genericcontrol>
+	</template>
+
+	<template name="anchor_title_utilitybox">
+		<genericcontrol>
+			<anchored height="0">
+				<top parent="title" anchor="bottom" offset="0" />
+				<left parent="" anchor="left" offset="30" />
+				<right parent="" anchor="right" offset="-30" />
+			</anchored>
+			<disabled />
+		</genericcontrol>
+	</template>
+	<template name="anchor_bottom_utilitybox">
+		<genericcontrol>
+			<anchored to="contentanchor" height="0">
+				<bottom parent="" offset="-20" />
+				<left />
+				<right />
+			</anchored>
+			<disabled />
+		</genericcontrol>
+	</template>
+	<template name="anchor_bottom_utilitybox_buttons">
+		<genericcontrol>
+			<anchored to="contentanchor" height="0">
+				<bottom parent="" offset="-45" />
+				<left />
+				<right />
+			</anchored>
+			<disabled />
+		</genericcontrol>
+	</template>
+	<template name="anchor_title_utilitybox3">
+		<genericcontrol>
+			<anchored height="0">
+				<top parent="title" anchor="bottom" offset="0" />
+				<left parent="" anchor="left" offset="30" />
+				<right parent="" anchor="right" offset="-30" />
+			</anchored>
+			<disabled />
+		</genericcontrol>
+	</template>
+	<template name="anchor_bottom_utilitybox3">
+		<genericcontrol>
+			<anchored to="contentanchor" height="0">
+				<bottom parent="" offset="-55" />
+				<left />
+				<right />
+			</anchored>
+			<disabled />
+		</genericcontrol>
+	</template>
+	<template name="anchor_title_calendar">
+		<genericcontrol>
+			<anchored height="0">
+				<top parent="title" anchor="bottom" offset="0" />
+				<left parent="" anchor="left" offset="30" />
+				<right parent="" anchor="right" offset="-30" />
+			</anchored>
+			<disabled />
+		</genericcontrol>
+	</template>
+	<template name="anchor_title_tokenbag">
+		<genericcontrol>
+			<anchored height="0">
+				<top parent="title" anchor="bottom" offset="0" />
+				<left parent="" anchor="left" offset="30" />
+				<right parent="" anchor="right" offset="-35" />
+			</anchored>
+			<disabled />
+		</genericcontrol>
+	</template>
+	<template name="anchor_bottom_tokenbag">
+		<genericcontrol>
+			<anchored to="contentanchor" height="0">
+				<bottom parent="" offset="-30" />
+				<left />
+				<right />
+			</anchored>
+			<disabled />
+		</genericcontrol>
+	</template>
+	<template name="anchor_bottom_tokenbag_buttons">
+		<genericcontrol>
+			<anchored to="contentanchor" height="0">
+				<bottom parent="" offset="-65" />
+				<left />
+				<right />
+			</anchored>
+			<disabled />
+		</genericcontrol>
+	</template>
+	<template name="anchor_title_ctbox">
+		<genericcontrol>
+			<anchored height="0">
+				<top parent="title" anchor="bottom" offset="0" />
+				<left parent="" anchor="left" offset="30" />
+				<right parent="" anchor="right" offset="-30" />
+			</anchored>
+			<disabled />
+		</genericcontrol>
+	</template>
+	<template name="anchor_title_partysheet">
+		<genericcontrol>
+			<anchored height="0">
+				<top parent="title" anchor="bottom" offset="0" />
+				<left parent="" anchor="left" offset="20" />
+				<right parent="" anchor="right" offset="-30" />
+			</anchored>
+			<disabled />
+		</genericcontrol>
+	</template>
+	<template name="anchor_title_charselect">
+		<genericcontrol>
+			<anchored height="0">
+				<top parent="title" anchor="bottom" offset="0" />
+				<left parent="" anchor="left" offset="30" />
+				<right parent="" anchor="right" offset="-30" />
+			</anchored>
+			<disabled />
+		</genericcontrol>
+	</template>
+
+	<template name="scrollbar">
+		<scrollbarcontrol>
+			<anchored position="right" offset="-5,-5" width="20" />
+			<frame name="scrollbar_base" offset="0,12,0,12" />
+			<normal name="scrollbutton_normal">
+				<minimum height="40" />
+			</normal>
+		</scrollbarcontrol>
+	</template>
+	
+	<template name="tabs_charsheet">
+		<buttongroup_tabs name="tabs">
+			<anchored width="18" height="92">
+				<top offset="50" />
+				<right offset="-4" />
+			</anchored>
+		</buttongroup_tabs>
+	</template>
+	<template name="tabs_recordsheet">
+		<buttongroup_tabs name="tabs">
+			<anchored width="18" height="92">
+				<top offset="50" />
+				<right offset="-4" />
+			</anchored>
+		</buttongroup_tabs>
+	</template>
+	<template name="tabs_partysheet">
+		<buttongroup_tabs name="tabs">
+			<anchored width="18" height="92">
+				<top offset="50" />
+				<right offset="-4" />
+			</anchored>
+		</buttongroup_tabs>
+	</template>
+
+	<template name="resize">
+		<genericcontrol>
+			<anchored height="18" width="18">
+				<right />
+				<bottom />
+			</anchored>
+			<icon>window_resize</icon>
+			<disabled />
+		</genericcontrol>
+	</template>
+	<template name="resize_chatbox">
+		<resize />
+	</template>
+	<template name="resize_calendar">
+		<resize>
+			<anchored>
+				<right offset="-10" />
+				<bottom offset="-10" />
+			</anchored>
+		</resize>
+	</template>
+	<template name="resize_campaignlistwithtabs">
+		<resize>
+			<anchored>
+				<right offset="-10" />
+				<bottom offset="-12" />
+			</anchored>
+		</resize>
+	</template>
+	<template name="resize_referencepage">
+		<resize>
+			<anchored>
+				<right offset="-10" />
+				<bottom offset="-6" />
+			</anchored>
+		</resize>
+	</template>
+	<template name="resize_referencelist">
+		<resize>
+			<anchored>
+				<right offset="-10" />
+				<bottom offset="-6" />
+			</anchored>
+		</resize>
+	</template>
+	<template name="resize_utilitybox">
+		<resize>
+			<anchored>
+				<right offset="-10" />
+				<bottom offset="-10" />
+			</anchored>
+		</resize>
+	</template>
+	<template name="resize_utilitybox2">
+		<resize>
+			<anchored>
+				<right offset="-7" />
+				<bottom offset="-8" />
+			</anchored>
+		</resize>
+	</template>
+	<template name="resize_utilitybox3">
+		<resize>
+			<anchored>
+				<right offset="-6" />
+				<bottom offset="-8" />
+			</anchored>
+		</resize>
+	</template>
+	<template name="resize_charselect">
+		<resize>
+			<anchored>
+				<right offset="-5" />
+				<bottom offset="-7" />
+			</anchored>
+		</resize>
+	</template>
+	<template name="resize_tokenbag">
+		<resize>
+			<anchored>
+				<right offset="-13" />
+				<bottom offset="-13" />
+			</anchored>
+		</resize>
+	</template>
+	<template name="resize_imagebox">
+		<genericcontrol>
+			<anchored height="18" width="18">
+				<right offset="-20" />
+				<bottom offset="-22" />
+			</anchored>
+			<icon>window_resize_filled</icon>
+			<disabled />
+		</genericcontrol>
+	</template>
+	<template name="resize_storybox">
+		<resize>
+			<anchored>
+				<right offset="-10" />
+				<bottom offset="-5" />
+			</anchored>
+		</resize>
+	</template>
+	<template name="resize_charsheet">
+		<resize>
+			<anchored>
+				<right offset="-10" />
+				<bottom offset="-10" />
+			</anchored>
+		</resize>
+	</template>
+	<template name="resize_recordsheet">
+		<resize>
+			<anchored>
+				<right offset="-10" />
+				<bottom offset="-10" />
+			</anchored>
+		</resize>
+	</template>
+	<template name="resize_ctbox">
+		<resize>
+			<anchored>
+				<right offset="-7" />
+				<bottom offset="-7" />
+			</anchored>
+		</resize>
+	</template>
+	<template name="resize_partysheet">
+		<resize>
+			<anchored>
+				<right offset="-10" />
+				<bottom offset="-8" />
+			</anchored>
+		</resize>
+	</template>
+
+	<template name="close_base">
+		<buttoncontrol>
+			<icon normal="button_close" pressed="button_close_down" hover="button_close_hover" />
+			<script>
+				function onButtonPress()
+					local sClass = window.getClass();
+					if sClass == "imagebackpanel" then
+						ImageManager.closePanel();
+					elseif sClass == "imagefullpanel" then
+						ImageManager.closePanel();
+					else
+						window.close();
+					end
+				end
+			</script>
+		</buttoncontrol>
+	</template>
+	<template name="close">
+		<close_base>
+			<anchored height="24" width="24">
+				<top />
+				<right />
+			</anchored>
+		</close_base>
+	</template>
+	<template name="close_calendar">
+		<close>
+			<anchored>
+				<top offset="0" />
+				<right offset="-8" />
+			</anchored>
+		</close>
+	</template>
+	<template name="close_campaignlist">
+		<close>
+			<anchored>
+				<top offset="1" />
+				<right offset="-16" />
+			</anchored>
+		</close>
+	</template>
+	<template name="close_referencepage">
+		<close>
+			<anchored>
+				<top offset="0" />
+				<right offset="-9" />
+			</anchored>
+		</close>
+	</template>
+	<template name="close_referencelist">
+		<close>
+			<anchored>
+				<top offset="0" />
+				<right offset="-9" />
+			</anchored>
+		</close>
+	</template>
+	<template name="close_charselect">
+		<close>
+			<anchored>
+				<top offset="18" />
+				<right offset="-28" />
+			</anchored>
+		</close>
+	</template>
+	<template name="close_tokenbag">
+		<close>
+			<anchored>
+				<top offset="0" />
+				<right offset="-16" />
+			</anchored>
+		</close>
+	</template>
+	<template name="close_utilitybox">
+		<close>
+			<anchored>
+				<top offset="0" />
+				<right offset="-8" />
+			</anchored>
+		</close>
+	</template>
+	<template name="close_utilitybox2">
+		<close>
+			<anchored>
+				<top offset="8" />
+				<right offset="-10" />
+			</anchored>
+		</close>
+	</template>
+	<template name="close_utilitybox3">
+		<close>
+			<anchored>
+				<top offset="0" />
+				<right offset="-6" />
+			</anchored>
+		</close>
+	</template>
+	<template name="close_imagebox">
+		<close>
+			<anchored>
+				<top offset="14" />
+				<right offset="-19" />
+			</anchored>
+		</close>
+	</template>
+	<template name="close_imagepanel">
+		<close>
+			<anchored>
+				<top offset="1" />
+				<right offset="-1" />
+			</anchored>
+			<invisible />
+		</close>
+	</template>
+	<template name="close_storybox">
+		<close>
+			<anchored>
+				<top offset="1" />
+				<right offset="-12" />
+			</anchored>
+		</close>
+	</template>
+	<template name="close_charsheet">
+		<close>
+			<anchored>
+				<top offset="0" />
+				<right offset="-8" />
+			</anchored>
+		</close>
+	</template>
+	<template name="close_recordsheet">
+		<close>
+			<anchored>
+				<top offset="0" />
+				<right offset="-8" />
+			</anchored>
+		</close>
+	</template>
+	<template name="close_ctbox">
+		<close>
+			<anchored>
+				<top offset="7" />
+				<right offset="-19" />
+			</anchored>
+		</close>
+	</template>
+	<template name="close_partysheet">
+		<close>
+			<anchored>
+				<top offset="0" />
+				<right offset="-8" />
+			</anchored>
+		</close>
+	</template>
+
+	<template name="help_base">
+		<buttoncontrol>
+			<icon normal="button_help" pressed="button_help_down" hover="button_help_hover" />
+			<script>
+				local sUrl = nil;
+				
+				function onInit()
+					if url then
+						sUrl = url[1];
+					elseif urlres then
+						sUrl = Interface.getString(urlres[1]);
+					end
+				end
+				
+				function onButtonPress()
+					if (sUrl or "") ~= "" then
+						Interface.openWindow("url", sUrl);
+					end
+				end
+			</script>
+		</buttoncontrol>
+	</template>
+	<template name="help">
+		<help_base>
+			<anchored height="24" width="24">
+				<top />
+				<right offset="-24" />
+			</anchored>
+		</help_base>
+	</template>
+	<template name="help_calendar">
+		<help>
+			<anchored>
+				<top offset="0" />
+				<right offset="-32" />
+			</anchored>
+		</help>
+	</template>
+	<template name="help_ctbox">
+		<help>
+			<anchored>
+				<top offset="7" />
+				<right offset="-43" />
+			</anchored>
+		</help>
+	</template>
+	<template name="help_partysheet">
+		<help>
+			<anchored>
+				<top offset="0" />
+				<right offset="-32" />
+			</anchored>
+		</help>
+	</template>
+	<template name="help_utilitybox">
+		<help>
+			<anchored>
+				<top offset="0" />
+				<right offset="-32" />
+			</anchored>
+		</help>
+	</template>
+	<template name="help_utilitybox2">
+		<help>
+			<anchored>
+				<top offset="8" />
+				<right offset="-34" />
+			</anchored>
+		</help>
+	</template>
+	<template name="help_utilitybox3">
+		<help>
+			<anchored>
+				<top offset="0" />
+				<right offset="-30" />
+			</anchored>
+		</help>
+	</template>
+	<template name="help_referencelist">
+		<help>
+			<anchored>
+				<top offset="0" />
+				<right offset="-33" />
+			</anchored>
+		</help>
+	</template>
+	<template name="help_charselect">
+		<help>
+			<anchored>
+				<top offset="18" />
+				<right offset="-52" />
+			</anchored>
+		</help>
+	</template>
+	<template name="help_tokenbag">
+		<help>
+			<anchored>
+				<top offset="0" />
+				<right offset="-40" />
+			</anchored>
+		</help>
+	</template>
+	<template name="help_imagebox">
+		<help>
+			<anchored>
+				<top offset="14" />
+				<right offset="-43" />
+			</anchored>
+		</help>
+	</template>
+	<template name="help_imagepanel">
+		<help>
+			<anchored>
+				<top offset="1" />
+				<right offset="-25" />
+			</anchored>
+			<invisible />
+		</help>
+	</template>
+	
+	<template name="helper_ct">
+		<help_ctbox>
+			<urlres>help_tool_ct</urlres>
+		</help_ctbox>
+	</template>
+	<template name="helper_ps">
+		<help_partysheet>
+			<urlres>help_tool_ps</urlres>
+		</help_partysheet>
+	</template>
+	<template name="helper_calendar">
+		<help_calendar>
+			<urlres>help_tool_calendar</urlres>
+		</help_calendar>
+	</template>
+	<template name="helper_color">
+		<help_utilitybox2>
+			<urlres>help_tool_color</urlres>
+		</help_utilitybox2>
+	</template>
+	<template name="helper_modifiers">
+		<help_utilitybox3>
+			<urlres>help_tool_modifiers</urlres>
+		</help_utilitybox3>
+	</template>
+	<template name="helper_effects">
+		<help_utilitybox3>
+			<urlres>help_tool_effects</urlres>
+		</help_utilitybox3>
+	</template>
+	<template name="helper_options">
+		<help_utilitybox>
+			<urlres>help_tool_options</urlres>
+		</help_utilitybox>
+	</template>
+	<template name="helper_masterindex">
+		<help_referencelist>
+			<urlres>help_library_masterindex</urlres>
+		</help_referencelist>
+	</template>
+	<template name="helper_charselect">
+		<help_charselect>
+			<urlres>help_library_charselect</urlres>
+		</help_charselect>
+	</template>
+	<template name="helper_library">
+		<help_utilitybox3>
+			<urlres>help_tool_library</urlres>
+		</help_utilitybox3>
+	</template>
+	<template name="helper_moduleselection">
+		<help_utilitybox3>
+			<urlres>help_tool_moduleselection</urlres>
+		</help_utilitybox3>
+	</template>
+	<template name="helper_tokenbag">
+		<help_tokenbag>
+			<urlres>help_tool_tokens</urlres>
+		</help_tokenbag>
+	</template>
+	<template name="helper_image">
+		<help_imagebox>
+			<urlres>help_record_image</urlres>
+		</help_imagebox>
+	</template>
+	<template name="helper_imagepanel">
+		<help_imagepanel>
+			<urlres>help_record_image</urlres>
+		</help_imagepanel>
+	</template>
+	
+	<template name="button_window_sizedown_base">
+		<buttoncontrol>
+			<icon normal="button_sizedown" pressed="button_sizedown_down" hover="button_sizedown_hover" />
+			<script>
+				function onButtonPress()
+					local sClass = window.getClass();
+					if sClass == "imagebackpanel" then
+						ImageManager.sendBackPanelToWindow();
+					elseif sClass == "imagefullpanel" then
+						ImageManager.sendFullPanelToBackPanel();
+					end
+				end
+			</script>
+		</buttoncontrol>
+	</template>
+	<template name="button_window_sizedown">
+		<button_window_sizedown_base>
+			<anchored height="24" width="24" />
+		</button_window_sizedown_base>
+	</template>
+	<template name="button_window_sizeup_base">
+		<buttoncontrol>
+			<icon normal="button_sizeup" pressed="button_sizeup_down" hover="button_sizeup_hover" />
+			<script>
+				function onButtonPress()
+					local sClass = window.getClass();
+					if sClass == "imagewindow" then
+						ImageManager.sendWindowToBackPanel(window);
+					elseif sClass == "imagebackpanel" then
+						ImageManager.sendBackPanelToFullPanel();
+					end
+				end
+			</script>
+		</buttoncontrol>
+	</template>
+	<template name="button_window_sizeup">
+		<button_window_sizeup_base>
+			<anchored height="24" width="24" />
+		</button_window_sizeup_base>
+	</template>
+</root>

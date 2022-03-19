@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<!-- 
+  Please see the license.html file included with this distribution for 
+  attribution and copyright information.
+-->
+
+<root>
+	<windowclass name="languagelist">
+		<frame>utilitybox3</frame>
+		<placement>
+			<size width="350" height="350" />
+		</placement>
+		<sizelimits>
+			<dynamic />
+			<minimum width="350" height="350" />
+		</sizelimits>
+		<playercontrol />
+		<nodelete />
+		<tooltip textres="language_window_title" />
+		<sheetdata>
+			<windowtitlebar name="title">
+				<resource>language_window_title</resource>
+			</windowtitlebar>
+			<anchor_title_utilitybox3 name="contentanchor" />
+			
+			<anchor_bottom_utilitybox3 name="bottomanchor" />
+
+			<list_utility_setting name="list">
+				<class>languageitem</class>
+				<script file="utility/scripts/language_list.lua"/>
+			</list_utility_setting>
+			<scrollbar_list />
+			
+			<anchor_utility_controls />
+			<button_iedit_utility />
+			<button_iadd_utility />
+			<filter_utility />
+			
+			<resize_utilitybox3 />
+			<close_utilitybox3 />
+		</sheetdata>
+	</windowclass>
+
+	<windowclass name="languageitem">
+		<margins control="0,0,0,2" />
+		<script file="utility/scripts/language.lua"/>
+		<sheetdata>
+			<genericcontrol name="rightanchor">
+				<anchored position="insidetopright" height="0" width="0" />
+			</genericcontrol>
+			<button_idelete name="idelete">
+				<anchored>
+					<top offset="2" />
+					<right parent="rightanchor" anchor="left" relation="relative" offset="-5" />
+				</anchored>
+			</button_idelete>
+			<combobox name="font">
+				<anchored to="rightanchor" width="100" height="20">
+					<top offset="3" />
+					<right anchor="left" relation="relative" offset="-5" />
+				</anchored>
+				<listdirection>down</listdirection>
+				<listmaxsize>12</listmaxsize>
+				<gmvisibleonly />
+			</combobox>
+			<string_textlistitem name="name">
+				<anchored to="rightanchor" height="20">
+					<top offset="3" />
+					<left parent="" offset="5" />
+					<right anchor="left" relation="relative" offset="-5" />
+				</anchored>
+				<cursor hover="hand" />
+				<script>
+					function onDragStart(...)
+						return window.onDragStart(...)
+					end
+				</script>
+			</string_textlistitem>
+		</sheetdata>
+	</windowclass>
+</root>
